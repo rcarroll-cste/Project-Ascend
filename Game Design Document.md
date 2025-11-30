@@ -49,21 +49,21 @@ The game takes place entirely on a simulated computer desktop. The "Game Loop" m
 *   **The Cognitive Task (Realism):** Reading comprehension and filtration.
     *   *Message A:* "Hey, can we order pizza for lunch?" (Noise - Ignore).
     *   *Message B:* "I need to review the security protocols before this goes live." - *Head of Security* (Signal - Stakeholder).
-*   **The Action:**
-    *   Player highlights the name "Head of Security" and drags it to the **Stakeholder Register App**.
-    *   Player must manually select their attributes from a dropdown:
-        *   **Role:** Functional Manager
-        *   **Power:** High
-        *   **Interest:** High
+*   **The Interaction:**
+    *   **[LMB Click + Hold]:** Player grabs the email subject/sender line from the list.
+    *   **[Drag]:** Player moves cursor to the open **Stakeholder Register App** window.
+    *   **[Release]:** Player drops the email to generate a new entry.
+    *   **[LMB Click]:** Player selects attributes (Role, Power, Interest) from dropdown menus.
 *   **The Test:** If the player ignores the Head of Security, an event triggers later: "Security Breach! Project Delayed." -> **FAIL STATE**.
 
 ### 3.2 Mechanic: The Charter Builder (Develop Project Charter)
 *   **The Activity:** The player opens the "Charter Creator v1.0" (The Company Template).
 *   **The Puzzle:** The template has blank slots: *Business Case*, *Scope Description*, *Key Risks*, *Milestone Schedule*.
 *   **The Inventory:** A "Downloads" folder containing raw files (PDFs, Spreadsheets, Memo.txt).
-*   **The Action (Data Normalization):**
-    *   The player must open "Financial_Report_Q3.xlsx" to find the ROI figures.
-    *   They drag the ROI figure into the **Business Case** slot of the Charter.
+*   **The Interaction (Data Normalization):**
+    *   **[Double-Click]:** Open "Financial_Report_Q3.xlsx" to find ROI figures.
+    *   **[LMB Highlight]:** Select the specific ROI text/cell value.
+    *   **[LMB Drag]:** Drag the highlighted text from the document into the **Business Case** slot of the Charter.
     *   **The Trap:** There is a file called "Detailed Server Schematics".
         *   *Incorrect Action:* Dragging this into "Scope Description".
         *   *Result:* Director Thorne rejects it. *"Too detailed! The Charter is high-level. This belongs in the Project Management Plan. Try again."*
@@ -75,6 +75,7 @@ The game takes place entirely on a simulated computer desktop. The "Game Loop" m
 *   **Choice A:** Ignore it (It's just an email).
 *   **Choice B:** Log it as a **Risk**.
 *   **Choice C:** Log it as an **Assumption** ("Hardware arrives by June 1st").
+*   **Input:** **[LMB Click]** on the corresponding button in the prompt modal.
 *   **Pedagogical Rationale:** The correct PMP action is **Choice C** (initially). This teaches the difference between a confirmed Fact and an Assumption that needs monitoring.
 
 ---
@@ -103,43 +104,49 @@ Instead of HP, the player has **Sponsor Confidence**.
 ## 5. UI/UX Wireframe Concepts
 
 ### 5.1 The Desktop HUD
-*   **Bottom Taskbar:** Email, Browser, Chat, Files, **PMIS (The Game App)**.
+*   **Bottom Taskbar:**
+    *   **Interaction:** **[LMB Click]** to toggle window visibility.
+    *   Items: Email, Browser, Chat, Files, **PMIS (The Game App)**.
 *   **Top Right:** "Date/Time" (The deadline is ticking).
 *   **Notifications:** Pop-ups from "Director Thorne" giving hints or scolding mistakes.
+    *   **Interaction:** **[LMB Click]** 'X' to dismiss, or **[LMB Click]** body to jump to relevant app.
 
 ### 5.2 The "Stakeholder Web" Tool
 *   A visual tool within the PMIS.
-*   Player drags faces/names onto a **Power/Interest Grid**.
+*   **Interaction:** **[LMB Drag]** faces/names onto a **Power/Interest Grid**.
 *   Visual Feedback: If placed correctly, the node turns Green. If wrong (e.g., Low Power placed in High Power), the node turns Red after the "Review Meeting."
 
 ---
 
-## 6. Technical Specifications (Unity/Godot)
+## 6. Technical Specifications (Input Mapping)
 
-*   **View:** 2D Static Screen (Simulated Desktop).
-*   **Input:** Mouse (Drag and Drop, Click).
-*   **Data Structure:**
-    *   `EmailObject` {Sender, Subject, Body, HiddenClueID}.
-    *   `StakeholderProfile` {ID, CorrectQuadrant, DiscoveredState}.
-    *   `CharterSection` {Type, AcceptedContentID}.
-*   **Progression:**
-    *   Tutorial: "Setup your Email."
-    *   Level 1: "Identify the Team" (Stakeholder Register).
-    *   Level 2: "Draft the Charter" (Document Puzzle).
-    *   Boss Battle: "The Kickoff Meeting" (Dialogue choices defending the Charter).
+This project utilizes a standard "Point and Click" interface typical of Management Simulations.
 
+| Action Type | Input Method | Context |
+| :--- | :--- | :--- |
+| **Select / Interact** | Left Mouse Button (LMB) Click | Buttons, Menu Items, Taskbar Icons |
+| **Open Item** | LMB Double-Click | Desktop Icons, File Attachments |
+| **Context Menu** | Right Mouse Button (RMB) Click | Inspecting Emails, Files (shows "Properties") |
+| **Move Window** | LMB Click (Title Bar) + Drag | Organizing the workspace |
+| **Transfer Data** | LMB Click (Object/Text) + Hold + Drag | Moving Email to Register; Moving Text to Charter |
+| **Type Data** | Keyboard (Alphanumeric) | Login Screen, Search Bars, Manual Form Entry |
+| **Submit / Confirm** | 'Enter' Key | Login, Chat Messages |
+| **Pause / System** | 'Esc' Key | Opens System Menu |
 
 ---
 
-## 7. User Flow & UI States (Step-by-Step Walkthrough)
+## 7. User Flow & UI States (Step-by-Step Workflow)
 
-**Goal:** This section provides a linear script for the UI Developer to build the "Vertical Slice" sequence.
+**Goal:** This section provides a linear script for the UI Developer to build the "Vertical Slice" sequence, including specific input triggers.
 
 ### 7.1 Scene 0: The Login (Immersion)
 *   **Visual:** A black screen with retro-style white text: `AETHELGARD BIOS v4.0. Initializing...`
 *   **UI Element:** A central **Login Box**.
-    *   *Input Field:* "Enter Employee ID" (Player types name).
+    *   *Input Field:* "Enter Employee ID".
     *   *Button:* "Connect to Intranet".
+*   **Workflow / Input:**
+    1.  **[Keyboard Type]**: Player types name (e.g., "Intern").
+    2.  **[Keyboard Enter]** OR **[LMB Click]**: Player activates "Connect" button.
 *   **Audio:** Hard drive spinning up, fan noise.
 *   **Rationale:** Establishes the "Simulation" tone immediately.
 
@@ -154,8 +161,11 @@ Instead of HP, the player has **Sponsor Confidence**.
 
 ### 7.3 Scene 2: The Call to Action (Initiating)
 *   **Event:** "Mail" icon has a red badge `(1)`.
-*   **Action:** Player clicks "Mail".
+*   **Workflow / Input:**
+    1.  **[LMB Click]**: Player clicks "Mail" icon on taskbar.
 *   **Window:** `Mail Client` opens (Floating Window, Draggable).
+*   **Workflow / Input:**
+    1.  **[LMB Click]**: Player selects the unread email from list.
 *   **Content:** Email from *Director Thorne*.
     *   *Subject:* "Project Genesis - IMMEDIATE ACTION REQUIRED".
     *   *Body:* Briefing. "The previous PM quit. Identify your stakeholders immediately or we lose the contract."
@@ -163,36 +173,46 @@ Instead of HP, the player has **Sponsor Confidence**.
 *   **Notification:** Pop-up toast: *"New Tool Unlocked: Stakeholder Register"*.
 
 ### 7.4 Scene 3: The Stakeholder Identification (Core Loop A)
-*   **Action:** Player clicks **PMIS** icon.
+*   **Workflow / Input:**
+    1.  **[LMB Click]**: Player clicks **PMIS** icon.
 *   **Window:** `PMIS Dashboard` opens. Default tab: "Stakeholder Register".
-*   **Interaction (The Mechanics):**
-    1.  Player keeps `Mail Client` open on left, `PMIS` on right.
-    2.  Player drags "From: Sarah Jenkins" header from Mail.
-    3.  **Drop Zone:** The `Stakeholder Register` highlights.
+*   **Workflow / Input (The Mechanics):**
+    1.  Player arranges windows (Mail Left, PMIS Right) using **[LMB Drag Titlebar]**.
+    2.  **[LMB Click + Hold]**: Player grabs "From: Sarah Jenkins" header from Mail.
+    3.  **[Drag]**: Moves cursor to `Stakeholder Register`.
+    4.  **[Release]**: Drops header into the list area.
 *   **Modal:** A "Profile Classification" card pops up.
-    *   *Dropdowns:* Role (Select: Functional Manager), Power (Select: High).
+    *   *Dropdowns:* Role, Power.
     *   *Button:* "Confirm Entry".
+*   **Workflow / Input:**
+    1.  **[LMB Click]**: Select "Functional Manager" from Role dropdown.
+    2.  **[LMB Click]**: Select "High" from Power dropdown.
+    3.  **[LMB Click]**: Click "Confirm Entry".
 *   **Feedback:** The Register list populates with "Sarah Jenkins - IT Dept".
-*   **Pedagogy:** Teaches that Stakeholder Identification is an active process of analysis, not just list-making.
 
 ### 7.5 Scene 3.5: The Power/Interest Mapping (Analysis Tool)
 *   **Transcript Reference:** *Identify Stakeholders* - "Analyze their interest and influence."
 *   **Action:** Player clicks "Analysis View" toggle in PMIS.
 *   **UI Element:** A 2x2 Grid appears (Y-Axis: Power, X-Axis: Interest).
-*   **Interaction:**
-    *   Player drags the "Sarah Jenkins" card from the list onto the Grid.
-    *   *Target:* Top Right Quadrant (High Power / High Interest).
+*   **Workflow / Input:**
+    1.  **[LMB Click + Hold]**: Player grabs the "Sarah Jenkins" card from the list.
+    2.  **[Drag]**: Moves card to Top Right Quadrant (High Power / High Interest).
+    3.  **[Release]**: Drops card.
 *   **Feedback:** Card snaps into place. Tooltip: *"Key Player - Manage Closely"*.
 
 ### 7.6 Scene 4: The Charter Construction (Core Loop B)
 *   **Event:** Thorne sends a second email: "Charter Template Attached."
-*   **Action:** Player opens `Files` app -> "Downloads".
+*   **Workflow / Input:**
+    1.  **[LMB Click]**: Open `Files` app -> "Downloads".
+    2.  **[Double-Click]**: Open `Charter Creator` app.
 *   **Window:** `Charter Creator` app opens.
     *   *Layout:* Left side = Blank Form Fields (Business Case, Risks). Right side = Reference Files (Docs).
-*   **Interaction (Data Normalization):**
-    1.  Player opens `Financial_Report.pdf` (Preview window).
-    2.  Player highlights text "$4.5M ROI".
-    3.  Player drags text to "Business Case" field in Charter.
+*   **Workflow / Input (Data Normalization):**
+    1.  **[Double-Click]**: Open `Financial_Report.pdf` (Preview window).
+    2.  **[LMB Highlight]**: Select text "$4.5M ROI".
+    3.  **[LMB Click + Hold]**: Grab highlighted text.
+    4.  **[Drag]**: Move to "Business Case" field in Charter.
+    5.  **[Release]**: Drop text.
 *   **UI Feedback:**
     *   *Correct:* Field flashes Green. Audio chime.
     *   *Incorrect (Too Detailed):* Field flashes Red. Thorne Voiceover: *"Too granular! Summary level only."*
@@ -203,12 +223,14 @@ Instead of HP, the player has **Sponsor Confidence**.
 *   **UI Element:** A Modal Dialog with two buttons:
     *   [Log as Fact] (Incorrect)
     *   [Log as Assumption] (Correct)
-*   **Interaction:** Player clicks [Log as Assumption].
+*   **Workflow / Input:**
+    1.  **[LMB Click]**: Player clicks [Log as Assumption].
 *   **Feedback:** Item is added to the "Assumption Log" tab in PMIS. Thorne Voiceover: *"Good catch. We'll monitor that date."*
 
 ### 7.8 Scene 5: Submission & Evaluation (The End State)
 *   **UI Element:** A large "Submit to Sponsor" button on the Charter App (bottom right).
-*   **Action:** Player clicks Submit.
+*   **Workflow / Input:**
+    1.  **[LMB Click]**: Player clicks Submit.
 *   **Transition:** Screen dims. Text: "Awaiting Sponsor Signature..."
 *   **Screen:** **Performance Report** (The "Win Screen").
     *   *Header:* "Project Authorized" (Success) or "Charter Rejected" (Fail).
@@ -217,3 +239,5 @@ Instead of HP, the player has **Sponsor Confidence**.
         *   Charter Accuracy: 85%
         *   **Sponsor Confidence Score:** High.
     *   *Button:* "Proceed to Planning Phase" (Next Level).
+*   **Workflow / Input:**
+    1.  **[LMB Click]**: Player clicks "Proceed".
