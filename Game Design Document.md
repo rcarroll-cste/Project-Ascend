@@ -50,7 +50,8 @@ The game takes place entirely on a simulated computer desktop. The "Game Loop" m
     *   *Message A:* "Hey, can we order pizza for lunch?" (Noise - Ignore).
     *   *Message B:* "I need to review the security protocols before this goes live." - *Head of Security* (Signal - Stakeholder).
 *   **The Interaction:**
-    *   **[LMB Click + Hold]:** Player grabs the email subject/sender line from the list.
+    *   **[LMB Click]:** Player clicks the email body to read it.
+    *   **[LMB Click + Hold]:** Player grabs the **Drag Handle (Grip Icon)** on the left of the email row.
     *   **[Drag]:** Player moves cursor to the open **Stakeholder Register App** window.
     *   **[Release]:** Player drops the email to generate a new entry.
     *   **[LMB Click]:** Player selects attributes (Role, Power, Interest) from dropdown menus.
@@ -150,6 +151,23 @@ This project utilizes a standard "Point and Click" interface typical of Manageme
 *   **Audio:** Hard drive spinning up, fan noise.
 *   **Rationale:** Establishes the "Simulation" tone immediately.
 
+### 7.1.5 Scene 0.5: Onboarding (The Training Level)
+*   **Trigger:** Immediately after Login success.
+*   **UI Element:** A semi-transparent "System Overlay" (Modal).
+    *   *Header:* "HR Onboarding Module - Level 1"
+    *   *Body Text:*
+        > "Welcome, Intern. Your goal is to initiate **Project Genesis**.
+        >
+        > 1. **Check Email:** Read instructions from Director Thorne.
+        > 2. **Unlock PMIS:** Use information in emails to access the Project Management Information System.
+        > 3. **Draft Charter:** Drag evidence from files into the Charter Builder.
+        >
+        > Good luck. Do not disappoint us."
+    *   *Button:* "Begin Assignment" (Dismisses overlay).
+*   **Workflow / Input:**
+    1.  **[LMB Click]**: Player clicks "Begin Assignment" to dismiss the overlay and start the timer.
+*   **Pedagogy:** Sets clear expectations and learning objectives before cognitive load increases.
+
 ### 7.2 Scene 1: The Desktop (The Hub)
 *   **State:** The "Main Menu" is actually the **OS Desktop**.
 *   **Wallpaper:** Aethelgard Corporate Logo (Grey/Blue).
@@ -165,7 +183,7 @@ This project utilizes a standard "Point and Click" interface typical of Manageme
     1.  **[LMB Click]**: Player clicks "Mail" icon on taskbar.
 *   **Window:** `Mail Client` opens (Floating Window, Draggable).
 *   **Workflow / Input:**
-    1.  **[LMB Click]**: Player selects the unread email from list.
+    1.  **[LMB Click]**: Player selects the unread email from list by clicking the body.
 *   **Content:** Email from *Director Thorne*.
     *   *Subject:* "Project Genesis - IMMEDIATE ACTION REQUIRED".
     *   *Body:* Briefing. "The previous PM quit. Identify your stakeholders immediately or we lose the contract."
@@ -178,7 +196,7 @@ This project utilizes a standard "Point and Click" interface typical of Manageme
 *   **Window:** `PMIS Dashboard` opens. Default tab: "Stakeholder Register".
 *   **Workflow / Input (The Mechanics):**
     1.  Player arranges windows (Mail Left, PMIS Right) using **[LMB Drag Titlebar]**.
-    2.  **[LMB Click + Hold]**: Player grabs "From: Sarah Jenkins" header from Mail.
+    2.  **[LMB Click + Hold]**: Player grabs the **"Grip" icon (Drag Handle)** on the left of the email row.
     3.  **[Drag]**: Moves cursor to `Stakeholder Register`.
     4.  **[Release]**: Drops header into the list area.
 *   **Modal:** A "Profile Classification" card pops up.

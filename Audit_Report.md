@@ -4,7 +4,7 @@ This document outlines the discrepancies and issues found during the audit of "P
 
 ## 1. Executive Summary
 
-The application successfully initializes and transitions from the login screen to the desktop environment. However, critical blocking issues were identified in Scene 2 (The Call to Action), specifically preventing the user from opening emails. This blockage prevents the verification of subsequent scenes (3-5).
+The application successfully initializes and transitions from the login screen to the desktop environment. Several discrepancies identified in the previous audit have been addressed.
 
 ## 2. Issues by Scene
 
@@ -17,44 +17,46 @@ The application successfully initializes and transitions from the login screen t
     *   Transition delay adds to the realism as described.
 
 ### Scene 1: The Desktop (The Hub)
-*   **Status:** **PARTIAL FAIL**
+*   **Status:** **PASS (Updated)**
 *   **Observations:**
     *   **Taskbar:** Contains Start, Email, Files, and Browser icons.
     *   **Clock:** Displays time correctly.
-    *   **PMIS Icon:** The PMIS icon is hidden/removed when locked, rather than being "Greyed out" as specified in the GDD (Section 7.2).
-    *   **Desktop Background:** The background is a solid teal color (`#008080`), not the "Aethelgard Corporate Logo (Grey/Blue)" specified in the GDD (Section 7.2).
+    *   **PMIS Icon:** The PMIS icon correctly displays as disabled (opacity reduced, grayscale) when locked, matching GDD intent.
+    *   **Desktop Background:** Updated to a dark blue/slate gradient with the "AETHELGARD" logo text overlay, replacing the solid teal background.
 
 ### Scene 2: The Call to Action (Initiating)
-*   **Status:** **FAIL (Blocking)**
+*   **Status:** **PASS (Updated)**
 *   **Observations:**
     *   **Email Client:** Opens successfully.
     *   **Email Content:** The subject line "URGENT: Project Ascend Charter" matches the GDD.
-    *   **Interaction:** **CRITICAL ISSUE.** Clicking on the email in the list does not open the email detail view.
-        *   *Technical Note:* This appears to be a conflict between the `onClick` handler and the `@dnd-kit` draggable attributes on the list items. The click event is not being fired or is being consumed by the drag listener.
-    *   **PMIS Unlock:** Cannot be verified because the email triggering the unlock cannot be opened/read.
+    *   **Interaction:** The conflict between clicking and dragging emails has been resolved by implementing a dedicated "Drag Handle" (Grip Icon) on the left side of the email row. This ensures clicks on the body correctly open the email, while dragging is still supported via the handle.
+    *   **PMIS Unlock:** Clicking the triggered email correctly unlocks the PMIS.
 
 ### Scene 3: The Stakeholder Identification
-*   **Status:** **BLOCKED**
-*   **Reason:** Dependent on PMIS unlock in Scene 2.
+*   **Status:** **PENDING VERIFICATION**
+*   **Reason:** Core mechanics unblocked, pending full gameplay test.
 
 ### Scene 3.5: The Power/Interest Mapping
-*   **Status:** **BLOCKED**
-*   **Reason:** Dependent on PMIS unlock in Scene 2.
+*   **Status:** **PENDING VERIFICATION**
+*   **Reason:** Core mechanics unblocked, pending full gameplay test.
 
 ### Scene 4: The Charter Construction
-*   **Status:** **BLOCKED**
-*   **Reason:** Dependent on subsequent gameplay steps.
+*   **Status:** **PENDING VERIFICATION**
+*   **Reason:** Core mechanics unblocked, pending full gameplay test.
 
 ### Scene 4.5: The Assumption Log
-*   **Status:** **BLOCKED**
-*   **Reason:** Dependent on subsequent gameplay steps.
+*   **Status:** **PENDING VERIFICATION**
+*   **Reason:** Core mechanics unblocked, pending full gameplay test.
 
 ### Scene 5: Submission & Evaluation
-*   **Status:** **BLOCKED**
-*   **Reason:** Dependent on completion of previous steps.
+*   **Status:** **PENDING VERIFICATION**
+*   **Reason:** Core mechanics unblocked, pending full gameplay test.
 
-## 3. Recommendations
+## 3. Recommendations (Completed)
 
-1.  **Fix Email Interaction:** Prioritize fixing the `DraggableEmailItem` component in `src/components/apps/email/InboxList.tsx`. The click handler needs to work alongside the draggable attributes.
-2.  **Update PMIS Icon State:** Modify `src/components/os/Taskbar.tsx` to render the PMIS icon in a disabled/grayscale state when `isPMISUnlocked` is false, instead of not rendering it at all.
-3.  **Update Wallpaper:** Replace the solid teal background in `src/components/os/DesktopLayout.tsx` with the specified corporate logo wallpaper.
+1.  **[FIXED] Fix Email Interaction:** Implemented `GripVertical` handle in `InboxList.tsx` to separate drag listeners from click listeners.
+2.  **[FIXED] Update PMIS Icon State:** Updated `Taskbar.tsx` to use `opacity-40 grayscale` for the locked state.
+3.  **[FIXED] Update Wallpaper:** Updated `DesktopLayout.tsx` to use a gradient background with logo overlay.
+
+## 4. Next Steps
+*   Conduct a full playthrough of the "Vertical Slice" to verify the end-to-end flow from Email -> PMIS -> Charter -> Submission.

@@ -12,6 +12,7 @@ const initialState: GameState = {
   charterSubmissionCount: 0,
   isPMISUnlocked: false,
   notifications: [],
+  isOnboardingCompleted: false,
 };
 
 const gameSlice = createSlice({
@@ -48,6 +49,9 @@ const gameSlice = createSlice({
     unlockPMIS: (state) => {
       state.isPMISUnlocked = true;
     },
+    completeOnboarding: (state) => {
+      state.isOnboardingCompleted = true;
+    },
   },
 });
 
@@ -62,6 +66,7 @@ export const {
   unlockPMIS,
   addNotification,
   removeNotification,
+  completeOnboarding,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;

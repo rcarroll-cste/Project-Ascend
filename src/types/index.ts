@@ -70,6 +70,7 @@ export interface GameState {
   charterSubmissionCount: number; // Limit to 3 attempts
   isPMISUnlocked: boolean;
   notifications: Notification[];
+  isOnboardingCompleted: boolean;
 }
 
 // PMIS Dashboard State

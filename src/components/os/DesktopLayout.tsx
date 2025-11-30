@@ -5,6 +5,7 @@ import { AnimatePresence } from 'framer-motion';
 import { RootState } from '../../store';
 import { Taskbar } from './Taskbar';
 import { WindowFrame } from './WindowFrame';
+import { OnboardingOverlay } from '../common/OnboardingOverlay';
 import { EmailApp } from '../apps/email/EmailApp';
 import { PMISApp } from '../apps/pmis/PMISApp';
 import {
@@ -18,6 +19,7 @@ import { Mail, LayoutDashboard, Folder, Globe } from 'lucide-react';
 export const DesktopLayout: React.FC = () => {
   const dispatch = useDispatch();
   const { windows } = useSelector((state: RootState) => state.os);
+  const { isOnboardingCompleted } = useSelector((state: RootState) => state.game);
 
   const getWindowIcon = (type: string) => {
     switch (type) {
@@ -43,12 +45,16 @@ export const DesktopLayout: React.FC = () => {
   };
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-slate-700 relative flex flex-col font-sans">
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
-          <div className="text-9xl font-bold text-white tracking-widest uppercase">Aethelgard</div>
+    <div className="h-screen w-screen overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900 relative flex flex-col font-sans">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10">
+          <div className="text-9xl font-bold text-white tracking-widest uppercase transform -rotate-12 select-none">Aethelgard</div>
       </div>
       {/* Notifications */}
       <ToastNotification />
+      
+      {/* Onboarding Overlay */}
+      {!isOnboardingCompleted && <OnboardingOverlay />}
+
       {/* Desktop Area */}
       <div className="flex-1 relative">
         {/* Desktop Icons could go here */}

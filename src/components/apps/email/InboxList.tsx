@@ -1,5 +1,5 @@
 import React from 'react';
-import { Star, Clock, MoreHorizontal } from 'lucide-react';
+import { Star, Clock, MoreHorizontal, GripVertical } from 'lucide-react';
 import { Email } from '../../../types';
 import { INITIAL_EMAILS } from '../../../data/initialData';
 import { useDraggable } from '@dnd-kit/core';
@@ -10,12 +10,11 @@ interface InboxListProps {
 }
 
 const DraggableEmailItem: React.FC<{ email: Email; isSelected: boolean; onClick: () => void }> = ({ email, isSelected, onClick }) => {
-  // Make all emails draggable for various purposes (Evidence or Stakeholder ID)
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: `email-${email.id}`,
     data: {
       type: 'email',
-      email: email, // Pass the whole email object for easier checking
+      email: email,
     },
   });
 
@@ -25,17 +24,25 @@ const DraggableEmailItem: React.FC<{ email: Email; isSelected: boolean; onClick:
   } : undefined;
 
   return (
-    <div 
+    <div
         ref={setNodeRef}
         style={style}
-        {...listeners}
         {...attributes}
         onClick={onClick}
-        className={`group flex items-center px-6 py-3 cursor-pointer hover:bg-gray-50 border-l-4 transition-colors
+        className={`group flex items-center px-4 py-3 cursor-pointer hover:bg-gray-50 border-l-4 transition-colors relative
           ${!email.isRead ? 'font-medium bg-white' : 'bg-gray-50/50'}
           ${isSelected ? 'border-purple-500 bg-purple-50/30' : 'border-transparent'}
         `}
       >
+        {/* Drag Handle */}
+        <div
+            {...listeners}
+            className="mr-2 text-gray-300 hover:text-gray-500 cursor-grab active:cursor-grabbing p-1 -ml-2"
+            onClick={(e) => e.stopPropagation()} // Prevent opening email when dragging
+        >
+            <GripVertical size={16} />
+        </div>
+
         {/* Status Dot / Category */}
         <div className="w-6 flex-shrink-0 flex items-center justify-center">
           {email.categoryColor ? (

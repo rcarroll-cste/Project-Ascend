@@ -112,7 +112,7 @@ const TaskbarIcon: React.FC<TaskbarIconProps> = ({ icon, label, isActive, onClic
     onClick={onClick}
     disabled={isDisabled}
     className={`p-2 rounded transition-all duration-200 group relative flex flex-col items-center justify-center w-10 h-10
-      ${isActive ? 'bg-slate-700 shadow-inner' : isDisabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-slate-700/50'}
+      ${isActive ? 'bg-slate-700 shadow-inner' : isDisabled ? 'opacity-40 grayscale cursor-not-allowed' : 'hover:bg-slate-700/50'}
     `}
     title={label}
   >
