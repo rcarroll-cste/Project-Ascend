@@ -67,14 +67,13 @@ export const Taskbar: React.FC = () => {
           isActive={isActive('email')}
           onClick={() => handleAppClick('email', 'Inbox - Outlook Express', 'Email')}
         />
-        {isPMISUnlocked && (
-          <TaskbarIcon
-            icon={<LayoutDashboard size={20} />}
-            label="PMIS"
-            isActive={isActive('pmis')}
-            onClick={() => handleAppClick('pmis', 'Project Management Information System', 'PMIS')}
-          />
-        )}
+        <TaskbarIcon
+          icon={<LayoutDashboard size={20} />}
+          label={isPMISUnlocked ? "PMIS" : "PMIS (Locked)"}
+          isActive={isActive('pmis')}
+          onClick={() => isPMISUnlocked && handleAppClick('pmis', 'Project Management Information System', 'PMIS')}
+          isDisabled={!isPMISUnlocked}
+        />
         <TaskbarIcon
           icon={<Folder size={20} />}
           label="Files"
@@ -105,17 +104,19 @@ interface TaskbarIconProps {
   label: string;
   isActive: boolean;
   onClick: () => void;
+  isDisabled?: boolean;
 }
 
-const TaskbarIcon: React.FC<TaskbarIconProps> = ({ icon, label, isActive, onClick }) => (
+const TaskbarIcon: React.FC<TaskbarIconProps> = ({ icon, label, isActive, onClick, isDisabled }) => (
   <button
     onClick={onClick}
+    disabled={isDisabled}
     className={`p-2 rounded transition-all duration-200 group relative flex flex-col items-center justify-center w-10 h-10
-      ${isActive ? 'bg-slate-700 shadow-inner' : 'hover:bg-slate-700/50'}
+      ${isActive ? 'bg-slate-700 shadow-inner' : isDisabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-slate-700/50'}
     `}
     title={label}
   >
-    <div className={`text-slate-200 ${isActive ? 'scale-110 text-blue-300' : 'group-hover:text-white'}`}>
+    <div className={`text-slate-200 ${isActive ? 'scale-110 text-blue-300' : isDisabled ? '' : 'group-hover:text-white'}`}>
       {icon}
     </div>
     {isActive && (
