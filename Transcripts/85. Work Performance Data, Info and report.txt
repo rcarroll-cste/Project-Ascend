@@ -1,0 +1,357 @@
+-: In this video,
+
+I'm gonna be going over work performance data,
+
+information and report.
+
+These are common outputs that you're gonna find
+
+on many of the processes in executing,
+
+monitor and control and then in closing.
+
+And you really have to understand what exactly is it.
+
+So I'm gonna give you guys a bunch of examples with it
+
+and I'll show you guys how it flows.
+
+So the first thing is up is what exactly are these things?
+
+Well, when you manage a project,
+
+when a project is executed
+
+and the team members are actually doing the job,
+
+they're actually painting the room,
+
+they're coding the application,
+
+they're building that big building,
+
+you're gonna be getting information from them.
+
+And particularly data such as
+
+how much have they done so far?
+
+How much money they spent?
+
+When did they start?
+
+When did they finish?
+
+This is known as work performance data.
+
+Now, work performance data is just raw information
+
+about the work that they did.
+
+Work performance data comes
+
+from the executing section of the project.
+
+This is given to you again by team members.
+
+You then take the work performance data
+
+and you compare it up against the plan.
+
+Should they have started this day?
+
+Did they actually start that day?
+
+You're gonna compare what work they did.
+
+They told you they paint the wall white in the data.
+
+The plan said you should paint the wall off white.
+
+Well, that's a problem now because
+
+it should have been white,
+
+they paint off white.
+
+Now what you're doing here
+
+is you're comparing the actual work against the plan.
+
+This is how you monitor and control a project by the way.
+
+In monitor and control
+
+and what you're doing
+
+is that you are seeing the work that they did.
+
+Did it line up with the plan?
+
+Remember what monitoring and controlling is about
+
+keeping your project on plan.
+
+You guys remember that?
+
+So this is gonna give us what's called
+
+work performance information.
+
+So work performance data is raw information,
+
+work performance information
+
+is the actual data compared to the plan.
+
+Are we off schedule?
+
+Are we off budget?
+
+Are we off scope?
+
+What's happening with this project?
+
+Now then you take all this information.
+
+Now information comes in parts,
+
+there's information for scope,
+
+information for schedule.
+
+You take all this information
+
+and then what you're gonna do
+
+is you are going to put it into a report.
+
+So work performance report.
+
+The report is gonna give us the overall status
+
+of the project.
+
+Now the report is basically the combination
+
+of all of the work performance information.
+
+I want to show you a chart.
+
+Now this comes out of the book,
+
+the PMI's book Process Group: A Practice Guide.
+
+Again, you can also find us in PEMBA Guide sixth edition.
+
+And I want you guys notice in the executing process
+
+you're gonna get work performance data.
+
+Work performance data is fed
+
+into all the monitoring and controlling processes
+
+as to raw information.
+
+Remember, if you think about this,
+
+to monitor and control a particular,
+
+like if you're monitoring, controlling your scope,
+
+if I say keep that project on scope
+
+while the team's doing the work,
+
+what do you need to know?
+
+You need to know what was the plan scope,
+
+the plan and you need to know what work they did
+
+or what work are they gonna do
+
+and when are they gonna start this work?
+
+How much are you gonna spend?
+
+So it's the scope and the time and the cost.
+
+You're gonna take this data
+
+and what are you gonna do with this data?
+
+You're gonna compare it against the plan.
+
+So this data plus the plan
+
+equals the work performance information.
+
+You then take all this work performance information.
+
+This gives you the overall project control.
+
+Is the project in and out of control?
+
+And you put this into a report.
+
+Now this report is given to many things.
+
+This report is gonna be given
+
+to the project change control procedures
+
+because if somebody asks for a change,
+
+you're gonna need to know are we actually
+
+on schedule or are we off schedule?
+
+Well, that's what the report's gonna tell you.
+
+This report is gonna be given to stakeholders,
+
+particularly team members
+
+or all the stakeholders that are there.
+
+Why? Because your boss may need to ask.
+
+They're gonna come and ask you many times,
+
+are you on or off schedule?
+
+This report can also use in,
+
+this report, if a change is approved,
+
+that approved change will then update
+
+various different kinds of processes out there.
+
+So these are gonna be the three things.
+
+Work performance data, information and report.
+
+Now I do have a couple of other slides I do wanna review
+
+with you to do a quick recap since I went over it.
+
+Let's go through this quickly.
+
+So what is work performance data?
+
+One more time, quick recap.
+
+Well, that is simply raw information.
+
+The status of the work that was done
+
+but does not have any analysis.
+
+It's not useful by itself.
+
+You see, if I told you that I paint this room white
+
+and I spent two days and $200,
+
+what does that mean to you?
+
+Not much, right?
+
+Because you don't know what the plan is.
+
+You don't know am I doing good or am I doing bad?
+
+All you know is what I did?
+
+It's usually the output of the executing processes.
+
+Now, work performance information
+
+is the information of the work
+
+that was performed compared to the plans.
+
+This is gonna be the big one.
+
+You take the data,
+
+you compare it against the plan.
+
+It gives you the actual status about deliverables.
+
+It's usually the output of most monitoring and controlling.
+
+So if you look at monitoring and controlling process,
+
+you'll find this thing as the output.
+
+Now, taking all this information,
+
+we're gonna put this together
+
+in the overall status report of the project.
+
+It takes all the work performance information put together
+
+to give you this one comprehensive document.
+
+So remember, this is the document
+
+that you're gonna be giving out to your stakeholders
+
+as we saw in that process flow diagram from PMI.
+
+You take the work performance data.
+
+How do we get it?
+
+Well, you take the work performance data
+
+and compare it against the plan
+
+to come up with the work performance information.
+
+Then you take all the information
+
+and create the work performance report.
+
+Remember, data feeds into info
+
+and all the info creates the reports.
+
+That's what I need you guys to know.
+
+Data is raw information compared against the plan,
+
+you get the information,
+
+take all the information, create a report.
+
+That's the the flow that I need you guys to know this in.
+
+Now you guys will be seeing WPD,
+
+Work Performance Data,
+
+work performance info
+
+and work performance report quite a lot
+
+as we go through this forty nine process
+
+especially in the executing,
+
+monitoring and controlling processes.
+
+Make sure you understand how they flow.
+
+Data is used,
+
+data is raw information that is then combined
+
+that is then versus the plan to create the information
+
+and all the information combined creates the report.

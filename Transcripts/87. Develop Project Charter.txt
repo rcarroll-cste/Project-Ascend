@@ -1,0 +1,677 @@
+-: In this video, I'm gonna be starting up
+
+the 49 processes that we need to know
+
+to manage our predictive projects.
+
+So one of the things that I wanna review with you guys
+
+before we get started is I wanna just take a quick look
+
+at that 49 process chart to show you where we are.
+
+Because here, we are gonna start
+
+with the initiating section of a project.
+
+So if you remember what initiating is,
+
+initiating is all about getting approval.
+
+It's about getting the project approved.
+
+When you think of initiating, think of project approval.
+
+So we're gonna be covering two processes listed here.
+
+So I want you guys to take a look at this.
+
+So here I have the two processes in initiating.
+
+We're gonna be doing Develop Project Charter
+
+which is what I'm gonna cover in this video.
+
+And the next one, we'll take
+
+a look at Identify Stakeholders,
+
+so that's what we're doing here.
+
+We're gonna be basically covering the processes
+
+in initiating, and then we'll jump over to planning.
+
+We'll cover all these planning processes
+
+that you guys see listed here in depth one at a time.
+
+Then we'll take a look at executing monitor and control,
+
+and closing for the total of the 49 processes.
+
+Now, one of the things that I told you guys earlier
+
+is we're not gonna cover
+
+all the process's ITTO's,
+
+Inputs, Tools, Techniques, and Output.
+
+We're gonna be covering the main inputs,
+
+the main tools, the main outputs.
+
+When they're common inputs
+
+or common tools, or common outputs,
+
+I'm not gonna cover that
+
+because they basically stay the same.
+
+For example, when we use expert judgment,
+
+if you use expert judgment,
+
+which is hiring a subject matter expert
+
+to do something for you,
+
+whether you're doing develop schedule,
+
+develop project charter that we're gonna be doing now,
+
+it doesn't matter what the process is.
+
+If the tool is expert judgment, it stays the same.
+
+Just using an expert to help you get this process done.
+
+Okay. So with that, let's get started
+
+with the first of the 49 processes.
+
+And that's gonna be one of the first things
+
+you're gonna do when you actually get a project
+
+is to get it authorized, is to have approval
+
+from management to actually do that project.
+
+You can't consume organizational resources,
+
+such as the money that they bring in their HR resources,
+
+like people's time, like getting an engineer,
+
+getting a software developer
+
+to come and work on your project.
+
+You can't consume the organization resources
+
+if you don't have permission from that business.
+
+So let's get started on this one.
+
+So the first thing up I have is gonna be
+
+Develop Project Charter.
+
+Now develop project charter is the first process.
+
+What is this process?
+
+Well, this is the process that, notice what it says,
+
+of developing a document to formally authorize
+
+a project or a phase.
+
+Remember, the project charter is gonna formally authorize
+
+that project or that phase.
+
+Now, this document, again, is gonna be this project charter.
+
+It's gonna outline the project objectives,
+
+basically, what this project will get done.
+
+It could say things like, paint this room
+
+or build this building, or develop this application.
+
+Another thing that the charter does
+
+is that it's gonna defies the authority
+
+for the project manager.
+
+Okay. It's gonna say that this person, Bob,
+
+is gonna be in charge of this project.
+
+Mary's in charge of this project.
+
+Here's the authority that they're gonna have.
+
+It provides the project manager
+
+with authority to put resources together.
+
+Remember, to consume resources on a project,
+
+you actually need approval.
+
+You just can't go and spend money in our organization
+
+if you don't have approval from management.
+
+The approved charter formally initiates a project.
+
+Remember, if the charter is approved,
+
+the project is officially started.
+
+Now, here are the ITTOs that are associated
+
+with developing the charter.
+
+Now, a lot of these things here,
+
+things like the organizational process assets,
+
+all of these tools will be covered.
+
+Expert judgment, data gathering,
+
+interpersonal and team skills meetings, we covered.
+
+So what I told you guys
+
+is when I covered these 49 processes,
+
+the common ones we're not gonna cover
+
+'cause we already covered that.
+
+Just rewatch the videos that I covered
+
+these things in, right?
+
+These like, expert judgment, data gathering, and so on.
+
+But what we are gonna cover are the important,
+
+the ITTOs, the inputs, tools, and techniques
+
+that's unique to this process.
+
+Such as what?
+
+Well, business documents and agreements.
+
+That's unique here, so let's cover those.
+
+And of course, I wanna talk about
+
+the charter and something we all should have
+
+on a project called an assumption log.
+
+So unique inputs here we have
+
+is something we call business documents.
+
+What exactly is that?
+
+Well, business documents.
+
+It's gonna contain specific information
+
+on why we should do this project,
+
+like why should it be initiated?
+
+Think about this.
+
+You want to consume organizational resources
+
+to do your project.
+
+The question is, why should they give you money?
+
+What makes your project so important?
+
+In every business you work for,
+
+there're gonna be multiple projects
+
+that are trying to be initiated.
+
+There's gonna be multiple projects that wants to get done.
+
+Why should the organization select yours?
+
+Can you prove the business case?
+
+Are you returning more value than other projects?
+
+There are two main business-case documents, all right?
+
+Number one is just the business case itself.
+
+This is necessary information to determine
+
+whether or not the project is worth the investment.
+
+And things you can look at are gonna be things
+
+like market demand, customer requests, legal requirement.
+
+For example, a good business case
+
+could be we need to initiate this project
+
+because there's a brand new regulation
+
+that our product needs to implement
+
+more safety equipment in it.
+
+So you have to modify your current product
+
+in order to keep it on the market.
+
+That'd be a great business case.
+
+Another good business case could be, well,
+
+there's been an enormous amount of customer requests
+
+for us to add this feature to our current product
+
+or for us to add this particular product to our portfolio.
+
+There's been a big request in my company
+
+for people asking me,
+
+"Andrew, can you create a risk management course?"
+
+As I'm recording this, I'm actually writing a syllabus
+
+for it because there's just a lot of requests
+
+for it, so we started a project on it.
+
+One thing I do want you guys to understand
+
+is what exactly is called a benefits management plan?
+
+Now, the benefit management plan is a document
+
+that they write, that basically, listen carefully,
+
+it'll measure the benefits of the output of the project.
+
+You see, when the project is done,
+
+what benefit will the company get?
+
+So definition, describes the main benefit
+
+the project would produce once it's complete
+
+and how you will measure it.
+
+Now, it could be created by doing
+
+a cost-benefit analysis of a project.
+
+So say this to yourself.
+
+When this project is done,
+
+what is the main benefit that they're gonna get out of it?
+
+Is it gonna increase revenue by 20%?
+
+That's something you can write
+
+in your benefits management plan
+
+because you're gonna measure the benefit in terms
+
+of revenue and percentages, and you're hoping for 20%.
+
+Is it gonna increase the market share
+
+of your products by 10%?
+
+That's another benefit we can write in this particular plan.
+
+So you have to come up,
+
+you have to document the main benefits
+
+of doing this project.
+
+No organization wants to spend money
+
+or give you money to do a project
+
+if they don't understand the benefit
+
+or the main objective of, or money,
+
+I would think more than likely,
+
+that they're gonna be getting.
+
+Is it gonna increase customer satisfaction?
+
+You gotta document that.
+
+Another input that we saw was something called agreement.
+
+Agreements is a contract.
+
+Now, you gotta understand why this is an input
+
+and how it works here.
+
+So if you work as a contractor,
+
+and you get a contract or an agreement
+
+with a customer, that initiates a project for you.
+
+For example, let's say, you are a construction contractor,
+
+and I wanna renovate my kitchen.
+
+So I hire you to renovate my kitchen,
+
+and I make a contract with you, that,
+
+hey, I want you to renovate the kitchen.
+
+I want you to change all the cupboards
+
+and put a new sink in, and change the tile.
+
+That's my kitchen renovation.
+
+I sign a contract for you to do it.
+
+Now, you have to understand how this works
+
+because that contract is actually gonna become an input
+
+to your project charter because now, you have
+
+to start up an entire project to renovate my kitchen.
+
+That's why this thing is an input here.
+
+So an agreement can have things
+
+like a service level agreement
+
+in which case, service level agreements are done
+
+for when you have to provide a certain service
+
+and a certain level that it has to be maintained.
+
+For example, an ISP or an internet service provider
+
+would give you a contract to maintain internet
+
+at 99% availability.
+
+It could be a letter of intent.
+
+In other words, we intend to get this job done.
+
+It's generally a contract
+
+between an internal, external customer.
+
+Contracts are always gonna be between somebody internal
+
+to the business and somebody external to the business.
+
+Work required to be performed for payment.
+
+Nobody, you don't wanna pay someone until you get
+
+a contract with them and you actually start to work,
+
+so that's what that's saying.
+
+The output is what I wanna talk about.
+
+The output is the project charter.
+
+Now for your exam, you have to remember what a charter does.
+
+A charter formally authorizes the existence
+
+of the project, all right?
+
+That means the project is official.
+
+If senior management or senior stakeholders
+
+like your sponsor signs off on your contract,
+
+on your charter, your golden, your project is approved.
+
+It assigns the project manager in the authority level.
+
+Signed by senior management can include things
+
+like your sponsor.
+
+It'll have high-level requirements,
+
+high-level risks, preliminary budget, preliminary schedule.
+
+Now, everything in a project charter,
+
+you have to remember is high-level.
+
+The project charter does not contain things
+
+that are very detailed.
+
+In fact, everything is high-level.
+
+The project charter is gonna say,
+
+oh, we're gonna paint this room.
+
+But it doesn't actually go into say,
+
+this specific like one coat of primer
+
+and two coats of regular paint.
+
+It doesn't go into it.
+
+It just say paint the room, repaint the room.
+
+It might not even specify the color.
+
+It'll say develop a counter application,
+
+but it wouldn't say what module
+
+or particular features it'll have.
+
+Why? Because it's very high level.
+
+It's something they do very quickly.
+
+It's gonna have high-level risks,
+
+maybe things that can derail the project,
+
+like delays or cost risks.
+
+It should come with a high-level budget.
+
+Something that they can come up with very quickly.
+
+They can say developing the accounting application
+
+will cost $1 million and take two years.
+
+Notice, it's a high-level number.
+
+It's not very precise particularly.
+
+Now, as we go into the planning section of the project,
+
+then we start to refine our estimates
+
+as we learn more information about the project work.
+
+You wanna make sure you put why you're doing this project,
+
+the purpose of it, the cost benefit of it, for example.
+
+So this is what your charter will contain.
+
+Now, if you're asking me, hey, Andrew,
+
+is there like an example of a project charter?
+
+We really don't have examples of these documents.
+
+PMI did publish a book called
+
+"The Forms of the PMBOK Guide."
+
+You guys can check that out.
+
+But generally, what PMI does is PMI tells you
+
+what these documents should have
+
+and then you make a document,
+
+something that's called a charter,
+
+and you write what it has.
+
+You know, some of these requirements,
+
+and it's just a charter.
+
+The charter is very specific to a particular business.
+
+Generally, your PMO will give you a template for this.
+
+Remember, organization process assets is an input here.
+
+The last output we're gonna talk about
+
+is something called an Assumption Log.
+
+What exactly is an assumption?
+
+Well, assumptions are things that are perceived
+
+to be true that might constrain the project later.
+
+You see, I'm assuming, let's say,
+
+I'm upgrading all my machines to Windows 11,
+
+all the computers in the company.
+
+I'm assuming that all of these machines meets
+
+the hardware requirement that we don't need any hardware.
+
+So the project doesn't include time
+
+and budget for hardware upgrades.
+
+Now, if you think about it this way,
+
+an assumption log is all the things
+
+that you are hoping to be true.
+
+You don't know if it's true or not.
+
+You're just hoping that it's gonna be true.
+
+So you write it down in the assumption log,
+
+and this log is gonna consistently be updated.
+
+Why do you want this?
+
+Well, as you go through the plan
+
+and in the execution of the project,
+
+if your assumption turned out to be false,
+
+you can always say, well, I assumed this.
+
+I didn't make it into a fact.
+
+Remember something, there's a difference
+
+between an assumption and a fact.
+
+An assumption is something that's perceived.
+
+I'm assuming all these machines
+
+in here can handle Windows 11.
+
+But if I go and I check every single one
+
+and I check the hardware requirement
+
+against Windows minimum hardware,
+
+then it's not an assumption anymore.
+
+Let's say, they all pass,
+
+then it's not an assumption, it's a fact.
+
+So if you make assumptions, put it in your assumption log.
+
+Okay. That is the two main output of this process.
+
+Remember, the Project Charter, it's a document.
+
+It's gonna authorize the project or the phase
+
+to get started, and authorizes the project manager
+
+to start the project.
+
+It gives the project manager the authority they need.
+
+It's also gonna have high-level budget,
+
+high-level schedule, and a high-level scope.
+
+The Project Charter is one of the most important documents
+
+because it is the one that starts up the entire project.
+
+

@@ -1,0 +1,23 @@
+# Enterprise Environmental Factors - Data Schema
+
+## 1. Entity Definitions (Dictionary)
+* **Enterprise Environmental Factors (EEF)**: Conditions, not under the immediate control of the team, that influence, constrain, or direct the project, program, or portfolio. These factors can be internal or external to the organization.
+* **Internal EEFs**: Factors specific to the organization that influence the project (e.g., organizational culture, structure, governance, geographic distribution of facilities, infrastructure, IT software, resource availability, employee capability).
+* **External EEFs**: Factors outside the organization's control that influence the project (e.g., marketplace conditions, social and cultural influences and issues, legal restrictions, commercial databases, academic research, government or industry standards, financial considerations, physical environmental elements).
+
+## 2. Process Architecture (ITTOs)
+* *This source defines a common Input used across 49 processes, not a standalone process itself.*
+
+## 3. Logic & Constraints (Rules Engine)
+* **Constraint:** Project Planning REQUIRES Consideration of Internal and External EEFs.
+* **Influence Logic:** EEFs -> Can Enhance OR Constrain project outcomes.
+* **Input Logic:** EEFs -> Input to nearly all 49 Project Management Processes.
+
+## 4. Analytical Models (Matrices & Formulas)
+* *No specific mathematical models or matrices were defined in this transcript.*
+
+## 5. Semantic Associations (Metadata)
+* EEF :: Company Culture (Mental Shortcut)
+* Internal EEF Examples :: Governance, Risk Appetite, Communication Channels, IT Infrastructure, Resource Availability.
+* External EEF Examples :: Political Climate, Government Standards, Industry Regulations, Commercial Databases, Legal Restrictions.
+* EEF Impact :: Can make project approval/execution easier (Enhance) or harder (Constrain).

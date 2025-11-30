@@ -1,0 +1,623 @@
+ -: In this long video, I'm gonna be going through
+
+four common tools that you're gonna see listed
+
+way across the processes,
+
+and that's the tool dealing with data,
+
+in particularly get data gathering,
+
+how are we gonna do that?
+
+Data analysis, data representation, and decision making.
+
+You see think about this,
+
+as you're managing a project,
+
+as you're planning a project,
+
+as you're managing the execution
+
+or modern control in a closing of it,
+
+you're gonna acquire a lot of data.
+
+You're gonna get data,
+
+you're gonna look at data such as
+
+how long is a particular task taken?
+
+How is the schedule being made?
+
+How many issues do we have?
+
+How many risk are there?
+
+As you go through your project,
+
+you guys are gonna acquire a lot of data,
+
+and that data's gonna help you make particular decisions.
+
+For example, do we need a change request
+
+to extend the schedule or do we need to go
+
+and request additional funding from our managers?
+
+In order to do that, you would need to acquire data
+
+on what's happening on a project and then maybe forecast it
+
+or analyze that data to forecast it to see,
+
+hey, do we need more money later, or maybe not.
+
+This brings me to the four tools.
+
+Now, I want you guys to take a look at this.
+
+There are four particular tools that I wanna go over.
+
+Data gathering.
+
+As you go through the project
+
+you're gonna be gathering information on what's happening
+
+at the current state of the project and previous.
+
+Data analysis, as you gather data
+
+you're gonna analyze the data that was gathered.
+
+Is there any trend or variances
+
+that are forming in the data?
+
+And then come representation.
+
+When you analyze the data,
+
+you wanna represent the data in charts and graph,
+
+so we can then make a decision on what to do with the data.
+
+So generally we're gonna gather the data,
+
+we're gonna analyze data, we're gonna represent the data,
+
+and then we're gonna make a decision on the data.
+
+That's generally what we're doing here.
+
+Now, I wanna go into in-depth into these sections.
+
+Before this though, I'll give you a quick example.
+
+Let's say you're managing a project.
+
+One of the components of managing a project
+
+is you're gonna be managing the schedule of the project.
+
+So what you need to do is you need to go out,
+
+let's say you're painting a room
+
+and they're finished painting half of it.
+
+Well, you're gonna have to go out
+
+and you're gonna have to gain data
+
+on how much of the room they finished painting.
+
+So, you go out and you gather how much room
+
+they finished painting.
+
+You analyze the data you gather,
+
+well they finished painting these two walls.
+
+You analyze that and you compare it against the plan.
+
+You can then present this data
+
+maybe in charts and graphs to show the progression
+
+of how they're staying on schedule or not
+
+and they make a decision.
+
+Do we add more time to the project?
+
+Do we reduce time to it because they're painting faster?
+
+So that'll be decision making.
+
+Or are we just doing great?
+
+Maybe we don't do anything.
+
+So that's the decision.
+
+Doing nothing is a choice.
+
+Okay.
+
+So, these are gonna be the four tools.
+
+Let's go more in depth
+
+into these four tools that I have here.
+
+So, the first thing up is going to be data gathering.
+
+This is the big one.
+
+Data gathering,
+
+as you work through any particular process
+
+you better expect that you're gonna be gathering
+
+lots and lots of information as time is progressing.
+
+Now, some common methods to gathering data
+
+is what I have here.
+
+The first way to gather data,
+
+maybe you're working on a team
+
+and you're trying to see
+
+whether what we're doing is correct.
+
+The one of the best ways to do that is
+
+to brainstorm it, man.
+
+This is when you bring together a group of stakeholders
+
+to get ideas and analyze them.
+
+They're generally facilitated by you.
+
+So brainstorming session, you bring everyone in
+
+and you try to ask them for ideas.
+
+You say, hey, what do you think is happening is good?
+
+Or how long did you spend on doing this?
+
+Another thing similar to this is interviewing people.
+
+One of this is gathering data.
+
+You know, you go out and you wanna gather requirements
+
+for a particular projects requirement gathering
+
+is a big thing.
+
+If your requirements are not gathered correctly,
+
+your project will fail.
+
+The more accurate the requirement,
+
+the more likely your projects are gonna be successful.
+
+So, one of the best thing is to interview them,
+
+interview stakeholders.
+
+Anytime I'm gonna gather data,
+
+the best way is just to interview them.
+
+This is just going about asking them a series of questions
+
+about their thoughts and views of what's happening.
+
+Focus group is when you bring together
+
+subject matter experts to understand their perspective,
+
+sometimes it's best to interview people that has
+
+in-depth knowledge of that particular project
+
+you're building or proven or change it.
+
+A checklist.
+
+Let's say I'm installing a phone system
+
+and for you as a project manager,
+
+and what features would you like?
+
+Would you like voicemail to email?
+
+Would you like a video phone?
+
+Would you like a soft phone?
+
+Would you like call conferencing?
+
+Maybe I can give you a whole checklist of all the features
+
+and then you're gonna say to me,
+
+"Hey Andrew I like this and I like this and I like this."
+
+This is good to do.
+
+So this would be a checklist.
+
+This is generally created by the organization
+
+given to the stakeholders for them to identify
+
+what they may want on a particular project
+
+and things that they may not want.
+
+Maybe they'll put an x and put a check what they want
+
+or x on things they don't want.
+
+You may have success criteria, acceptance criteria
+
+which I'll cover later might be here too.
+
+The other thing I have is questionnaires and surveys.
+
+Now, questionnaires and surveys can be given out
+
+to all stakeholders to understand
+
+how they feel about something.
+
+One of the most common things you find nowadays
+
+is any place you call, they say, would you take a survey?
+
+One of the things we can find out
+
+about stakeholder satisfaction on a project
+
+whether it's a performance or the output of a project
+
+is by asking them questions.
+
+That's gonna be a survey.
+
+So, this is gathering data.
+
+Once you have acquired data, what are you gonna do?
+
+Well, once you have done that,
+
+you have to analyze the data,
+
+to analyze the data we're gonna be using a few methods,
+
+and these are gonna be some common methods
+
+that you're gonna find.
+
+First thing up is alternative analysis.
+
+Alternative analysis looks at different options
+
+or ways to accomplish something.
+
+Let's say there is a problem on the project
+
+and you found the root cause of the problem,
+
+the main cause of the problem.
+
+How do you solve that problem?
+
+Is there one way to do it or is there five different ways?
+
+The best way is to look at all the different options.
+
+That's alternative analysis.
+
+Just don't look at one option.
+
+Look at many options.
+
+Anytime you gather data and it's related to issues
+
+on the project, such as the project is being delayed,
+
+the project is spending too much money,
+
+it's not accomplishing the scope.
+
+Ask yourself the real reason why.
+
+For example, your team is working
+
+and you realize that the project is getting slower.
+
+They're not coding as fast as they could.
+
+So your thing is, ideally it seems like
+
+they're just slacking off, right?
+
+They're just, maybe they're spending too much time
+
+on the internet, not enough time coding.
+
+That's what it seems like, right?
+
+So, but after you analyze the problem,
+
+you spoke with the team members,
+
+you talk to them,
+
+you get to the main cause.
+
+You came to find out that they're not familiar
+
+with that particular programming language.
+
+That's why they were spending a lot of times
+
+on the internet and they weren't doing their job.
+
+Why? Because they were trying to learn it.
+
+That's a root cause analysis,
+
+looking for the main underlying problem
+
+for particular event.
+
+Another thing I want you guys to know
+
+something call variance and trend.
+
+Know the difference between these two.
+
+A variance is how far you're off from something.
+
+A trend is where you're going with this.
+
+So a variance is used to find
+
+the exact difference between things.
+
+So how far are you off?
+
+What's the difference between here and here?
+
+So, a variance is this.
+
+As of Wednesday last week you were supposed to be done
+
+60% of the work.
+
+You finish 50% of the work.
+
+So what's the variance?
+
+10% of the work not being complete.
+
+If as of Wednesday last week you were supposed to spend $200
+
+but you spend $220, the variance is a $20 difference.
+
+In other words, but you're over budget by $20.
+
+Now, is this good or bad?
+
+You see, variance tells something on that particular day.
+
+But is it getting worse or better?
+
+Well, that's a trend.
+
+Trend involve looking at data over a period of time
+
+to see if a trend is forming.
+
+What if on Wednesday you were 10% off,
+
+on Tuesday, on of the schedule,
+
+you're 10% behind schedule.
+
+On Wednesday you're 15, Thursday you're 20.
+
+This is the trend now.
+
+You're trending negative,
+
+you're trending way behind schedule.
+
+So this is not good.
+
+Now, you have to step in and fix it.
+
+Maybe there's a couple of variances here and there,
+
+it's fine,
+
+but if you're able to come back on schedule, you're okay.
+
+But if the trend is showing that you're going way off
+
+probably gotta keep an eye on that.
+
+Once you have gathered data, you have analyzed the data,
+
+what are you gonna do?
+
+The next thing here is gonna be to present the data.
+
+All right?
+
+Different charts and graph.
+
+Different ways to show people the data.
+
+So, different ways the data could be shown to stakeholders
+
+particularly maybe something like a flow chart show.
+
+Show the stakeholders.
+
+This is the process we follow to fix a project
+
+or complete a particular activity.
+
+All types of charts,
+
+matrixes.
+
+That's gonna be more like a table.
+
+Fishbone diagram.
+
+Histograms are gonna be like bar chart.
+
+Fishbone diagrams allows me,
+
+we're gonna cover these particular things
+
+coming up in quality processes.
+
+That's gonna show me how to find problems.
+
+So, present the data to your customer.
+
+Data representation is a way to present data to the customer
+
+in a way that they can understand the data.
+
+Once a customer is seeing the data,
+
+the next thing now is to make a decision, right?
+
+We make decisions based on the data we got.
+
+All projects do this.
+
+Based on the data that we got,
+
+the decision was made.
+
+The better that data, the better your decision making.
+
+So you wanna acquire your data good, right?
+
+You wanna gather the data correctly and analyze the data.
+
+What are some ways teams make decisions?
+
+Number one, voted.
+
+So, they go around the room
+
+and they vote on a particular thing.
+
+You can have voting where the majority wins,
+
+you also have ones where everyone agree.
+
+You also plurality, mispronounce that word,
+
+where majority is not obtained,
+
+but a decision is still chosen.
+
+You also have autocratic decision making.
+
+This is when one person make a decision for the entire team.
+
+Maybe they trust that particular person.
+
+Another way to make decision
+
+is gonna be multicriteria decision analysis.
+
+This is when you make a table
+
+that lists different types of criteria
+
+and then evaluate them.
+
+So for example, when you choose a painter, the painter room
+
+what exactly are the criteria
+
+are you using to choose a painter?
+
+Are you using cost, experience, certification, licenses,
+
+availability, location, reviews?
+
+Maybe all of that?
+
+What are the main criteria you're gonna be using?
+
+Some people may just look at price and availability.
+
+Some people might look, well, is he available?
+
+Is this person located in our town?
+
+Maybe, maybe not.
+
+Different projects, we use different criteria,
+
+but a lot of times when we make a decision
+
+on selecting something or doing a particular task,
+
+it's not gonna be based on a single criteria.
+
+More than likely we based on multiple criterias.
+
+Okay.
+
+Nice long video.
+
+We covered a lot of tools here.
+
+You're gonna find these tools used quite a lot.
+
+Now there's more to these tools.
+
+What I'm showing you here, the most common ones.
+
+But as I go through the 49 processes,
+
+they're gonna be more to these particular tools,
+
+particular things that I have not covered.
+
+But remember by the time I finished all the 49,
+
+I would've covered all of them.
+
+So make sure to review this video
+
+and understand what these particular tools are.

@@ -1,0 +1,49 @@
+# Develop Project Charter - Data Schema
+
+## 1. Entity Definitions (Dictionary)
+* **Develop Project Charter**: The process of developing a document that formally authorizes a project or a phase and documents initial requirements that satisfy the stakeholder's needs and expectations.
+* **Project Charter**: A document issued by the project initiator or sponsor that formally authorizes the existence of a project and provides the project manager with the authority to apply organizational resources to project activities.
+* **Business Documents**: Sources of information regarding the project's objectives and business value, used as inputs to the charter. Includes the Business Case and Benefits Management Plan.
+* **Business Case**: A documented economic feasibility study used to establish the validity of the benefits of a selected component lacking sufficient definition and that is used as a basis for the authorization of further project management activities.
+* **Benefits Management Plan**: A document that describes how and when the benefits of the project will be delivered, and describes the mechanisms that should be in place to measure those benefits.
+* **Agreements**: Any document or communication that defines the intentions of the parties. In this context, contracts, Service Level Agreements (SLAs), or Letters of Intent that act as inputs to initiate a project.
+* **Assumption Log**: A project document used to record all assumptions and constraints throughout the project life cycle.
+* **Assumption**: A factor in the planning process that is considered to be true, real, or certain, without proof or demonstration.
+
+## 2. Process Architecture (ITTOs)
+* **Process Name:** Develop Project Charter
+* **Process Group:** Initiating
+* **Knowledge Area:** Project Integration Management
+    * **INPUTS:**
+        * Business Documents (Business Case, Benefits Management Plan)
+        * Agreements (Contracts, SLAs, Letters of Intent)
+        * Enterprise Environmental Factors (Legal requirements, Market demand)
+        * Organizational Process Assets (Templates, repository)
+    * **TOOLS & TECHNIQUES:**
+        * Expert Judgment
+        * Data Gathering
+        * Interpersonal and Team Skills
+        * Meetings
+    * **OUTPUTS:**
+        * Project Charter
+        * Assumption Log
+
+## 3. Logic & Constraints (Rules Engine)
+* **Authorization Rule:** Consume Organizational Resources -> REQUIRES Approved Project Charter.
+* **Initiation State:** Signed Project Charter -> EQUALS Project Officially Started.
+* **Resource Authority:** Project Charter -> GRANTS Authority to Project Manager.
+* **Content Constraint:** Project Charter Content -> MUST BE High-Level (Preliminary Budget, Preliminary Schedule, High-Level Risks/Scope).
+* **Validation Logic:** Assumption Proven False -> MOVES TO Issue/Risk Log (implied).
+
+## 4. Analytical Models (Matrices & Formulas)
+* **Model Name:** Cost-Benefit Analysis (Business Case)
+* **Structure:** Financial comparison used in Business Case creation to justify investment.
+* **Variables:** Revenue Increase, Market Share Increase, Implementation Cost.
+
+## 5. Semantic Associations (Metadata)
+* Initiating :: Project Approval
+* Project Charter :: High-Level Information (NOT detailed)
+* Assumption :: Perceived Truth (Hope)
+* Agreement :: Contract (External Customer)
+* Business Case :: "Is it worth the investment?"
+* Benefits Management Plan :: "How do we measure value?"

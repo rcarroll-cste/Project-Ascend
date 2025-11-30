@@ -1,0 +1,28 @@
+# Work Performance Data, Information, and Reports - Data Schema
+
+## 1. Entity Definitions (Dictionary)
+* **Work Performance Data (WPD)**: Raw observations and measurements identified during activities being performed to carry out the project work. It contains no analysis.
+* **Work Performance Information (WPI)**: The performance data collected from controlling processes, analyzed in comparison to the Project Management Plan.
+* **Work Performance Report (WPR)**: The physical or electronic representation of work performance information compiled in project documents, intended to generate decisions, actions, or awareness.
+
+## 2. Process Architecture (ITTOs)
+* *This transcript defines a data flow across Process Groups rather than a single specific process.*
+
+## 3. Logic & Constraints (Rules Engine)
+* **Data Flow Rule:** Executing Processes -> Output: Work Performance Data.
+* **Information Flow Rule:** Work Performance Data + Project Management Plan -> Monitoring & Controlling Processes -> Output: Work Performance Information.
+* **Reporting Flow Rule:** Work Performance Information (Aggregated) -> Output: Work Performance Report.
+* **Utility Constraint:** Work Performance Data REQUIRES comparison against the Plan to become useful (Information).
+* **Usage Rule:** Work Performance Reports -> Inputs to Change Control Boards and Stakeholder Communications.
+
+## 4. Analytical Models (Matrices & Formulas)
+* **Model Name:** Performance Data Transformation Cycle
+* **Structure:** Linear progression from Raw Data to Contextualized Analysis to Aggregated Reporting.
+* **Formula:** `WPI = WPD + Project Management Plan (Comparison)`
+* **Formula:** `WPR = Σ(WPI from Scope, Schedule, Cost, etc.)`
+
+## 5. Semantic Associations (Metadata)
+* **Work Performance Data** :: Raw Facts (e.g., "Painted wall white", "Spent $200").
+* **Work Performance Information** :: Status Check (e.g., "Off schedule", "Wrong color painted").
+* **Work Performance Report** :: Overall Status Document (e.g., "Project Status Report").
+* **Monitoring and Controlling** :: Keeping the project on plan.

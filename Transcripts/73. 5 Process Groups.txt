@@ -1,0 +1,409 @@
+-: In this video, we're gonna be talking
+
+about the five process groups, and particularly,
+
+what are you doing in each of those process groups.
+
+I want you guys to be able
+
+to anytime you hear the word initiate, think authorization.
+
+If you hear the word plan, think the PM plan.
+
+Anytime you guys hear the word execute and think of work.
+
+Monitor control and think of keeping stuff on track
+
+and closing to shut it down.
+
+I want you guys to be able to understand these concepts
+
+and I want you guys to be able to understand
+
+how these process groups will flow,
+
+what is the order of them flowing,
+
+in order to complete a deliverable
+
+or complete a phase of a project?
+
+So let's go ahead and get started.
+
+So the first thing up I wanna talk about
+
+is gonna be these five process groups
+
+that I have listed here
+
+and I wanna give you more of a written definition on them
+
+than just me telling you.
+
+So the first thing up we wanna talk about
+
+is anytime you guys hear the word initiated.
+
+Now, if you remember from the process group chart,
+
+initiated has basically two processes
+
+of defined stakeholders,
+
+create project charter and define stakeholders.
+
+So what are you doing here?
+
+Well, this is gonna be done to define a project.
+
+Oops, where's my pen?
+
+Define a project or phase of an existing project.
+
+So we're defining a project,
+
+we're creating a brand new project.
+
+Now keep in mind, these 49 processes
+
+is also used in every phase of your project.
+
+So it's used to define a project
+
+or phase of an existing project,
+
+and it's done to authorize the start of the project
+
+and assign the project manager.
+
+So if you're taking any exam,
+
+whether you're doing a CAPM or a PMP or in real life,
+
+remember something, in initiating,
+
+you're gonna be authorizing
+
+the start of the project or the phase,
+
+and you're gonna be assigning the project manager
+
+for that phase or that project at that time.
+
+So anytime you guys think of initiating,
+
+think of authorizing the work to get started,
+
+authorizing the project manager,
+
+giving the project manager the authority
+
+he or she needs to do the work.
+
+Next thing up we have is planning.
+
+This is gonna be done to establish the scope of the project,
+
+define the course of action required
+
+to obtain the objectives.
+
+So in planning, we are going to establish the main scope.
+
+Now, in initiating, we generally get a high level scope.
+
+It's not a very detailed scope, but in planning,
+
+you're gonna get this much more elaborated scope
+
+and you want your scope to be as detailed as possible.
+
+I'll cover that when I get to scope management.
+
+You are also gonna define the course of action.
+
+So what do they mean by that?
+
+Course of action basically means the step needed
+
+in order to build that scope.
+
+What are the steps?
+
+What is the work needed to paint the room?
+
+For example, if your scope is to paint this room,
+
+what is the course of action needed to paint the room?
+
+Well, you have to buy the paint, remove the furniture,
+
+tape up the wall, prime the wall, paint the wall,
+
+put the furniture back.
+
+So in planning, you're just not defining what the scope is,
+
+but you're defining all the actions you're gonna need
+
+to obtain that particular scope.
+
+That's gonna be including setting the budget,
+
+setting the schedule.
+
+It's gonna be defining the different kinds of risk
+
+or identifying the risk, defining quality requirements,
+
+defining how you plan to staff and manage the project.
+
+So many things goes into planning.
+
+In fact, if you remember from your chart table,
+
+if you remember that there were
+
+quite a lot of processes in planning.
+
+When it comes to executing,
+
+I want you guys to think of work.
+
+So this is done to complete the work.
+
+It should be K there. Sorry about that.
+
+Complete the work defined in the project management plan.
+
+So the project management plan
+
+is what you're gonna get out of planning.
+
+When you finish planning, you're gonna have a PM plan.
+
+This plan tells you the scope,
+
+it tells you the schedule, it tells you the budget,
+
+and it tells you how to obtain the scope.
+
+It tells you all the actions you need to obtain this scope.
+
+In executing, what you're gonna be doing
+
+is you're going to be actually completing
+
+whatever the plan says.
+
+If the plan says remove the furniture,
+
+then remove the furniture.
+
+If the plan says to paint the wall white,
+
+then paint the wall white.
+
+Anytime you guys think of executing,
+
+I want you guys to think of actually doing the work.
+
+The next thing you have is monitoring and controlling.
+
+Done to track, review, and regulate the progress
+
+and performance of the project.
+
+Monitoring and controlling is something that you
+
+as a project manager is gonna be doing extensively.
+
+You have to monitor and control the work.
+
+You have to make sure that the project stays on plan.
+
+How do you monitor control?
+
+Well, you take a look at your plan.
+
+The plan says you're supposed to paint
+
+this wall white today.
+
+You're supposed to spend $100.
+
+So that's your scope, your scheduling, your budget.
+
+And then when the painter starts painting,
+
+you go and you watch, are they painting that wall white?
+
+Are they doing it according to the budget?
+
+Are they doing it according to the schedule?
+
+That's monitoring and controlling.
+
+It's about tracking the work,
+
+reviewing the work and regulating.
+
+So tracking is checking to see
+
+if the work actually matches up.
+
+Reviewing the work that was done, inspecting the work,
+
+and then regulating it, letting them know
+
+whether they're doing it right or wrong.
+
+Looks for any areas in which changes to the plan
+
+are required and initiate the changes.
+
+So another thing you're doing here is you're looking to see
+
+if there's any variance on the plan,
+
+or does the plan need to be changed?
+
+Sometimes you may not have budgeted enough money,
+
+sometimes you may not have budgeted enough time
+
+or have the right scope in there.
+
+So monitor and control, and what that's gonna do
+
+is you can initiate the changes there
+
+in order to update your plan.
+
+The next thing I have is closing.
+
+This is gonna be done to formally complete
+
+or close the project phase or contract.
+
+Closing comes at the end.
+
+The deliverable is done, the customer has accepted it.
+
+You have to formally shut down your project when it's done.
+
+You have to release your resources.
+
+Do your final lesson learned.
+
+Make a document called a project report,
+
+a final report saying what was successful, what was not.
+
+So when you're taking a look at your five process groups,
+
+now as this course progressed,
+
+we're gonna go into these five process groups
+
+and we are gonna be covering every single one
+
+of the 49 processes that falls within these process groups
+
+more in depth, but this is just a good look at them.
+
+Now, the other thing here I wanna talk about
+
+is how these process groups works together.
+
+So I have a diagram.
+
+We're gonna concentrate on the center of this diagram
+
+because I wanna show you how it flows together in this.
+
+So let's take a look at this diagram that I have here.
+
+Now, I don't want you guys to worry too much
+
+about project boundaries.
+
+I want you guys to look at the center of this diagram.
+
+So this comes from page 70 of the PMI Process Group
+
+or Practice Guides book.
+
+So I want you guys to look at this.
+
+This is the part here I want you guys to watch.
+
+You see this, you initiate a project.
+
+Once the project has been authorized,
+
+then you start planning it.
+
+You do all those 24 planning processes, then you execute it.
+
+Now, you notice how there's like a circle right here.
+
+Why is that?
+
+Because sometime you plan to do work,
+
+then you go do the work,
+
+then you come back to plan to do the next set of work.
+
+Sometimes you can't plan all the work upfront,
+
+although you may try to.
+
+But what this is showing you is you plan,
+
+you execute the work, you go back to planning if needed,
+
+then you go to close it.
+
+But what happened with monitoring and controlling?
+
+Well, monitoring and controlling sits at the very top
+
+because monitoring and controlling
+
+allows you to monitor and control the planning.
+
+Monitoring and controlling executing.
+
+Monitoring and controlling the closing.
+
+Monitoring and controlling the initiating.
+
+Anytime you're in any part of these process groups,
+
+you always monitor and control the work,
+
+making sure the work stays on plan,
+
+making sure the work is regulated correctly.
+
+So this is how these things will flow.
+
+Okay, hopefully this video gives you a good understanding
+
+of what these process groups are
+
+because as I start getting into the processes,
+
+especially with 49 processes,
+
+you can wanna know exactly where they fall into.
+
+The other thing else we wanna know is those ITTOs,
+
+which we'll be getting to soon.
+
+So make sure you understand what these process groups are
+
+and what exactly you're doing in them.

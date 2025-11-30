@@ -1,0 +1,143 @@
+-: In this video, I'm gonna be talking
+
+about another common input we call OPA,
+
+or organization process assets.
+
+And what exactly is that?
+
+Anytime you hear this term, OPAs,
+
+I want you guys to think templates.
+
+That's the easiest way to remember it.
+
+You see OPAs are things that are provided to you
+
+by the business to help progress your projects.
+
+And the most common one is gonna be a template.
+
+It can also include software tools,
+
+or previous lesson learned.
+
+But there are a lot of things
+
+that the company can provide you when you start a project.
+
+For example, if you wanna develop a project charter,
+
+would a template be helpful to you?
+
+If I say, "Hey, Bob, can you make this project charter?"
+
+And you say, "Well, I'm not sure how to."
+
+And I say, "Well, here's a template.
+
+Fill this out."
+
+That'll be pretty helpful, right?
+
+These are gonna be used as inputs and it's a common input.
+
+Let's take a look at what OPAs are.
+
+So OPAs are things that the organization,
+
+they're basically assets that the organization have.
+
+This is gonna be, one of the most common one
+
+is gonna be knowledge or information,
+
+policies, procedures, documents, or knowledge bases.
+
+Some of us have these large knowledge base systems
+
+that we store all the company's knowledge.
+
+They're basically, previous lesson learned
+
+which are called OPAs.
+
+Now, what PMI did here was, they took all of the,
+
+it's basically a catchall terms for things that a PMO,
+
+or a project management office would give you.
+
+Like, again, like a template,
+
+or maybe particular software tools,
+
+or particular guidelines to follow
+
+and close on a project, for example.
+
+These things are generally kept in a central repository.
+
+A lot of companies may have like a Microsoft SharePoint site
+
+that does this so that they can be used whenever required.
+
+They can affect all aspects of a project.
+
+Again, this is one of the most common inputs
+
+you're gonna find to many processes.
+
+The project team update
+
+and add to the organization process assets.
+
+For example, let's say, you finished a project
+
+and you had a template that you created
+
+for like a risk register or an issue log.
+
+You cannot add that back
+
+into the organization repository of templates.
+
+So we update these OPAs throughout the project.
+
+And some examples are gonna be templates, software tools,
+
+historical information, things like from previous projects,
+
+guidelines to close out a procedure,
+
+policies of how to manage risk and managing changes.
+
+And then of course, how do we deal with defects
+
+and issues on a project.
+
+These are gonna be some of them.
+
+Now, as you can imagine, or if you can think about,
+
+go back to previous projects you have used or have done,
+
+you're probably seeing yourself,
+
+well, my company provided me a lot of things.
+
+Maybe they gave you Microsoft project,
+
+maybe they gave you a template for the charter,
+
+maybe they gave you a template for the project plan,
+
+maybe they gave you guidelines or procedures
+
+of how to close this project,
+
+or how to build this plan, or how to manage risk,
+
+that's all OPAs.
+
+So OPAs is gonna affect pretty much all of the 49 processes.

@@ -1,0 +1,52 @@
+# Data Gathering, Analysis, Representation, and Decision Making - Data Schema
+
+## 1. Entity Definitions (Dictionary)
+* **Data Gathering**: The technique of acquiring information regarding the current and previous state of the project from various sources.
+* **Brainstorming**: A data gathering technique where a group of stakeholders is brought together to generate and analyze ideas, typically facilitated by the Project Manager.
+* **Interviews**: A formal or informal approach to elicit information from stakeholders by talking to them directly (often used for requirements gathering).
+* **Focus Groups**: Bringing together prequalified stakeholders and subject matter experts to learn about their expectations and attitudes about a proposed product, service, or result.
+* **Checklists**: A structured tool, often created by the organization, used to verify that a set of required steps has been performed or to identify specific requirements/features.
+* **Questionnaires and Surveys**: Written sets of questions designed to quickly accumulate information from a large number of respondents.
+* **Data Analysis**: The process of examining gathered data to identify trends, variances, or underlying causes.
+* **Alternatives Analysis**: A technique used to evaluate identified options in order to select which options or approaches to use to execute and perform the work of the project.
+* **Root Cause Analysis**: An analytical technique used to determine the basic underlying reason that causes a variance, defect, or risk.
+* **Variance Analysis**: A method for determining the cause and degree of difference between the baseline and actual performance.
+* **Trend Analysis**: An analytical technique that uses mathematical models to forecast future outcomes based on historical results; looks at data over a period of time.
+* **Data Representation**: The method of presenting analyzed data in charts, graphs, or matrices to facilitate understanding and decision making.
+* **Decision Making**: The process of choosing a course of action from multiple alternatives based on the analyzed data.
+* **Voting**: A collective decision-making technique (e.g., Unanimity, Majority, Plurality).
+* **Autocratic Decision Making**: A decision-making technique in which one individual takes responsibility for making the decision for the group.
+* **Multicriteria Decision Analysis**: A technique that utilizes a decision matrix to provide a systematic analytical approach for establishing criteria, such as risk levels, uncertainty, and valuation, to evaluate and rank many ideas.
+
+## 2. Process Architecture (ITTOs)
+* *Note: This transcript describes General Tools & Techniques used across multiple processes, rather than a single specific process.*
+
+## 3. Logic & Constraints (Rules Engine)
+* **Data Flow Sequence**: Data Gathering -> Data Analysis -> Data Representation -> Decision Making.
+* **Requirements Constraint**: Inaccurate Requirements -> Increases Probability of Project Failure.
+* **Trend Logic**: IF Variance is consistent or increasing over time -> THEN Trend is forming (Positive or Negative).
+
+## 4. Analytical Models (Matrices & Formulas)
+* **Model Name:** Variance vs. Trend
+* **Structure:**
+    *   **Variance**: Snapshot of a specific point in time (Difference between Plan and Actual).
+    *   **Trend**: Series of variances plotted over time to show directionality.
+
+* **Model Name:** Multicriteria Decision Analysis Matrix
+* **Structure:** Table/Grid.
+    *   **Rows**: Candidates/Options (e.g., different painters).
+    *   **Columns**: Criteria (e.g., Cost, Experience, Certification, Availability).
+    *   **Values**: Weighted scores or ratings for each criterion.
+*   **Formula**: `Total Score = Sum(Criteria Weight * Rating)` (Implicit in description).
+
+## 5. Semantic Associations (Metadata)
+* **Brainstorming** :: Group Idea Generation.
+* **Interviews** :: One-on-one Questions.
+* **Focus Groups** :: Subject Matter Experts (SMEs).
+* **Checklists** :: Verification / Feature Selection.
+* **Questionnaires/Surveys** :: Large Audience / Satisfaction Feedback.
+* **Root Cause Analysis** :: Finding the "Real" Reason (Underlying problem).
+* **Variance** :: Point-in-time difference.
+* **Trend** :: Direction over time.
+* **Autocratic** :: One person decides.
+* **Doing Nothing** :: A valid Decision.

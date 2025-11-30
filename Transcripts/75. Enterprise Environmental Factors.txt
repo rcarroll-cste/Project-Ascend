@@ -1,0 +1,271 @@
+-: In this video
+
+I'm gonna tell you about enterprise environmental factors.
+
+Now, this is gonna be one of the most common inputs
+
+that you're gonna find across the 49 processes.
+
+And let's see what it is.
+
+The first thing up I'll tell you guys
+
+is every single company that you go to work for
+
+will have their own quote unquote unique methods,
+
+ways, laws, culture, that they do business.
+
+The way that you get a project charter approved
+
+in one business is gonna be vastly different
+
+then the way you use that, you get in another business.
+
+The laws and regulations that certain companies follow,
+
+others don't follow them.
+
+Maybe one company's healthcare and the other one is finance.
+
+Every company has a variety of unique things that they do.
+
+In other words, a unique culture.
+
+Every time I hear the word enterprise environmental factor
+
+or from now on we'll say EEF, company culture comes to mind.
+
+I think culture.
+
+You say EEF, I say culture.
+
+That's the way I see it.
+
+But let's see what it is.
+
+These are things that impact the project
+
+but are not part of the project itself.
+
+It influenced the organization, the projects,
+
+and its outcomes.
+
+So it's gonna be things that are gonna impact your project,
+
+but basically it's not part of the project.
+
+The project isn't to do it.
+
+And I'll give you a list
+
+of what's a lot of these things are.
+
+It's essential to consider these internal
+
+and external factors.
+
+So we know that they're internal and they're external,
+
+while planning the project to determine their influence.
+
+They can enhance or they can even constrain the project.
+
+For example, the way a company's structured,
+
+or it's basically it's authority level, could make it easy,
+
+or that same authority level could make it harder
+
+to get a project approved.
+
+Certain kinds of regulations
+
+could make things easier for you,
+
+or certain regulations can really restrict your business.
+
+Those are different kinds
+
+of enterprise environmental factors.
+
+Here is a list of some of these, "EEF."
+
+Now, I told you that they're really broken
+
+into two sections, internal and external.
+
+Internal could be the company's structure
+
+and the governance.
+
+This is gonna be how, who's in charge,
+
+and the way things gets approved.
+
+Do they have a board of directors?
+
+Is it just a company owner?
+
+Is there a CEO?
+
+Is there a president?
+
+You know, what's the structure of this business?
+
+The overall company's culture.
+
+Their appetite for risk.
+
+Some companies are more willing to accept risk than others
+
+and some companies are no risk at all.
+
+Some companies are more conservative
+
+and some companies are more opened up towards risk.
+
+How do they get about communications?
+
+What are the challenges of communication?
+
+Can you just walk through the door of your CEO,
+
+or do you have to like, schedule an appointment?
+
+The information technology that they use.
+
+Different companies use different tech.
+
+Some companies don't use Microsoft project.
+
+Some company like mines uses it particularly.
+
+The distribution of facility and resources.
+
+Some companies are virtual, all work from home,
+
+like PMI actually is.
+
+And some companies are all in person.
+
+The infrastructure of the technology.
+
+How available resources and some company has a wide variety
+
+of employees and capabilities, and some don't.
+
+That's probably gonna depend on the size.
+
+These are gonna be internal factors.
+
+These are factors that is built into the business.
+
+Now, external things that can affect your project
+
+is gonna be the political climate.
+
+I'm not gonna get into politics in this class,
+
+but if you know, politics in any country
+
+can affect all projects in the entire country.
+
+Government standards or industry standards that you follow.
+
+If you're in construction, the standard you follow
+
+there's a lot different than if you're in healthcare.
+
+Commercial databases, different kinds of legal restrictions.
+
+So if you have any kind of laws and regulation
+
+that needs to get followed, you gotta put that there.
+
+And financial consideration,
+
+whether that's financing large projects
+
+or getting internal financing.
+
+So these are gonna be internal and external EEF.
+
+And if you're wondering how does this affect the project,
+
+well, here's what I want you guys to know.
+
+EEF is an input into every,
+
+almost every one of those 49 processes.
+
+And the question is why?
+
+Well, lemme give you some examples.
+
+Let's say you're making a project management plan.
+
+Let me ask you a question.
+
+Would laws and regulation affect that plan?
+
+Yes.
+
+'Cause if there's particular laws you need to follow,
+
+you need to include it in the plan.
+
+If your developing a project charter,
+
+would the where the structure of the business matter?
+
+Yeah, because you wanna get that charter approved,
+
+you have to know how or where to go.
+
+You want to manage the pro,
+
+you wanna execute the project?
+
+Well, you have to know what type
+
+of technology solution they use, right?
+
+This is gonna tell you, do you use Microsoft Project,
+
+or do you, do you just use Excel?
+
+How do you close a project?
+
+What's the procedure for that?
+
+There's so many things in a project
+
+that can be affected by things inside of the business,
+
+the quote unquote, the company culture.
+
+EEF is something very specific to businesses.
+
+Every single company you work at
+
+is gonna have a different quote unquote, EEF.
+
+Technically it's all the same thing by definition.
+
+Like, "oh, we have a computer system."
+
+But the computer system that company uses
+
+is different than others.
+
+Okay, hopefully this makes sense because this is,
+
+EEF is gonna be one of the most common input
+
+along with another thing we'll cover soon called OPA's.
+
+Those are gonna be the two most common inputs
+
+in the entire course.

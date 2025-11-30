@@ -1,0 +1,72 @@
+# Identify Stakeholders - Data Schema
+
+## 1. Entity Definitions (Dictionary)
+*   **Identify Stakeholders**: The process of identifying project stakeholders regularly and analyzing and recording relevant information regarding their interests, involvement, interdependencies, influence, and potential impact on project success.
+*   **Stakeholder Analysis**: A technique of systematically gathering and analyzing quantitative and qualitative information to determine whose interests should be taken into account throughout the project.
+*   **Power/Interest Grid**: A classification model used for stakeholder analysis that groups stakeholders on the basis of their level of authority (power) and their level of concern (interest) regarding the project outcomes.
+*   **Stakeholder Cube**: A three-dimensional classification model that combines power, interest, and influence to map stakeholders.
+*   **Salience Model**: A classification model that describes classes of stakeholders based on their power (ability to impose their will), urgency (need for immediate attention), and legitimacy (their involvement is appropriate).
+*   **Stakeholder Register**: A project document including the identification, assessment, and classification of project stakeholders.
+*   **Active Participant**: A stakeholder actively involved in the work (e.g., team member).
+*   **Passive Participant**: A stakeholder not doing the work but affected by it (e.g., customer watching the work).
+
+## 2. Process Architecture (ITTOs)
+**Process Name:** Identify Stakeholders
+**Process Group:** Initiating
+**Knowledge Area:** Stakeholder Management
+
+*   **INPUTS:**
+    *   Project Charter
+    *   Business Documents
+    *   Project Management Plan
+    *   [Implied from context: Enterprise Environmental Factors]
+    *   [Implied from context: Organizational Process Assets]
+
+*   **TOOLS & TECHNIQUES:**
+    *   Data Analysis (Stakeholder Analysis)
+    *   Stakeholder Mapping and Representation (Power/Interest Grid, Stakeholder Cube, Salience Model)
+    *   Meetings
+
+*   **OUTPUTS:**
+    *   Stakeholder Register
+    *   Change Requests
+    *   Project Management Plan Updates
+    *   Project Documents Updates
+
+## 3. Logic & Constraints (Rules Engine)
+*   **Frequency Rule:** Identify Stakeholders -> MUST be performed on a continuous basis (regularly) throughout the project lifecycle.
+*   **Constraint:** New Project Assignment -> REQUIRES Immediate Stakeholder Identification.
+*   **Engagement Rule:** Stakeholder Preferences (e.g., verbal vs. written) -> DICTATES Engagement Strategy.
+*   **Dependency:** Stakeholder Register -> REQUIRED FOR Collect Requirements.
+*   **Dependency:** Stakeholder Register -> REQUIRED FOR Plan Communications Management.
+
+## 4. Analytical Models (Matrices & Formulas)
+**Model Name:** Power/Interest Grid
+*   **Structure:** 2D Matrix. Axis X = Interest (Low/High). Axis Y = Power (Low/High).
+*   **Logic:**
+    *   High Power / High Interest -> Manage Closely.
+    *   High Power / Low Interest -> Keep Satisfied.
+    *   Low Power / High Interest -> Keep Informed.
+    *   Low Power / Low Interest -> Monitor.
+
+**Model Name:** Directions of Influence
+*   **Structure:** Categorization based on relationship to the Project Manager.
+*   **Categories:**
+    *   **Upwards:** Senior management (High power/influence).
+    *   **Downwards:** Team members/Subordinates.
+    *   **Outwards:** External entities (Regulators, Suppliers).
+    *   **Sidewards:** Peers/Other Project Managers (Resource competition).
+
+**Model Name:** Salience Model
+*   **Structure:** Venn Diagram intersecting three variables.
+*   **Variables:**
+    *   **Power:** Ability to impose will.
+    *   **Urgency:** Need for immediate action.
+    *   **Legitimacy:** Appropriateness of involvement.
+
+## 5. Semantic Associations (Metadata)
+*   **Stakeholders** :: Come and go (Dynamic list).
+*   **Active Participant** :: Team Member (Doers).
+*   **Passive Participant** :: Customer (Watchers/Recipients).
+*   **Sponsor** :: High Power / High Say.
+*   **Stakeholder Register** :: The "Who's Who" Excel sheet (Contact info, role, expectations, influence).

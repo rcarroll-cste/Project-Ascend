@@ -1,0 +1,29 @@
+# Interpersonal and Team Skills - Data Schema
+
+## 1. Entity Definitions (Dictionary)
+* **Interpersonal and Team Skills**: Soft skills used to manage stakeholders and team members effectively; considered a critical tool used throughout all 49 project management processes.
+* **Active Listening**: The act of understanding, acknowledging, and clarifying what others are saying to ensure true comprehension rather than just hearing.
+* **Conflict Management**: The process of identifying, de-escalating, and resolving disagreements between team members by finding the root cause of the conflict.
+* **Facilitation**: The art of managing a group of people to generate ideas, solve problems, and ensure the team interacts effectively.
+* **Meeting Management**: Techniques used to ensure meetings are productive and time-efficient, minimizing waste and maximizing value.
+
+## 2. Process Architecture (ITTOs)
+* *Note: Interpersonal and Team Skills is a Tool & Technique used across multiple processes, not a standalone process.*
+
+## 3. Logic & Constraints (Rules Engine)
+* **Constraint**: Productive Meetings REQUIRE Defined Agenda.
+* **Constraint**: Productive Meetings REQUIRE Invited Stakeholders be limited to those with necessary input or decision-making power.
+* **Constraint**: Productive Meetings REQUIRE Enforced Time Limits.
+* **Sequence Rule**: Meeting Conclusion -> Followed by distribution of Meeting Minutes AND Action Items.
+* **Performance Rule**: Effective Facilitation -> Reduces probability of Team Conflict.
+
+## 4. Analytical Models (Matrices & Formulas)
+* *No specific mathematical models or matrices defined in this source.*
+
+## 5. Semantic Associations (Metadata)
+* Interpersonal Skills :: Soft Skills.
+* Facilitation :: Managing a group (Generating ideas/Solving problems).
+* Active Listening :: Clarifying and Comprehending (not just mind wandering).
+* Conflict Management :: Root Cause Analysis for people issues.
+* Selective Memory :: Justification for written Action Items/Minutes.
+* Meetings without Value :: Waste (Painters not painting / Programmers not coding).

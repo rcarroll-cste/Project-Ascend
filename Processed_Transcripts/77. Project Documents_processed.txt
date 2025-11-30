@@ -1,0 +1,26 @@
+# Project Documents - Data Schema
+
+## 1. Entity Definitions (Dictionary)
+* **Project Documents**: A collection of 33 distinct documents created and updated throughout the project lifecycle. These are not part of the Project Management Plan.
+* **Project Management Plan**: A consolidated plan containing 18 components that defines how the project is executed, monitored, and controlled.
+* **Change Request**: A formal proposal to modify any document, deliverable, or baseline. Required to change the Project Management Plan.
+
+## 2. Process Architecture (ITTOs)
+* *No specific ITTO process is detailed in this transcript. This is an overview of artifacts.*
+
+## 3. Logic & Constraints (Rules Engine)
+* **Constraint:** Project Management Plan Modification -> REQUIRES Change Request.
+* **Constraint:** Project Documents -> ARE NOT components of the Project Management Plan.
+* **Relationship:** Output of one process (Document) -> OFTEN BECOMES Input to another process.
+* **Update Rule:** Project Documents -> Updated consistently throughout the project (do not strictly require formal Change Control unless baselined).
+
+## 4. Analytical Models (Matrices & Formulas)
+* **Model Name:** Project Artifacts Classification
+* **Structure:**
+    *   **Project Management Plan Components:** 18 total items (baselines and subsidiary plans).
+    *   **Project Documents:** 33 total items (dynamic documents updated frequently).
+
+## 5. Semantic Associations (Metadata)
+* **Project Documents vs. Plan** :: Documents are dynamic and updated often; the Plan is static/baselined and requires formal change control.
+* **"Included but not limited to"** :: Phrase indicating that a process can use any relevant project document as an input, even if not explicitly listed in the primary ITTO list.
+* **Activity Duration Estimates** :: Example of a document used as input to determine Cost.

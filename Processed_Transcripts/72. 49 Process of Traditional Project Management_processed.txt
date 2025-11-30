@@ -1,0 +1,30 @@
+# 49 Processes of Traditional Project Management - Data Schema
+
+## 1. Entity Definitions (Dictionary)
+*   **Process Groups: A Practice Guide**: PMI publication (2023) containing the 49 processes formerly found in the PMBOK Guide 6th Edition; focuses on predictive life cycles.
+*   **Good Practice**: A general consensus that the application of knowledge, skills, tools, and techniques to project management processes can enhance the chance of success over many projects; implies processes are recommended, not mandatory.
+*   **ITTO**: Acronym for Inputs, Tools, Techniques, and Outputs; the constituent components of a project management process.
+*   **Tailoring**: The act of selecting the appropriate project management processes, inputs, tools, techniques, outputs, and life cycle phases to manage a specific project.
+
+## 2. Process Architecture (ITTOs)
+*   *This source provides a high-level overview and does not detail specific ITTOs for individual processes.*
+
+## 3. Logic & Constraints (Rules Engine)
+*   **Exam Constraint:** Project Management Professional (PMP) Exam -> REQUIRES strict adherence to all 49 processes (No Tailoring allowed).
+*   **Real World Rule:** Predictive Project Management -> REQUIRES Tailoring (Select only processes necessary for project success).
+*   **Source Authority Rule:** PMBOK Guide 7th Edition (Generic) -> Supplemented by "Process Groups: A Practice Guide" (Specific to Predictive).
+
+## 4. Analytical Models (Matrices & Formulas)
+*   **Model Name:** Process Group Distribution
+*   **Structure:** 49 Processes distributed across 5 Process Groups.
+*   **Confirmed Data Points (from text):**
+    *   **Initiating:** 2 Processes (Develop Project Charter, Identify Stakeholders)
+    *   **Planning:** 24 Processes
+    *   **Closing:** 1 Process
+    *   **Total:** 49 Processes
+
+## 5. Semantic Associations (Metadata)
+*   PMBOK Guide 6th Edition :: Original source of the 49 Process structure.
+*   Memorization :: Discouraged in favor of understanding the purpose of processes.
+*   Validating Scope :: Qualitative Analysis (example of understanding term definitions).
+*   Management Plan :: Creation of a plan to define how an area is managed.

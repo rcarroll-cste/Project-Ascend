@@ -1,0 +1,30 @@
+# Introduction to Traditional Project Management - Data Schema
+
+## 1. Entity Definitions (Dictionary)
+* **Traditional Project Management**: A project management methodology characterized by well-defined scope, clear standards, and minimal expected changes. Also known as Waterfall or Predictive.
+* **Predictive Project Management**: A synonym for Traditional Project Management, emphasizing the ability to predict execution, monitoring, and control based on previous experience and known scope.
+* **Waterfall Methodology**: A linear approach to project management (common in software development history) where phases flow downwards; synonymous with Traditional Project Management.
+* **Scope Creep**: Uncontrolled expansion of product or project scope without adjustments to time, cost, and resources.
+* **Scope (Traditional)**: The work that needs to be accomplished; must be well-defined and clear at the very beginning of the project.
+
+## 2. Process Architecture (ITTOs)
+* *Note: This source serves as a high-level introduction and does not detail specific ITTOs for a single process.*
+
+## 3. Logic & Constraints (Rules Engine)
+* **Constraint**: Traditional Project -> Requires Scope to be known and defined upfront.
+* **Constraint**: Traditional Project -> Requires Standards/Processes to be clear and proven.
+* **Constraint**: Traditional Project -> Changes are NOT expected during execution.
+* **Constraint**: Major Scope Change (Traditional) -> Requires Demolition/Restart (High Impact/Cost).
+* **Sequence Rule**: Define Scope -> Precedes Foundation/Execution.
+* **Planning Rule**: Planning (Traditional) -> Performed Upfront (prior to execution).
+* **Control Rule**: Project Manager -> Retains control (in contrast to Agile where the Team is in control).
+* **Performance Objective**: Traditional Project -> Adhere strictly to Schedule and Budget (Minimize Variance).
+
+## 4. Analytical Models (Matrices & Formulas)
+* *No specific analytical models or formulas were defined in this transcript.*
+
+## 5. Semantic Associations (Metadata)
+* **Predictive Project** :: Gym Exercise (You predict how to do it because you've done it before).
+* **Traditional Project** :: Construction/20 Story Building (Cannot change height after foundation is laid).
+* **Agile Project** :: Software Development (Scope evolves, conceptual start, iterative additions).
+* **Scope Creep** :: Monster (Grows out of control).

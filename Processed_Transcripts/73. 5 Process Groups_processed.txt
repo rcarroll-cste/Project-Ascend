@@ -1,0 +1,37 @@
+# 5 Process Groups - Data Schema
+
+## 1. Entity Definitions (Dictionary)
+* **Initiating Process Group**: Processes performed to define a new project or a new phase of an existing project by obtaining authorization to start the project or phase.
+* **Planning Process Group**: Processes required to establish the scope of the project, refine the objectives, and define the course of action required to attain the objectives that the project was undertaken to achieve.
+* **Executing Process Group**: Processes performed to complete the work defined in the project management plan to satisfy the project requirements.
+* **Monitoring and Controlling Process Group**: Processes required to track, review, and regulate the progress and performance of the project; identify any areas in which changes to the plan are required; and initiate the corresponding changes.
+* **Closing Process Group**: Processes performed to formally complete or close the project, phase, or contract.
+* **Course of Action**: The specific steps or work required to execute the defined scope (e.g., buying paint, taping walls).
+
+## 2. Process Architecture (ITTOs)
+* *No specific Process ITTOs detailed in this overview.*
+
+## 3. Logic & Constraints (Rules Engine)
+* **Initiating Rule**: Initiating -> MUST Authorize Start of Project/Phase AND Assign Project Manager.
+* **Planning Rule**: Planning -> MUST Create Project Management Plan (Detailed Scope, Schedule, Budget).
+* **Execution Rule**: Executing -> MUST Follow Project Management Plan instructions.
+* **Control Rule**: Monitoring & Controlling -> Compares Actuals vs. Plan (Variance) -> Initiates Changes if needed.
+* **Closing Rule**: Closing -> Requires Deliverable Acceptance -> Formally shuts down project/phase.
+* **Flow Constraint**: Planning <-> Executing (Iterative Loop: Plan, do work, replan if needed).
+* **Process Scope**: Monitoring and Controlling -> Overlays and interacts with ALL other Process Groups (Initiating, Planning, Executing, Closing).
+
+## 4. Analytical Models (Matrices & Formulas)
+**Model Name:** Process Group Flow Diagram
+* **Structure:** Linear flow with feedback loop and supervisor layer.
+* **Flow:** Initiate -> Plan -> Execute -> Close.
+* **Feedback:** Execute can return to Plan (Re-planning).
+* **Supervisor:** Monitor & Control interacts with every stage individually.
+
+## 5. Semantic Associations (Metadata)
+* Initiate :: Authorization / Authorize Start
+* Initiate :: Assign Project Manager
+* Plan :: PM Plan / Detailed Scope
+* Execute :: Work / Doing the work
+* Monitor & Control :: Keep stuff on track / Variance Check
+* Closing :: Shut it down / Release Resources
+* Course of Action :: Steps to build scope

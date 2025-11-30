@@ -1,0 +1,253 @@
+-: As you study these 49 processes, you're gonna wanna learn
+
+about something called project documents,
+
+and the project management plan.
+
+Because this video, I wanna explain
+
+to you project documents, and we'll start the discussion
+
+of the project management plan.
+
+It's really important that you understand
+
+what these documents are,
+
+and what are the components of a plan because,
+
+what I'm about to show you might scare the hell out of you.
+
+Let's get started.
+
+So the first thing up I wanna talk
+
+about is this thing called project documents.
+
+Now, across the 49 processes, as you're doing them,
+
+you're gonna be creating a variety of documents,
+
+and updating a variety of documents.
+
+And these documents created in one process
+
+can then help you in another process.
+
+So a document output in this process may then be used
+
+as an input to another process.
+
+For example, like what?
+
+Well, let's say you created a document
+
+to estimate the activity duration.
+
+So you know how long a particular task would take,
+
+like how long would it take to paint that wall?
+
+Well, you could then use that estimated duration
+
+to determine the cost.
+
+So the output of this process, the duration estimates,
+
+can then be used as an input to determine
+
+how much this thing will cost to paint the wall.
+
+Because in order to know how much to paint the wall,
+
+guys you need to know
+
+how long the painter is gonna be there.
+
+So a lot of times, these documents are scattered
+
+across these 49 processes, and there's a lot.
+
+There's 33 of them.
+
+Now, as you can see here,
+
+project documents are any documents that are related
+
+to the project.
+
+Project documents are additional, that are created and used,
+
+like I mentioned.
+
+They are not part of the plan.
+
+This is something I wanna really differentiate.
+
+These 33 documents that you're gonna learn
+
+about are not part of the project management plan.
+
+In fact, they're updated consistently.
+
+One thing I want you guys to know is,
+
+the project management plan,
+
+when it's created, is never changed again.
+
+If it needs to be changed for whatever reason,
+
+it needs a change request.
+
+A change request must be initiated for it to change.
+
+The old (indistinct) guides,
+
+and the practical practice guide
+
+may use the term (indistinct) included, but not limited to.
+
+So a lot of times,
+
+what they did was they would tell you that.
+
+They would say, Hey, this process can use these document,
+
+but not limited to.
+
+So they would say, develop project management plan
+
+can use these documents, but it's not limited
+
+to anything else.
+
+Direct to manage project work, which is a a process
+
+where you're gonna be actually doing the work,
+
+they're gonna say, Hey, this process can use these document,
+
+but not limited to.
+
+So in other words, you can basically use all of them.
+
+Now, one of the things that they did do,
+
+is they differentiated what these are.
+
+And what I'm about to show you is gonna be right out
+
+of the process group of practice guide.
+
+You can also find this in PMI Guide sixth edition.
+
+So in this one, and this comes from page 33 of this guide,
+
+you notice that the project management plan
+
+has 18 components.
+
+Now, we're gonna be creating all of these components,
+
+and you will need to know these components
+
+for your exam, and for real life
+
+as you start creating your own plans.
+
+You're gonna wanna know what these things are,
+
+all of these things, and you're gonna wanna know
+
+what's in them.
+
+How are they used.
+
+Now also, you have the 33 project documents here.
+
+You guys see this?
+
+33 project documents, from number one to 33.
+
+Now we're gonna be creating these things,
+
+and as I go through the 49 processes,
+
+I'm gonna be explaining to you guys all of these documents.
+
+We're gonna be creating them,
+
+and I'm gonna tell you what they are, and what they do.
+
+Now on your exam, you better best bet,
+
+you're probably gonna get a few questions,
+
+maybe not a lot, but a few questions
+
+where you have to identify what document to use,
+
+or what document you shouldn't be using.
+
+You may have to identify the components of them.
+
+Now, in the end of the section, in the end of the course
+
+where we download all their additional documents,
+
+I do have a listing of all of these 33 documents,
+
+and what they are.
+
+A nice brief discussion about them.
+
+So it makes it easy to learn.
+
+So just keep in mind that as you go through,
+
+keep in mind that as you guys go through the actual course,
+
+you're gonna be making them.
+
+I'm not gonna go through all of them now.
+
+So I also have another slide here with all of them here,
+
+where they were created.
+
+You guys see that?
+
+All 33 of them.
+
+So if you're looking over the slides,
+
+you wanna know where these documents are coming from,
+
+they're coming from these sections.
+
+So when I cover, when I say this is a scope process,
+
+this is an integration process, this is a quality process,
+
+it'll tell you where they're coming from.
+
+Okay, so as we go through the course,
+
+and we cover these 49 processes,
+
+expect to be creating a whole bunch of documents.
+
+These documents can then be used in other processes
+
+that we may be doing later,
+
+and of course, they're gonna be used as output,
+
+what's called project document updates.
+
+So, because when you finish a particular process,
+
+you might be updating a whole set of these 33 documents.
+
+

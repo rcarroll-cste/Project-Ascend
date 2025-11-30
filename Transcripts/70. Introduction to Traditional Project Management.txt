@@ -1,0 +1,419 @@
+-: In this video, I'm gonna be giving you an introduction
+
+to traditional project management
+
+and what's coming in this part of the class.
+
+Now, as far as we can go back in time
+
+and we have been building as humans have gotten a brain
+
+and we have learned to build things
+
+whether it's building some kind of chair to sit on
+
+or building a big monument or skyscraper or something.
+
+We have been using traditional project management methods.
+
+In fact, 99% of the time
+
+when people say I do project management
+
+the problem is they really work in like software development
+
+or computer-based stuff.
+
+They're probably following traditional project management.
+
+Now, traditional project management
+
+goes by a variety of names.
+
+You may hear it being called waterfall methods.
+
+In the world of software development,
+
+waterfall was their version
+
+of traditional project management.
+
+Some people call it predictive project management.
+
+Why predictive?
+
+Because the scope is known and you have done things before.
+
+You see, when you have done something before
+
+or you have done things many times
+
+you can basically predict how to do it
+
+and how to do it correctly again.
+
+For example, you went to the gym and you exercise.
+
+If I told you go to the gym tomorrow and exercise
+
+you're probably gonna predict how you're gonna do it
+
+because you've done it before.
+
+So traditional project management
+
+goes by a variety of names.
+
+Predictive, traditional, or waterfall.
+
+Anytime you hear that on any exam question
+
+or any time you go manage a project
+
+that's what they're talking about,
+
+traditional project management.
+
+So in this section, I really wanna go over this.
+
+Now traditional project management has a wide variety
+
+of processes that PMI wants us to know.
+
+These 49 processes
+
+that we're gonna be covering this section,
+
+it does have a variety of different documents
+
+that I need you guys to know
+
+and a variety of different plans
+
+that I also need you guys to know.
+
+So this is gonna be a pretty big section.
+
+Now, traditional project management
+
+is more complex to learn than agile.
+
+Agile is much more easier to learn
+
+and you'll see that when I get to the agile section.
+
+Now, let's take a look at traditional project management.
+
+Okay.
+
+So, traditional project management also called waterfall.
+
+Again, it's also called predictive
+
+is better when the customer needs a well-defined
+
+standards to follow are clear and changes are not expected.
+
+Let's break down all of this.
+
+So on a traditional project,
+
+the first thing that we say
+
+is the customer needs a well-defined,
+
+you see on an agile project,
+
+now the customer needs, this is called the scope
+
+the work that needs to get done.
+
+On an agile project the scope evolves over time.
+
+The customer starts out at a very high level scope.
+
+They say, well, I want an accounting software
+
+but they're not too sure what features they want.
+
+And the team starts to build a very conceptual thing
+
+or a very unusable thing, something that can't be used
+
+but gives the customer enough to see what's there.
+
+And then the customer keeps adding
+
+till they get something usable.
+
+On a traditional project that's not like that.
+
+On a traditional project
+
+the customer needs has to be well-defined
+
+from the very, very start.
+
+For example, building a 20 story building.
+
+If you have to build a 20 story building
+
+you better best bet that you have to define everything
+
+before you break the ground and start drilling the holes
+
+into the concrete to build your building.
+
+You can't build a foundation
+
+and then determine how many stories.
+
+You have to know how many stories, what's in those stories,
+
+how high the ceilings are,
+
+before you dig the foundation, right?
+
+So, in other words
+
+we have to understand that in a traditional project
+
+the scope is known at the very beginning.
+
+The scope has to be well defined
+
+and clear at the very beginning,
+
+standards to follow are clear.
+
+So this is important.
+
+All right?
+
+Standards to follow has to be very clear.
+
+Now, you see one of the names
+
+that's given to traditional project
+
+is called predictive project management.
+
+Predictive project management means that they can predict
+
+how the project will be managed, controlled or executed,
+
+monitor, controlled, and closed.
+
+Because you know what?
+
+They've probably done it a lot of times.
+
+Building a building is something the processes they follow
+
+to build a foundation, build the first floor,
+
+the second floor are things that have been done many times.
+
+The standards to do that is perfectly clear.
+
+It's not something that they're going to define
+
+as time is moving on.
+
+So the standards to build buildings
+
+or standards or the processes we follow
+
+on a traditional projects are well-defined.
+
+We know them because we have done them a lot
+
+and we know they're gonna be successful.
+
+And changes are not expected.
+
+You see, when a project executes
+
+and the team starts to build those deliverables,
+
+is it okay to get changes?
+
+In a lot of circumstances, sure
+
+but in certain traditional projects, no.
+
+You see, let's say you're building a 20 story building.
+
+The team has built 15 stores.
+
+The customer comes and says, we don't want 20 anymore,
+
+we want 30.
+
+You think the team can add 15 more
+
+to that original plan that said 20?
+
+No, because now the weight,
+
+let's say the foundation
+
+and the structure underneath it
+
+was being built to support 20.
+
+Now they're gonna put 10 more on top of that,
+
+the whole thing will collapse.
+
+So they're not expecting any changes.
+
+In fact, they add 10 more stories,
+
+we have to demolish everything,
+
+then restart the work again.
+
+You think about this, only software project,
+
+if the team bills an invoicing system, right?
+
+An invoicing software,
+
+and the customer don't like the way it's laid out,
+
+they don't like the way payments are accepted,
+
+the team can just go in and modify it.
+
+So, on an agile project,
+
+it's okay for changes and changes are welcome
+
+and changes are expected.
+
+But on a traditional, remember,
+
+traditional projects changes are not expected
+
+and changes has to be managed and controlled.
+
+You have to come up with a way to manage changes.
+
+If not you're gonna end up with something
+
+called scope creep, which is in which case
+
+the scope just grows and grows and grows out of control.
+
+And before you know it you have a monster.
+
+Project managers in control, not the team
+
+and on an agile project the team generally stays in control.
+
+Planning, all planning is done upfront.
+
+So, one of the things that really differentiate
+
+agile projects from traditional projects,
+
+traditional projects, all the planning is done upfront.
+
+So we could spend a year or two planning.
+
+And when the project executes,
+
+the objective is to stay on plan,
+
+no variation from the plan.
+
+And if there is, we gotta bring it back to plan.
+
+So, all the planning is done upfront
+
+versus throughout the entire project.
+
+The other thing here is that,
+
+by the way on an agile project,
+
+planning is done throughout the project
+
+as the product is building increments.
+
+Objective is to complete the set scope
+
+in as little time as possible and reduce cost.
+
+So on a traditional project,
+
+your objective is to build that 20 story building
+
+with a set time of two years
+
+and within your $100 million budget.
+
+Our objective is, can we finish this quicker
+
+and can we not spend that a hundred dollars?
+
+If you bring in your project ahead of schedule
+
+and on the budget, great,
+
+but if you go over schedule or you go way over budget,
+
+people are gonna be upset.
+
+Okay.
+
+This is what a traditional project is.
+
+Now, I do wanna stress to you guys
+
+the traditional project management
+
+does have a lot of processes,
+
+it does have a lot of documents, and a lot of plans,
+
+that you're gonna wanna know
+
+whether you're taking a PMP exam,
+
+or you're taking a CAPM exam,
+
+or any of the PMI exam.
+
+Because in this section,
+
+we're gonna be taking a look at all of these processes
+
+that you're gonna need to know for your exam.
+
+Now, you don't need to go memorizing all of them.
+
+You don't need to memorize all their quote unquote ITTOs
+
+that are associated with them,
+
+but you should at least understand them,
+
+understand the tools, the techniques, understand the inputs,
+
+and the outputs, don't memorize any of this stuff.
+
+Go through the videos, make sure you understand them.
+
+That way, if you ever take one of these exams
+
+you're gonna be okay.
+
+And if ever, more importantly,
+
+if you encounter them in real life,
+
+you're also gonna be okay.
+
+

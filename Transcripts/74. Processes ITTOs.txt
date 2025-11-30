@@ -1,0 +1,515 @@
+-: In this video, I'm gonna give you a quick introduction
+
+to processes, ITTO,
+
+so what's called inputs, tools, techniques, and output.
+
+Now, let's start out by saying
+
+that everything we do in life is a process, right?
+
+Brushing your teeth is a process.
+
+A process, why do we do a process?
+
+A process is done to accomplish a specific goal, all right?
+
+That's the thing.
+
+What is the process done for?
+
+We do a process to accomplish a specific goal.
+
+So why do you brush your teeth?
+
+Well, I want nice, clean teeth, right?
+
+I don't wanna have any cavities or anything like that.
+
+Every time you do a process in life,
+
+there are things that we need to start this process,
+
+they're called inputs.
+
+There are things, oops, wrong button,
+
+there are things that we need to help us
+
+through that process, these are called tools and outputs.
+
+I'm sorry, tools and techniques,
+
+and then there is something called an output,
+
+what we get out of it.
+
+In the world of the 49 processes and project management,
+
+we have the 49 processes,
+
+and these 49 processes have what's called ITTOs
+
+or inputs, tools, techniques, and outputs.
+
+And I'm gonna give you a good set of examples of these
+
+and I wanna make sure you really understand it
+
+before we move on.
+
+So like I said, if you're brushing your teeth,
+
+what's the output of the process of brushing your teeth?
+
+Well, clean teeth.
+
+What's the input to brushing your teeth?
+
+Well, you need toothpaste, toothbrush, water,
+
+mouthwash and a little thing to floss with,
+
+five things, five inputs.
+
+Brushing your teeth, you need a particular technique
+
+on how to brush your teeth.
+
+The technique of putting the toothpaste,
+
+the technique of flossing,
+
+the technique of using the mouthwash the right way.
+
+And then what do you get out of it?
+
+Well, clean teeth, you get no cavities.
+
+That's what you want.
+
+Now, I know this is a simple example,
+
+but how does this relate to project management?
+
+Well let's say I want you
+
+to make me a project management plan.
+
+I says, "I want you to manage this project
+
+and I want you to make a plan of how to do it."
+
+And you're like, "Well, I don't know how to do that."
+
+Well, what if I give you a template, right?
+
+What if I say
+
+"Here's a template that the organization always utilizes."
+
+That would be the input.
+
+So a template would be the input.
+
+For your exam, that would be called
+
+organization, process assets, cover that later on.
+
+So the template would be the input.
+
+Now what are you gonna do?
+
+How are you gonna create this plan?
+
+Well, creating this plan,
+
+let's say you're not sure how to do it,
+
+you've never done it before.
+
+So you call up Peter to help you.
+
+Peter is a subject matter expert,
+
+it's called expert judgment.
+
+That would be a particular technique.
+
+Tool, there are two things, tools and techniques.
+
+Technique is a method of doing something.
+
+A tool is something that can help you,
+
+like a piece of software.
+
+So maybe you can use like Microsoft Project or something.
+
+So that'd be like a tool.
+
+A technique would be hiring an expert to come and help you.
+
+And what do you get out of this?
+
+Well, you get the project management plan.
+
+If I want you to make a project charter,
+
+a document used to authorize a project,
+
+what would be an input?
+
+Well, that template, again, can help you.
+
+But you know when you're making
+
+a charter authorize a project,
+
+you know what else you should think about?
+
+Regulations.
+
+Let's say you're making a project
+
+to introduce a new food product.
+
+You have to think about all the regulations
+
+in the food industry, right?
+
+If you're making a new drug,
+
+you gotta think of all the regulations in there too.
+
+So in that situation,
+
+you would need all the company's regulations,
+
+you would need templates.
+
+That's what's called EEF and OPAs,
+
+Enterprise Environmental Factors
+
+and Organization Process Assets.
+
+Don't worry, we'll cover those later.
+
+The tools and techniques here, you could do meetings,
+
+you would meet a lot of people to create a project charter,
+
+to get a project authorized.
+
+And you would also need help of experts,
+
+expert judgment to help you, and the output,
+
+of course, would be the project charter.
+
+You see, the 49 processes that we have
+
+has many, many ITTOs.
+
+So each one of the 49 processes
+
+has a certain number of inputs,
+
+a certain number of tools, techniques,
+
+those always stay together,
+
+tools and techniques are always together.
+
+And they have a specific output.
+
+How much?
+
+Over 700.
+
+Wait a minute, don't cry, don't cry,
+
+don't go running off yet.
+
+A lot of them are the same.
+
+If you understand one of these, you understand many of them.
+
+In fact, there's not many unique ones.
+
+So what we're gonna do is we're gonna cover
+
+all of the common ITTO's in one section.
+
+And that's gonna eliminate maybe five, 600 of them,
+
+just like that. (snaps finger)
+
+And you'll see that.
+
+Now what I do wanna do is I wanna give you guys
+
+some concrete examples of ITTO's,
+
+and for this, I gotta go back to my process chart
+
+that you guys saw earlier.
+
+So look at this chart that I have here,
+
+all right, look at this chart.
+
+So each one of these has particular ITTO's,
+
+each one of them, like develop project charter.
+
+Develop project charter has an input of those templates
+
+we call organization process assets.
+
+It has a particular tool of expert judgment,
+
+and the output would be what?
+
+If the process is called develop project charter,
+
+what's the output, guys?
+
+Project charter, correct.
+
+So like this one here, define scope.
+
+The input here is a plan of how to define the scope,
+
+the project management plan.
+
+It can also include a template too.
+
+EEF, OPAs, or organization process assets, and so on.
+
+The tools here can be like expert judgment,
+
+because you're not sure how to make a scope,
+
+and the output is of course,
+
+if the process is defined scope, then the output is what?
+
+The scope, right?
+
+So it'd be the scope statement.
+
+And it's the same thing.
+
+All these processes has ITTOs associated with them.
+
+A lot of them have these ITTOs.
+
+Now, one thing I do want to emphasize a lot,
+
+and I'm gonna show you this in the Agile,
+
+in the process group of practice we had,
+
+where we're getting all this data from
+
+is that these processes have the,
+
+they all have pretty much the same.
+
+A lot of them have the exact same ITTO.
+
+So you don't need to memorize like 700 of them,
+
+and I wanna show you this in depth.
+
+Let's take a look.
+
+So I'm back here,
+
+this is the process group or practice guide.
+
+This is their PMI book,
+
+and I wanna show you guys how this book is written.
+
+So you'll notice that it has a first,
+
+it has a couple of chapters right at the beginning,
+
+but then it starts to cover the processes in depth.
+
+And this is the role of the project manager.
+
+I know, I know, I'm scrolling.
+
+Don't worry, we covered all of this.
+
+So look at this, initiating process group.
+
+They tell you the process.
+
+There's two processes,
+
+develop project charter, identify stakeholders.
+
+Now look at how they do it.
+
+They tell you develop project charter,
+
+they tell you what the process is,
+
+and then they give you the inputs, notice the inputs here.
+
+You got what?
+
+Enterprise environmental factors,
+
+organization process assets,
+
+we have expert judgments, we have meetings,
+
+we have interpersonal skills,
+
+and then your output is, of course, a project charter.
+
+There's something called an assumption log.
+
+They do this,
+
+they don't really explain any of these though, okay?
+
+And then they move on to the next process
+
+of identify stakeholders.
+
+And you know this identify stakeholders
+
+also has, look, business documents,
+
+project management plan notes, look,
+
+it has enterprise environmental factors,
+
+organizational process assets,
+
+note this expert judgment is here, meetings are here.
+
+Yeah, output is gonna be a stakeholder register.
+
+So that one is pretty unique.
+
+And then it just moves on to the next section.
+
+Planning, now we know we got a lot of planning process,
+
+24 of them, I told you.
+
+So this part of the book,
+
+they're gonna cover all of these 24 processes.
+
+And one thing, again, I want to point out
+
+is notice the inputs, enterprise environmental factors,
+
+organization process assets,
+
+they have expert judgment, they have meetings,
+
+they have interpersonal skills, data gathering.
+
+Project management plan is the output.
+
+They move on to the next process.
+
+Project management plan, enterprise environmental factors,
+
+or expert judgment, meetings.
+
+Scope management plan is the output here.
+
+And they go on to the next process.
+
+Project management plan, project document,
+
+notes enterprise organization,
+
+process assets, expert judgment.
+
+A lot of things are listed here, interpersonal skills.
+
+And then they give you some outputs.
+
+So what am I showing you, why am I showing you this?
+
+You're probably saying "Why is he showing us that?"
+
+Because what I wanna show you guys is notice the repetition.
+
+Look at the input here, project management plan,
+
+project documents, notice enterprise environmental factor,
+
+organization, expert judgment, interpersonal skills.
+
+You see the point,
+
+what I really am trying to get to in this section is
+
+these 49 processes has pretty much the exact,
+
+a lot of them have the exact same ITTOs.
+
+They have the exact same inputs, tools,
+
+techniques, and outputs.
+
+Now they, a lot of them also contain some very unique ones.
+
+So in this course, what we're gonna do next
+
+is I'm gonna define all the common, common ITTO's.
+
+And the book is written like that.
+
+In the process group of practice guide,
+
+this book we're looking at, in this book,
+
+if you go through it, you're gonna learn about the processes
+
+and then at the end they're gonna tell you
+
+all the common ITTO's and what they mean.
+
+But I'm not gonna do that.
+
+I didn't find that effective
+
+'cause you really don't know what the hell you're reading.
+
+I'm gonna cover all the common ITTO's in the beginning.
+
+We're gonna go through the processes,
+
+gonna get through the processes.
+
+I'm gonna cover the unique,
+
+the ITTO's that are unique to that process when I get there.
+
+So follow along with me.
+
+You're gonna learn all the stuff
+
+that's in this guide for your exam,
+
+and of course in real life.
+
+And maybe you can start applying this stuff in real life.
+
+You know, just don't study this to pass a test,
+
+but study it to become a better project manager.

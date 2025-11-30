@@ -1,0 +1,19 @@
+# Meetings - Data Schema
+
+## 1. Entity Definitions (Dictionary)
+* **Meetings**: A communication and coordination tool involving stakeholders (customers, vendors, sponsors, management, team) to discuss project issues or status; can be conducted face-to-face or virtually.
+* **Agenda**: A preparatory document distributed to all attendees before a meeting starts, outlining topics to be covered to ensure participants understand required preparation.
+* **Meeting Minutes**: A detailed record of meeting discussions, decisions, and next steps, distributed to all attendees after the meeting to ensure alignment.
+* **Facilitation**: The act of managing a meeting to ensure it stays on topic and follows the agenda.
+
+## 3. Logic & Constraints (Rules Engine)
+* `Constraint: Meeting Format (Virtual vs. Face-to-Face) -> Determined by Enterprise Environmental Factors (EEF) (e.g., organizational culture).`
+* `Sequence Rule: Distribute Agenda -> Precedes Meeting Start.`
+* `Constraint: Meeting Execution -> Requires defined Start and Finish times for specific topics, not just total duration.`
+* `Constraint: Attendee Selection -> Requires Stakeholder Input Necessity (Exclude individuals who do not contribute to the specific objective).`
+* `Sequence Rule: Meeting Completion -> Requires Distribution of Meeting Minutes.`
+
+## 5. Semantic Associations (Metadata)
+* EEF :: Organization Culture (dictates meeting style).
+* Facilitation :: Keeping team on topic.
+* Painter Analogy :: Only invite stakeholders who have relevant input (don't invite a painter to pick wall colors if they only need to know the decision).

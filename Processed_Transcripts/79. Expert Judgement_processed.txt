@@ -1,0 +1,21 @@
+# Expert Judgment - Data Schema
+
+## 1. Entity Definitions (Dictionary)
+* **Expert Judgment**: Judgment provided based upon expertise in an application area, knowledge area, discipline, industry, etc., as appropriate for the activity being performed.
+* **Subject Matter Expert (SME)**: An individual with specialized knowledge or training in a particular industry, process, or technology.
+
+## 2. Process Architecture (ITTOs)
+* *Note: Expert Judgment is a Tool & Technique used in many of the 49 processes, particularly in Planning, Executing, Monitoring & Controlling, and Closing.*
+
+## 3. Logic & Constraints (Rules Engine)
+* **Rule:** Uncertainty in Planning/Execution -> REQUIRES Expert Judgment (SME consultation).
+* **Rule:** Estimation Variance -> REDUCED BY Expert Judgment (Consulting specialists yields more accurate estimates than generalists).
+
+## 4. Analytical Models (Matrices & Formulas)
+* *No specific formulas or matrices defined in this transcript.*
+
+## 5. Semantic Associations (Metadata)
+* Expert Judgment :: Subject Matter Experts (SME)
+* Expert Judgment :: Asking for help
+* Expert Judgment :: Consultants / Team Members with specific skills
+* Analogy :: Asking a professional painter to estimate painting time for a 1,000 sq ft room vs. guessing yourself.

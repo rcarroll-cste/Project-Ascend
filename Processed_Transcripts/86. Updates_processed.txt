@@ -1,0 +1,18 @@
+# Updates - Data Schema
+
+## 1. Entity Definitions (Dictionary)
+* **Updates**: A generalized term referring to modifications made to project artifacts, specifically the Project Management Plan, Project Documents, Organization Process Assets (OPAs), and Enterprise Environmental Factors (EEFs), resulting from process execution.
+
+## 2. Process Architecture (ITTOs)
+* *This source describes a general output type rather than a specific process.*
+
+## 3. Logic & Constraints (Rules Engine)
+* **Process Execution Rule**: Completion of process activities -> Triggers updates to associated artifacts (Plan, Documents, OPAs, EEFs).
+* **Work Completion Rule**: Physical work completion (e.g., painting a room) -> Requires marking status in the Project Plan.
+
+## 4. Analytical Models (Matrices & Formulas)
+* *No analytical models defined in this source.*
+
+## 5. Semantic Associations (Metadata)
+* Updates :: Catch-all term (includes Plan, Docs, OPAs, EEFs).
+* Updates :: Common Output (found in many of the 49 processes).

@@ -1,0 +1,41 @@
+# Project Management Plan - Data Schema
+
+## 1. Entity Definitions (Dictionary)
+* **Project Management Plan**: The document that describes how the project will be executed, monitored, and controlled. It consolidates all subsidiary management plans and baselines, and other information necessary to manage the project.
+* **Subsidiary Management Plan**: A component of the project management plan that describes how a specific knowledge area or aspect of the project (e.g., cost, schedule, scope) will be planned, executed, and controlled.
+* **Baseline**: The approved version of a work product that can only be changed through formal change control procedures and is used as a basis for comparison to actual results.
+
+## 2. Process Architecture (ITTOs)
+* *The transcript describes the Project Management Plan itself rather than the specific "Develop Project Management Plan" process ITTOs in detail, focusing on the composition of the plan.*
+
+## 3. Logic & Constraints (Rules Engine)
+* **Constraint:** Execution, Monitoring, Control, and Closing actions -> REQUIRE Project Management Plan definitions.
+* **Composition Rule:** Project Management Plan CONTAINS 18 Components (14 Subsidiary Plans + 4 Baselines).
+* **Usage Rule:** Project Management Plan -> INPUT to almost all 49 processes (defines "how" to do the process).
+* **Flexibility Rule:** Project Management Plan Components -> "Included but not limited to" (allows for additional documents/plans as needed).
+
+## 4. Analytical Models (Matrices & Formulas)
+* **Model Name:** Project Management Plan Structure
+* **Structure:** Composite document containing:
+    * **Scope Management Plan**
+    * **Requirements Management Plan**
+    * **Schedule Management Plan**
+    * **Cost Management Plan**
+    * **Quality Management Plan**
+    * **Resource Management Plan**
+    * **Communications Management Plan**
+    * **Risk Management Plan**
+    * **Procurement Management Plan**
+    * **Stakeholder Engagement Plan**
+    * **Change Management Plan**
+    * **Configuration Management Plan**
+    * **Scope Baseline**
+    * **Schedule Baseline**
+    * **Cost Baseline**
+    * **Performance Measurement Baseline**
+    * *(Note: Transcript mentions 18 components, 14 plans + 4 baselines, and lists several examples).*
+
+## 5. Semantic Associations (Metadata)
+* **Project Management Plan** :: "The How" (How to execute, monitor, control, close).
+* **"Included but not limited to"** :: Catchall term indicating the list is not exhaustive.
+* **Project Management Plan** :: The big document storing the execution strategy.

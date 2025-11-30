@@ -1,0 +1,533 @@
+-: In this video, I'm gonna be giving you a full introduction
+
+to the 49 processes that we're gonna be utilizing
+
+to manage predictive projects.
+
+Now, this video is gonna scare the hell out of you.
+
+Do not quit at this point.
+
+You need to understand these processes.
+
+Don't think of that.
+
+You have to memorize all of them and know the in-depths
+
+of the ITTO's of all of them,
+
+because you don't need to know that for any exam,
+
+whether you're taking a PMP
+
+or a CAPM or even in real life.
+
+But in real life and on exams
+
+you do need to be able to identify them
+
+in terms of understanding what they are.
+
+So somebody says, well, you know
+
+let's do a qualitative analysis of that.
+
+You need to understand what that means.
+
+Someone says, well we need to create a management plan
+
+for this.
+
+You need to understand what that means.
+
+So I want you to understand things.
+
+Don't memorize it.
+
+It's not gonna help you on any exam
+
+or in real life understanding is better than memorization.
+
+Now, before I get into this and show you these 49 processes,
+
+I wanna talk a little bit
+
+about a history of where it came from.
+
+In the PMBOK Guide Sixth Edition,
+
+it outlined its 49 processes
+
+that predictive projects generally follow.
+
+These 49 processes are still utilized today.
+
+Now, I know there's a PMBOK Guide Seventh Edition
+
+we covered that already.
+
+The PMBOK Guide seventh Edition is a very generic book.
+
+It never gave you processes to manage a project
+
+and particularly Hybrid, Agile, or Predictive projects.
+
+What PMI did was they kept the PMBOK Guide Seventh Edition
+
+very generic.
+
+The particular methods
+
+and processes to manage a predictive project
+
+or Agile Projects are put into books.
+
+PMI calls practice guides.
+
+For example, there is an Agile practice guide,
+
+which in the Agile section, we'll use that book.
+
+You see, the PMBOK Guide Sixth Edition
+
+used to have these 49 processes.
+
+Now, when the PMBOK Guide Sixth Edition basically died,
+
+it was replaced with a brand new book
+
+that contains these 49 processes
+
+that was in the PMBOK Guide six edition.
+
+This book is called Process Group: A Practice Guide.
+
+And here is the book.
+
+So I have the book opened, as you guys can see.
+
+Now, this book here, you can download this book for free
+
+if you're a PMI member.
+
+Or you could buy this book on Amazon.
+
+In this section of the course
+
+where I go through the 49 processes.
+
+And all the processes are predictive project management.
+
+This is the book that we get them from.
+
+So if you wanna some kind of book to follow along
+
+you can use this.
+
+I do recommend my textbook, my study guide over this
+
+because I cover it in easier format.
+
+And again, you could purchase this from Amazon.
+
+You don't need to because I cover it
+
+in this course really well.
+
+I think my study guide does a better job
+
+of covering this book.
+
+But there's a couple points I wanna point out.
+
+I don't wanna show you the 49 processes here.
+
+So this is the cover.
+
+This is what it looks like.
+
+You notice this book's published in 2023.
+
+It's updated.
+
+And I do wanna stress and emphasize this fact
+
+that what you're seeing here
+
+comes from the PMBOK Guide Sixth Edition.
+
+So some people say, is the PMBOK Guide Sixth Edition dead?
+
+No, it's not.
+
+All the data, all of the stuff
+
+in this book comes from the PMBOK Guide Sixth Edition.
+
+So if you have ever studied,
+
+read the PMBOK Guide Sixth Edition.
+
+This will not be new.
+
+If you've ever taken a course before that covered that book,
+
+cover these processes, nothing new here.
+
+But for those of us that haven't, this is all new.
+
+So let's go back into this.
+
+You notice the 2023 copyright data on this.
+
+There's a couple things I wanna point out
+
+before we get started in this study guide.
+
+All right, there's a couple things
+
+that I really wanna point out before we get started.
+
+And I'm just gonna scroll past all of the table of contents.
+
+And I'm gonna go all the way down to page one of this book
+
+because there's something I wanna show you guys in here.
+
+So there's a couple things here
+
+that it says that I need you guys to know, all right?
+
+And I'm gonna go right here.
+
+And it says, Process Group: A Practice Guide
+
+provides an overview
+
+of the projects and development life cycles
+
+in this introduction with a focus, now,
+
+keep this in mind with a focus
+
+on predictive life cycles throughout,
+
+and describes the 49 processes
+
+within the five Process Groups with their ITTOs.
+
+ITTO stands for inputs, tools, techniques,
+
+and outputs, ITTOs.
+
+So once again, let's read that again
+
+with a focus on predictive life cycles throughout,
+
+and describe the 49 processes
+
+within the five Process Groups.
+
+Now I wanna emphasize this, here's why.
+
+These 49 processes that we're gonna cover in this section,
+
+in theory, a lot of them could be applied
+
+to other projects such as say, Agile projects.
+
+But we're gonna cover them
+
+in the context of predictive project management.
+
+But I want you as your project management knowledge evolves
+
+and you become a better project managers
+
+you're gonna start to see it.
+
+You know what, Hey, this process,
+
+I know Andrew taught it to me in a predictive way,
+
+but I could use this in Agile.
+
+And you're right, you could use it in Agile.
+
+But in order to keep things simple and to follow along
+
+with the PMI books that is recommended for your exams
+
+we're gonna follow it
+
+through use utilizing a predictive method.
+
+Now the other thing here I wanna mention is notice
+
+this practice guide identifies the processes
+
+that are considered keyword, considered good practices
+
+on most projects most of the time.
+
+So these processes that we have are considered,
+
+they're not mandatory, they're considered good practice
+
+on most project most of the time.
+
+So let's break that down.
+
+So the 49 processes that we're gonna be studying
+
+is considered good practice.
+
+In other words, not mandatory.
+
+People say, Andrew, I'm doing this project.
+
+Do I have to follow this process?
+
+No, the practice I'm giving you is good.
+
+You should be doing them.
+
+You don't have to do them
+
+but they're good to do most of the time, not all the time.
+
+So what that means is I would want you
+
+to do all 49 processes on your project
+
+but if this one doesn't apply to your project, don't do it.
+
+You don't have to even do any of them.
+
+You can do whatever you like.
+
+The best processes for any project is the one
+
+that produces deliverables that satisfy your customers.
+
+And if you find none, if you don't follow any of this
+
+and you can do that, then stick with what you're doing.
+
+But if you are taking an exam, a PMI exam in particular
+
+you better follow these processes.
+
+For your exam, you will follow these processes,
+
+you will know these processes
+
+and you will always follow them.
+
+That is the difference between real life and taking a test.
+
+Now, don't discount these processes.
+
+I want you to know them and know them not
+
+just to pass an exam, but know them
+
+how to apply them in real life.
+
+I'm gonna give you guys a lot of real life examples
+
+as I go through this.
+
+Now go moving on.
+
+Next thing here we wanna see is where it says,
+
+"there is no requirement
+
+"that any particular process or practice be performed."
+
+All right, there's no requirement
+
+that you have to do anything here.
+
+It even says previous, project management should be tailored
+
+to fit the needs of the project.
+
+Like I told you, if you find your own way
+
+and you got your own ways of doing things
+
+and it's keeping your customers happy
+
+then probably stay with it.
+
+The ways I'm showing you are considered good practices.
+
+They're not the only, or they're not considered mandatory.
+
+It even says the processes should be tailored
+
+to the specific project.
+
+Specific methodology recommendations are outside the scope.
+
+They don't recommend any methodology.
+
+All they're saying is, this is what we offer
+
+and you should follow them 'cause they're good practices.
+
+So to recap, the processes that I'm gonna show you
+
+in a second are good practices.
+
+You should follow them on most projects most of the time.
+
+But they should be tailored to match your project
+
+in real life.
+
+But from an exam perspective,
+
+you don't tailor them, from an exam perspective
+
+I want you to know them the way I teach them to you.
+
+Though I want you to know them the way you see them
+
+in the study guide.
+
+I want you to know them the way you see them
+
+in the Agile Practice Guide, I'm sorry
+
+the Process Group: A Practice Guide.
+
+That's how I want you to know 'em for an exam.
+
+But if you're study, if you're doing it this in real life,
+
+and you remember what I taught you in this course,
+
+I would recommend you follow them.
+
+But you don't have to.
+
+Let's take a look at the processes now.
+
+And the processes are gonna be on page 22, 22, 22.
+
+Where is page 22 of the study guide?
+
+Here it is.
+
+Page 22.
+
+Here it is.
+
+Yeah, 22.
+
+Here's all the processes that I need you guys to know.
+
+Now, I put this in a slide presentation, all of this.
+
+Now, I do want you to notice, initiating,
+
+planning, executing, monitor, controlling,
+
+and closing and their processes within them.
+
+You can see them listed here.
+
+Now, I put this in a slide to make it a lot easier
+
+for you guys to understand it.
+
+To see it on the screen, basically.
+
+So let me open up that slide
+
+because I made it a lot easier to show
+
+on this screen, anyhow.
+
+So this is what you just saw.
+
+This is what page 22 is.
+
+You guys can download this resource
+
+you should have this slide deck
+
+and you guys can see what I'm talking about.
+
+So here are the 49 processes that you guys are gonna need
+
+to know as we go through this.
+
+And you notice that you have a wide variety of them.
+
+So you have in initiating, here is my beautiful pen,
+
+in initiating, you have two processes here.
+
+Develop Project Charter, Identify Stakeholders.
+
+In closing, you only have one.
+
+In monitor and controlling, you have quite a lot.
+
+I forgot to count on this.
+
+I think it's two, 24, 10, 11, and one.
+
+There's something like that.
+
+But you can add, if you count the processes
+
+I know 24 of these planning processes.
+
+All of these here.
+
+So what we're gonna be doing is
+
+we're gonna be studying these processes
+
+in depth as this section progresses.
+
+All right, so you can imagine we're gonna have 49 videos
+
+is gonna cover all these processes.
+
+But before we get into these processes,
+
+I wanna give you an explanations
+
+of these five Process Groups.
+
+And I wanna give you guys an understanding of common ITTOs.
+
+All right, and what exactly is that?
+
+We'll talk about that in a few minutes.
+
+But for now, all I need you guys to know is to understand
+
+where these processes are coming from,
+
+that they're considered good practices.
+
+You should be following them on your projects
+
+although you don't have to.
+
+And know that on your exam there's no tailoring.
+
+Follow them, know their IT, understand their ITTOs,
+
+and just know what they are because you know want,
+
+these processes are gonna help you manage your project
+
+and be a successful Project Manager.

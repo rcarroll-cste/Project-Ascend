@@ -1,0 +1,24 @@
+# PMIS (Project Management Information System) - Data Schema
+
+## 1. Entity Definitions (Dictionary)
+* **Project Management Information System (PMIS)**: The system (software and hardware) used to gather, integrate, and disseminate the outputs of project management processes. It allows the project manager to optimize schedules, and keep track of documents and deliverables from start to finish.
+* **Work Authorization System**: A subsystem of the PMIS. It defines the procedures used to authorize work to begin and to mark work as completed, ensuring work is done in the correct sequence.
+* **Configuration Management System**: A subsystem of the PMIS. It defines the procedures used to manage the configuration of different deliverables or components (e.g., version control, specific feature settings) within the project.
+
+## 2. Process Architecture (ITTOs)
+* *Note: PMIS is a common Tool & Technique across many processes, but is not a process itself.*
+
+## 3. Logic & Constraints (Rules Engine)
+* **Composition Rule**: PMIS INCLUDES Work Authorization System.
+* **Composition Rule**: PMIS INCLUDES Configuration Management System.
+* **Constraint**: PMIS implementation -> Dependent on Enterprise Environmental Factors (Unique to every organization).
+* **Function**: PMIS -> Used to authorize work tasks (via Work Authorization System).
+
+## 4. Analytical Models (Matrices & Formulas)
+* *None specified in source.*
+
+## 5. Semantic Associations (Metadata)
+* PMIS :: Information system used to manage the project (Reverse the acronym).
+* PMIS Examples :: Microsoft Project, Word, Outlook, Webex, Primavera.
+* Work Authorization System :: The "Green Light" procedure to start or finish a task.
+* Configuration Management :: Managing versions or specific settings for deliverables (e.g., phone configurations).

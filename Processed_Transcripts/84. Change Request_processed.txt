@@ -1,0 +1,26 @@
+# Change Request - Data Schema
+
+## 1. Entity Definitions (Dictionary)
+* **Change Request**: A formal proposal to modify a document, deliverable, or baseline (Project Management Plan).
+* **Corrective Action**: An intentional activity taken to realign the performance of the project work with the project management plan (fixing an issue that has already occurred to get back on track).
+* **Preventive Action**: An intentional activity implemented to ensure the future performance of the project work stays aligned with the project management plan (avoiding future deviations).
+* **Defect Repair**: An intentional activity to modify a nonconforming product or product component (fixing a broken deliverable).
+
+## 2. Process Architecture (ITTOs)
+* *Note: Change Requests are a common Output of Executing and Monitoring & Controlling processes, and a common Input to the Perform Integrated Change Control process.*
+
+## 3. Logic & Constraints (Rules Engine)
+* **Constraint:** Modify Project Management Plan -> REQUIRES Approved Change Request.
+* **Constraint:** Modify Project Baselines -> REQUIRES Approved Change Request.
+* **Sequence Rule:** Change Request Issued -> Assessment -> Approval/Rejection -> Implementation (if approved).
+* **Rule:** Change Request Submission DOES NOT EQUAL Change Request Approval.
+* **Rule:** Post-Approval modifications to Scope, Time, or Cost -> REQUIRES Change Request.
+
+## 4. Analytical Models (Matrices & Formulas)
+* *None defined in this source.*
+
+## 5. Semantic Associations (Metadata)
+* **Corrective Action** :: Reactive / Getting back on track (e.g., currently off budget/schedule).
+* **Preventive Action** :: Proactive / Staying on track (e.g., anticipating future variance).
+* **Defect Repair** :: Fixing broken components (e.g., IT failures).
+* **Change Request** :: The only key to unlock/edit a finalized Project Management Plan.

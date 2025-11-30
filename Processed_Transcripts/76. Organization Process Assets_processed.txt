@@ -1,0 +1,25 @@
+# Organization Process Assets (OPA) - Data Schema
+
+## 1. Entity Definitions (Dictionary)
+*   **Organization Process Assets (OPA)**: Assets possessed by the performing organization used to influence the project, including plans, policies, procedures, and knowledge bases.
+*   **Templates**: Standardized documents provided by the organization (e.g., charter templates, risk registers) to assist in creating project deliverables.
+*   **Corporate Knowledge Base**: A centralized repository (e.g., SharePoint) for storing organizational knowledge, historical information, and lessons learned.
+*   **Historical Information**: Data and documents from previous projects used as a reference for current project planning and execution.
+
+## 2. Process Architecture (ITTOs)
+*   *Note: OPA is a cross-cutting Input used in 47 of the 49 processes. It is not a standalone process.*
+
+## 3. Logic & Constraints (Rules Engine)
+*   **Lifecycle Rule:** Project Execution -> OPAs are used as Inputs (Templates, Guidelines).
+*   **Lifecycle Rule:** Project Closure -> OPAs are Updated (New Templates, Lessons Learned added to repository).
+*   **Constraint:** Project Team -> Must update OPAs with new knowledge generated during the project.
+
+## 4. Analytical Models (Matrices & Formulas)
+*   *No specific models defined in this source.*
+
+## 5. Semantic Associations (Metadata)
+*   OPAs :: Templates
+*   OPAs :: Previous Lessons Learned
+*   OPAs :: "Things the PMO gives you"
+*   OPAs :: Software Tools (provided by company)
+*   OPAs :: Policies and Procedures

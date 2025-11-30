@@ -1,0 +1,43 @@
+# Introduction to the Process Groups - Data Schema
+
+## 1. Entity Definitions (Dictionary)
+*   **Predictive Project Management**: A project management approach where the scope is generally known and not expected to change significantly once execution begins; often managed using the 49 processes.
+*   **Process Groups: A Practice Guide**: A PMI publication that outlines the 49 processes used in predictive project management; formerly associated with the PMBOK Guide Sixth Edition.
+*   **Initiating Process Group**: The process group consisting of processes performed to define a new project or a new phase of an existing project by obtaining authorization to start the project or phase.
+*   **Planning Process Group**: The process group consisting of processes performed to establish the total scope of the effort, define and refine the objectives, and develop the course of action required to attain those objectives.
+*   **Executing Process Group**: The process group consisting of processes performed to complete the work defined in the project management plan to satisfy the project requirements.
+*   **Monitoring and Controlling Process Group**: The process group consisting of processes required to track, review, and regulate the progress and performance of the project; identify any areas in which changes to the plan are required; and initiate the corresponding changes.
+*   **Closing Process Group**: The process group consisting of processes performed to formally complete or close the project, phase, or contract.
+*   **Phase**: A collection of logically related project activities that culminates in the completion of one or more deliverables (e.g., Design, Code, Test, Install).
+
+## 3. Logic & Constraints (Rules Engine)
+*   **Application Rule**: Predictive Projects -> Use 49 Processes (Best Practice/Good Practice on most projects, most of the time).
+*   **Scope Constraint**: Predictive Project Scope -> Generally known and fixed before execution.
+*   **Adaptive Contrast**: Adaptive/Agile Projects -> Scope evolves; used when scope is not known.
+*   **Phase Logic**: 49 Processes -> Apply to EVERY phase of a project (not just the project as a whole).
+*   **Initiating Trigger**: Initiate Project -> REQUIRES Authorization (Project Charter).
+*   **Planning Sequence**: Planning -> Precedes Execution (Plan the work, then work the plan).
+*   **Execution Function**: Executing -> REQUIRES Doing the work (Building deliverables).
+*   **Control Function**: Monitoring & Controlling -> REQUIRES Tracking against the Plan (Schedule, Budget, Scope).
+*   **Closing Function**: Closing -> REQUIRES Formal completion, team release, archiving records, transfer of deliverables.
+*   **Process Repetition Rule**: Processes (e.g., Identify Stakeholders, Identify Risks) -> Are performed continuously throughout the project life cycle, not just once.
+
+## 4. Analytical Models (Matrices & Formulas)
+*   **Model Name**: Process Group Process Count
+*   **Structure**: Distribution of the 49 processes across the 5 Process Groups.
+    *   **Initiating**: 2 Processes
+    *   **Planning**: 24 Processes
+    *   **Executing**: 10 Processes
+    *   **Monitoring and Controlling**: 12 Processes
+    *   **Closing**: 1 Process
+
+## 5. Semantic Associations (Metadata)
+*   **Initiating** :: Getting Authorized.
+*   **Project Charter** :: Authorization Document.
+*   **Planning** :: Creating the Project Management Plan ("How to" document).
+*   **Executing** :: Doing the work / Building the product.
+*   **Monitoring & Controlling** :: Watching and Correcting (Are we on plan?).
+*   **Closing** :: Formal sign-off and archiving.
+*   **Predictive** :: Large construction (skyscraper) where scope doesn't change.
+*   **Adaptive** :: Agile/Software where scope evolves.
+*   **Phase Usage** :: Processes repeat for Design, Code, Test, Release.

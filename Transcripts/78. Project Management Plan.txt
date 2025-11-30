@@ -1,0 +1,197 @@
+-: In this video,
+
+I'm gonna be going through the project management plan.
+
+Now, before you execute any project,
+
+before you go out and you start digging up the dirt
+
+on the ground to build that building, painting the wall,
+
+typing the codes to program your application,
+
+whatever it is you're doing, you gotta have a plan.
+
+You gotta know how you plan to do it.
+
+You gotta know what the hell you wanna do
+
+in the first place.
+
+You gotta know what you wanna do,
+
+how much you're gonna spend,
+
+how long on all the methods of getting the work done.
+
+This is all gonna be stored in a pretty big document
+
+called a project management plan.
+
+Now, what exactly is this project management plan?
+
+Well, this project management plan is a document
+
+that defines how the project is executed.
+
+So first thing up I wanna talk about is this word "how."
+
+So when you say how to do something,
+
+you're basically gonna be giving someone the steps
+
+on how to execute that task.
+
+So the document is how.
+
+It's a pretty big document
+
+because it's just not saying
+
+what you're doing, how much, and how long.
+
+It's also giving the steps on how to manage quality,
+
+how to manage people, how to manage your vendors,
+
+how to manage risk, and many other things.
+
+So it defines how the project is executed.
+
+That means getting the work done,
+
+how you're gonna monitor it, control it,
+
+and how you're gonna close it.
+
+It has 18 components, 14 plans, and four baselines.
+
+We'll take a look
+
+at what those 18 components are in a minute.
+
+As we go through the 49 processes,
+
+and you go through your...
+
+If you're reading, you have the study guides,
+
+PMI study guides in particular,
+
+you're gonna see them use the word
+
+"included but not limited to."
+
+A lot of times they say input to a process
+
+and then they'll say project management plan.
+
+And then they'll say,
+
+"Well, you can use this plan and this plan and this plan,
+
+but included but not limited to."
+
+What that means is a catchall term.
+
+What that means is, hey, you can use all these things
+
+but you can also use all these other things.
+
+So they're not limited to just that.
+
+Now, the PM plan itself, I do wanna show you guys this.
+
+It does have quite a lot.
+
+Oops, this thing is way off center. Here we go.
+
+It does have quite a lot of components
+
+and I want you guys to see the components
+
+in this darker blue section right here.
+
+You see all of these right here?
+
+All of these here are the 18 components,
+
+starting with the scope management plan,
+
+the requirements management plan,
+
+to schedule management plan.
+
+All of these things here
+
+are the project management plan components.
+
+Now, some of them are not difficult to understand
+
+and some of them contains pretty difficult stuff.
+
+These are the processes.
+
+You see these processes?
+
+As I get to these processes, as I'm doing these processes,
+
+when we start covering the 49 processes,
+
+I'm gonna be explaining to you
+
+what all these components are.
+
+Now, you're probably saying to yourself,
+
+"Wow, that's a lot of stuff in a project management plan.
+
+Does all projects have that?"
+
+A lot of projects may not have
+
+all of these 18 components, all right?
+
+Very rarely that they would have all 18 components.
+
+Written, in particular.
+
+A lot of us have it.
+
+We just have it in our heads.
+
+And I'm gonna explain more of that as this course progresses
+
+and I go through the 49 processes with you.
+
+But for now, I want you to know that, hey,
+
+this project management plan is gonna be an input
+
+into almost every single one of those 49 processes.
+
+Basically, it's this big document
+
+that tells you how you're gonna execute,
+
+how you're gonna monitor, how you're gonna control.
+
+Even tells you basically how to plan too.
+
+So it's a document.
+
+Think about this.
+
+If this plan tells you how to do something,
+
+it would be an input to that process.
+
+So that's what I need you guys to know.
+
+Now, as I go through the actual course,
+
+as I start to cover the processes,
+
+we're gonna be learning in depth
+
+about each of those 18 components.

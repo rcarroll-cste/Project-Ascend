@@ -1,0 +1,233 @@
+-: In this video, we're gonna be talking
+
+about one of the most common outputs
+
+that you're gonna find across many of the processes
+
+in executed, monitored control,
+
+and it's gonna be change requests.
+
+What exactly is this?
+
+Before I get into it, let's talk a little about planning.
+
+So you go through all these planning processes.
+
+If you remember, there 24 of these planning processes.
+
+The output of all of these 24 planning processes
+
+is gonna be your project management plan.
+
+Now, the project management plan
+
+should not be changed at all.
+
+Once that project executes,
+
+this plan should never see changes.
+
+No one should be changing the plan
+
+unless you get an approved change request.
+
+You see, there will come times in the project
+
+where changes may be needed.
+
+For example, maybe you need more money.
+
+Maybe you underestimated how much money you need
+
+or how much time you need.
+
+Maybe there come a point where the customer
+
+just changes their mind,
+
+and they're like, "Well, this is too much,"
+
+or, "We don't need all these features,"
+
+and they wanna remove parts of the scope,
+
+or maybe the customer wants to add to the scope.
+
+You see, once a plan has been approved
+
+and the project work is started,
+
+nothing can change that plan
+
+except an approved changed request.
+
+In other words, somebody requested a change,
+
+the change got assessed, and it was approved.
+
+Now, another thing a change request can do
+
+is maybe you're managing a project,
+
+and you need additional time because you underestimated.
+
+Now, one of the common things, and this is really common,
+
+one of the common outputs here is this particular output
+
+of, say, change requests.
+
+And I want you to understand that a change request
+
+is what we're gonna use to change a particular document
+
+or a particular component on a plan.
+
+So a change request is a proposal
+
+to change a document, deliverable, or a baseline.
+
+So you could change any component
+
+of the PM plan, any project document.
+
+It could modify deliverables,
+
+and it could maybe extend a time, shorten a time.
+
+Sometimes, a customer comes and says,
+
+"Can you make your project quicker?
+
+Can you make it cheaper?
+
+Can you add this or remove this?"
+
+These are all change requests.
+
+Can include a change to add or remove work from scope,
+
+finish the project faster, or complete the project cheaper,
+
+or I should say more cost effective.
+
+Now, don't think (stylus scratching)
+
+of change requests as just something
+
+that a customer will come and ask.
+
+Don't think change requests are things
+
+that Mary, the senior stakeholder
+
+wants you to implement.
+
+No, change requests sometimes are issued by you.
+
+You actually go out
+
+and issue a change request or request a change.
+
+Why? Because maybe something went wrong on your projects.
+
+Two things in particular: corrective and preventive actions.
+
+Corrective actions is something that's taken
+
+to ensure the project gets back on track,
+
+versus preventive action is something you put in place
+
+to ensure the project stays on track.
+
+Now, let me give you some examples.
+
+Corrective actions is when one day,
+
+you wake up, and you realize your project
+
+is just off budget or it's off schedule.
+
+So you go to the boss,
+
+and you ask for more time or more costs or both.
+
+That's a corrective action.
+
+It's already broken.
+
+Now, what can I do to get it back on schedule?
+
+The other one is called a preventive action,
+
+so a preventive action is something you're gonna put
+
+in place to stop it in the future
+
+from going off plan. (watch rustling)
+
+So preventive action is when you say,
+
+when you look at your plan and you say, "Hmm,
+
+in two weeks from now, based on how we're working,
+
+we're gonna be off schedule.
+
+Let's go and request more money and/or more time
+
+to fix this now."
+
+That's a preventive action.
+
+So you're stopping the project from going off plan.
+
+(hands scraping) Another thing
+
+that we wanna talk about is defect repair.
+
+This is done to fix a broken component on a project.
+
+For example, if you have different kinds of IT failures
+
+on a project, you might need to fix those things,
+
+or different kinda project components that fails,
+
+you can fix it with defect repair.
+
+Now, as I go (stylus clattering)
+
+through the 49 processes,
+
+you guys will see that change request is a very common one.
+
+As I get to it too, I'll give you some more hints and tips
+
+on where we can use it, but keep in mind: a change request
+
+is used to change the project management plan.
+
+It's when somebody wants to change a component of the plan.
+
+Now, if somebody requests a change,
+
+it doesn't mean the plan will change.
+
+This is just a request for change.
+
+The change has to be assessed,
+
+and if the change is approved,
+
+then, it may change a document,
+
+a plan component such as a baseline, and our deliverables.
+
+So keep that in mind.
+
+Not because you request a change
+
+means it's gonna get approved.

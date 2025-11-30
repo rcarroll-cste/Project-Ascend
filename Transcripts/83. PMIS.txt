@@ -1,0 +1,151 @@
+-: One tool that you're gonna see that's different
+
+than every company that you're probably ever work
+
+for is gonna be called PMIS
+
+or the project management information system.
+
+You see, every company that you go to
+
+they have a different quote unquote PMIS
+
+or project management information system
+
+that they will be using.
+
+Now, a PMIS, if you read it the opposite, it makes sense.
+
+It's the information system you use to manage your project.
+
+If you read it in that way, it makes sense.
+
+Basically it's the computer system
+
+or it's the entirety of the entire system that you use
+
+whether it's computer or just on pen and paper.
+
+I'll tell you mines, to give you a good example.
+
+When I manage a project I use Microsoft Project
+
+for scheduling and budgeting.
+
+I use Microsoft Word for all documents.
+
+I use Microsoft Outlook for most communications
+
+along with Webex to do most virtual meetings.
+
+That's my PMIS.
+
+It's basically the whole Microsoft Office and WebEx.
+
+What's your PMIS?
+
+We are a hundred percent paperless.
+
+Maybe you guys use particular software.
+
+Maybe you use Primavera
+
+because you work in construction management.
+
+Every company has a different PMIS
+
+and this is a common tool that's not very common
+
+but it is listed on quite a few processes.
+
+So first of all, what is a PMIS?
+
+What is the automated system that we're gonna use
+
+to help the project manager optimize the schedule?
+
+Like Microsoft Project, keep track
+
+of all the documents and deliverables.
+
+Use the computer system.
+
+that a organization uses to manage a project.
+
+We talked about this.
+
+Every company's different.
+
+Remember, some companies don't use Microsoft Project
+
+'cause they use Macs and there's no MS project on a Mac.
+
+It should include all the software
+
+and hardware tools to be used to manage a project
+
+from start to finish.
+
+Now it does include what's called a work authorization
+
+system and the configuration management system.
+
+So what is this?
+
+Work authorization systems is a quote unquote system,
+
+and this is gonna be different for every business,
+
+that you use to authorize work.
+
+Now what that means is when a job is done
+
+what is the procedure or the process
+
+that someone needs to do to mark the job
+
+as done and move on to the next thing?
+
+Is there a procedure that you're gonna use to authorize
+
+when Bob should start a particular task
+
+or when Mary's done this particular task?
+
+That's a work authorization system.
+
+A configuration is how you manage configuration
+
+of different deliverables or components on your project.
+
+For example, if you're installing 10 phones
+
+and they all need 10 different configuration
+
+because some people don't need voicemail to email
+
+and some people do, do you have a system for that?
+
+There is no system that PMI is gonna tell us
+
+or any project management book is gonna sell us.
+
+You just have to make one up
+
+that best meets your organization needs.
+
+Because remember, Enterprise Environmental Factor
+
+told us that they're different in every single business.
+
+All right.
+
+PMIS not something you're gonna see quite common all
+
+over the book, but it is used
+
+on a quite a few processes.
+
+Just keep in mind it's something that's very unique
+
+to a business that helps us to manage our projects.

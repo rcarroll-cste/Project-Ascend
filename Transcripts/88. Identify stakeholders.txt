@@ -1,0 +1,483 @@
+-: Okay, now that you have made the project charter,
+
+in this video,
+
+we're gonna be talking about the next process,
+
+which is to identify your stakeholders.
+
+Now, let's say you were just assigned
+
+and become the authority or the project manager
+
+on a brand new project in your organization.
+
+What's the next thing you're gonna do?
+
+The next thing you should know
+
+is who is this project gonna affect?
+
+And when we say who a project is gonna affect,
+
+if you remember from your definitions or basic terms,
+
+those are called stakeholders.
+
+So in this video, we're gonna be covering the process
+
+of identifying stakeholders.
+
+Now I wanna make something crystal clear to you, guys,
+
+is that this process of identifying stakeholders
+
+is something that you're gonna do on a regular basis,
+
+which means on a continuous basis,
+
+you're gonna be identifying your stakeholders.
+
+Think about this.
+
+Stakeholders come and go.
+
+Stakeholder Mary, for example,
+
+who's the senior stakeholder on your project,
+
+was fired yesterday, replaced by Peter.
+
+Or maybe Peter is the CIO of the business
+
+and Peter was fired also, and he's being replaced by Jane.
+
+Who knows?
+
+Stakeholders will come and go.
+
+And then there are times
+
+when you forgot to identify a particular stakeholder.
+
+So one of the things I want you, guys, to keep in mind
+
+is that this process is gonna be done on a regular basis.
+
+It's not something that you're gonna do just one time.
+
+Every day, all day long, every day that you go to work,
+
+on almost every project,
+
+you're gonna identify
+
+and hopefully be able to know most stakeholders
+
+on your project.
+
+We wanna be able to analyze
+
+and recording relevant information
+
+about their interests and their involvement.
+
+So for example, what interests do they have on this project?
+
+What particular involvement are they gonna be?
+
+Are they gonna be actively or passively involved?
+
+An active participant is like a team member
+
+and a team member will come in and do the actual work.
+
+A passive participant may just stop,
+
+may just sit back and watch the work getting perform.
+
+Think of like customers are more passive
+
+versus team members are gonna be active.
+
+This enables the project team
+
+to identify the appropriate focus for engagement
+
+for each stakeholders or group of stakeholders.
+
+It is important to know what the stakeholders want.
+
+It's important to know their needs of the project
+
+because when you wanna engage them,
+
+you have to see what's the best way to engage them.
+
+If I'm a stakeholder on your project,
+
+the best way to engage a person like me is to talk to me.
+
+I don't like text messages.
+
+I'm not a fan of email
+
+and any kind of written communication.
+
+I like to be spoken to.
+
+I like to do meetings.
+
+I like doing phone conversation and especially face-to-face.
+
+So that's just me.
+
+If I'm a stakeholder, you should know that
+
+and you should know how to keep people like me engaged.
+
+Now it does have quite a lot of inputs.
+
+Now we covered,
+
+these are almost all basic inputs
+
+that we have probably already covered.
+
+We talked about the project charter.
+
+You notice you have that.
+
+Oh, right over there,
+
+we have project charter, business documents.
+
+We talked about PM plans.
+
+All of these here, we covered already,
+
+but there are some tools that I wanna go over
+
+that's pretty unique to this particular process.
+
+And then I want to talk about that unique output
+
+of the stakeholder register.
+
+Now, when it comes to the unique,
+
+there was no unique inputs.
+
+Let's take a look at some unique tools.
+
+And under the the tool of data analysis,
+
+there was this thing called stakeholder analysis.
+
+Stakeholder analysis is a tool that you're gonna use
+
+in order to, as you would imagine,
+
+analyze your stakeholders, things you're gonna ask yourself.
+
+Analyze who your stakeholders are
+
+and how they feel about the project.
+
+Some stakeholders may feel that this is a positive project.
+
+Some may feel that this is a negative project.
+
+What would be the stakeholder's role?
+
+Are they gonna be team members, functional managers?
+
+How would the project affect them?
+
+Is it either positive or negative?
+
+Remember, stakeholders that are losing their job,
+
+probably don't like your project,
+
+they're negatively impacted.
+
+Stakeholders that is making more money
+
+or gaining a promotion from your project
+
+are probably positively impacted.
+
+Would they be active such as team members?
+
+We talked about this.
+
+That means they're gonna be actively involved.
+
+People who work on the deliverable are passive,
+
+such as customers,
+
+people who just sit back and watch the work get done.
+
+What is the power authority?
+
+Are they gonna be playing a very high power role?
+
+In other words, they have a lot of say in on the project.
+
+That's gonna be someone such as a sponsor.
+
+Other tools here we can use
+
+is something called stakeholder mapping and representation.
+
+Now, what exactly is this?
+
+Well, the stakeholder mapping and representation
+
+is gonna be when you can come up
+
+with different kinds of diagrams
+
+to document or plot your stakeholders.
+
+I'll go over a few of them here.
+
+One of them is called a power/interest grid,
+
+power/influence grid.
+
+I'll show you what this looks like.
+
+So a power/interest grid
+
+is when you basically you make a graph,
+
+you say power and you say interest.
+
+And the higher up the stakeholders on this graph,
+
+so this graph goes up like this and like this.
+
+So the more, oh, that's a I, not a T.
+
+So let's take a look at this.
+
+So a stakeholder who's high on the graph,
+
+let's say Bob is here.
+
+So Bob has a lot of power on the project
+
+and he has a big interest.
+
+Maybe because he's a sponsor.
+
+Then you have a customer
+
+who doesn't have much power in the project,
+
+but is very interested, let's say, is Mary.
+
+Let's say you have one.
+
+Let's say you have Jane.
+
+So Jane is someone that has high power on the project,
+
+but not too much interest as much as Bob does.
+
+So in this one, this is called a power/interest grid.
+
+Now the other one here you can use
+
+is called a stakeholder cube.
+
+Stakeholder cube is basically
+
+a three-dimensional methodology
+
+to look at interest, power, and influence.
+
+So in this one you would draw power,
+
+influence, and interest.
+
+So power, influence,
+
+put an I here,
+
+and power, influence, and interest.
+
+So let's say influence, interest, and power at the top.
+
+And then you can put where somebody lies
+
+in this three-dimensional cube.
+
+Now, this one here, not use too much.
+
+We're probably gonna use the power/interest grid more.
+
+Salience model will look at three things
+
+how they're gonna be involved on a project.
+
+For example, the level of authority they have,
+
+like a sponsor has very high level.
+
+The urgency.
+
+Do they need the project right away?
+
+Legitimate.
+
+How appropriate is their involvement in it?
+
+Are they gonna be, again, passively
+
+or actively involved on the project?
+
+Also, you want to think about how much influence they have.
+
+Now, there's four ways,
+
+four types of influence somebody can have on a project:
+
+up, down, out, and sideways.
+
+Let's say this.
+
+Stakeholders who are on top of you,
+
+of course, has a ton of power over you and your project.
+
+Upwards are senior management.
+
+They're higher than you.
+
+Downwards are people below you,
+
+like team members who you may be controlling.
+
+They don't have a lot of influence on you.
+
+Outwards, they can have massive influence on you
+
+because they're outside the organization.
+
+Think of a regulator.
+
+And then you have sidewards or like other project managers
+
+or people with the same power
+
+that you might have to contend with to get resources.
+
+Prioritize your stakeholders.
+
+Prioritization of stakeholders is really understand
+
+who's the top stakeholders.
+
+Who's the one you're gonna want to be most concerned about?
+
+Once you've done these activities,
+
+what you should do now
+
+is to build your stakeholder register.
+
+Now, what exactly is that?
+
+Well, your stakeholder register
+
+is gonna, basically, it's an Excel sheet
+
+that has things such as their contact information,
+
+their first name, their last name, their role on the project
+
+that they're gonna be a sponsor,
+
+how they would like communication.
+
+Maybe you give them meetings.
+
+Maybe you do phone calls with them.
+
+What's their expectations?
+
+For example, when they think this project is gonna be done.
+
+What needs they want?
+
+How are they gonna be affected: positive and negative?
+
+What's their influence level?
+
+We just talked a couple graphs that you can use.
+
+This is gonna be your main output as a stakeholder register.
+
+Now you're gonna use this
+
+to help identify all your stakeholders.
+
+There's some common other outputs like change requests
+
+and a variety of different updates,
+
+but those are common ones.
+
+So when you're thinking of this process
+
+of identify stakeholders,
+
+remember, identifying stakeholders is a process
+
+where you're going to basically do what it says:
+
+identify who are the stakeholders on the project.
+
+Know their contact information,
+
+their interest on the project.
+
+How are they affected by the project?
+
+How does the project affect them
+
+and how do they affect the project?
+
+Think about their influence, for example.
+
+And then make this register.
+
+Of all of their contact information,
+
+how they wanna be communicated with?
+
+How would they be impacted by the project?
+
+Put that all in there.
+
+This document of the stakeholder register
+
+is a document that we're gonna use consistently
+
+throughout the rest of the processes.
+
+For example, when we gather requirement,
+
+we need to know who are the stakeholders.
+
+When we build communication plans,
+
+who are we gonna be communicating with?
+
+So expect to use this document many more times
+
+across all these processes.

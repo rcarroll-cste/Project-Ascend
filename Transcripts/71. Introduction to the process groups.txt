@@ -1,0 +1,733 @@
+Instructor: In this video,
+
+I'm gonna be talking about predictive project management.
+
+Now we covered some of this in the beginning,
+
+or the intro to this class,
+
+when we covered basic terms.
+
+In this section of the course,
+
+we're gonna be taking a look at
+
+more in-depth predictive projects.
+
+In particular, we're gonna take a look at the 49 processes,
+
+divided into the five process groups,
+
+that forms predictive project management.
+
+You're gonna wanna know these processes for your exam.
+
+So let's get into it.
+
+So, where did I get this content? Where is it coming from?
+
+Well, the first thing up is, before I get into that,
+
+is I want to give you guys a quick reminder.
+
+When do you use predictive project versus adaptive projects?
+
+Remember, adaptive methods are gonna be,
+
+things like Agile approaches are adaptive,
+
+and that's what you're gonna do when the scope is evolving,
+
+when the scope is not known,
+
+when you're trying to build a scope over a period of time.
+
+On a predictive project, the scope is generally known,
+
+and it's not gonna change once the project executes.
+
+Predictive projects can be used
+
+for building a large building,
+
+where you get an approval to build
+
+like, a 50-story skyscraper,
+
+and it'll never change when you start building
+
+the actual deliverable.
+
+Versus on an adaptive project,
+
+you can actually change the scope and modify it
+
+as you're building the product.
+
+So predictive project is managed
+
+generally using the 49 processes
+
+that's outlined in PMI's famous book called
+
+"Process Groups: A Practice Guide."
+
+So what I am getting, all the data,
+
+or I should say the processes that we are getting
+
+for this particular section of the course
+
+is gonna come from the "Process Groups: A Practice Guide."
+
+Now, what exactly is it?
+
+Well, it's the 49 processes that we get out of that book.
+
+It's basically used on predictive projects.
+
+Although some of these processes could be used
+
+in agile projects,
+
+most people following a process-based approach
+
+to project management,
+
+is basically gonna follow these 49 processes.
+
+Now, some agile projects can use some of them,
+
+but not all of them.
+
+But on a predictive project,
+
+you can basically use all of them.
+
+You see, PMI says this.
+
+PMI says that, "This practice guide,"
+
+they're talking about the book,
+
+"Process Groups: A Practice Guide."
+
+"This practice guide identifies the processes
+
+"that are considered good practices on most projects,
+
+"most of the time."
+
+So these 49 processes that I'm gonna be going over,
+
+don't forget, are good practices, best practices,
+
+they're not mandatory practice.
+
+Not every project will follow all of them.
+
+Not every single predictive project that's out there
+
+is gonna follow every single one of these processes.
+
+Not every single project out there
+
+will even use most of them.
+
+Some of them may use some of them.
+
+But for your exam and for studying and purposes only,
+
+I want you to see it as,
+
+"I'm gonna use all of them," all right?
+
+Because on the exam, they're not gonna give an option.
+
+Well, you shouldn't use this.
+
+On the exam, you should know that all predictive projects
+
+are gonna use these processes
+
+because that's the way PMI sees it.
+
+But in real life, you're probably not gonna use
+
+all these processes all the time.
+
+On most projects, most of the time.
+
+And remember, they're considered best practices,
+
+not the only practice
+
+or a mandatory practice that you have to follow.
+
+Now I wanna show you what these processes look like.
+
+All right, I want to give you guys the heads up
+
+on these processes to scare the hell out of you.
+
+Now when you see this, don't quit the course
+
+and stop studying.
+
+They're not that difficult. It looks complex.
+
+I'm gonna give you an amazing introduction to them.
+
+I'm gonna explain every single one of them to you.
+
+I'll explain what's called input tools,
+
+and outputs to them,
+
+and you'll get a good understanding of what they are.
+
+And then I'll put them all together later on in the course.
+
+So here we go with the 49 processes
+
+that is outlined in the "Process Groups: A Practice Guide."
+
+And this comes from page 22 of that study guide,
+
+or that book.
+
+So if you look above me,
+
+you can see that the first thing up we want to talk about
+
+are that these 49 processes that are listed there,
+
+are broken into five process group.
+
+Now the book itself, the "Process Groups: A Practice Guide,"
+
+is broken into five sections
+
+describing the five process groups
+
+that projects will follow.
+
+Let's go over and take a look at what they are.
+
+So the first thing up we have is initiating.
+
+Now you notice initiating has two processes.
+
+Initiating, when you initiate a project,
+
+initiating is about keeping,
+
+it about getting project authorized.
+
+Every time you guys hear the word "initiate,"
+
+think of getting the project authorized.
+
+There's only two processes that are listed here,
+
+that's gonna be "develop the project charter"
+
+and "identify your stakeholders."
+
+Now we're gonna get into the more nitty gritty,
+
+or the more detailed information on these processes.
+
+But for now, I want you guys to know
+
+a project charter is the document
+
+that gets a project authorized.
+
+It's like the quote unquote authorization document
+
+of a project.
+
+So initiating, "develop the project charter,"
+
+that's gonna be the first process
+
+that I'm gonna teach you guys
+
+coming up a little bit later.
+
+Now let's take a look.
+
+"Develop project charter,"
+
+then "identify your stakeholders,"
+
+knowing who are your stakeholders.
+
+So you're authorizing a project,
+
+you've been assigned a project manager,
+
+you're gonna know who your stakeholders are.
+
+Next one.
+
+The next thing here,
+
+the other process group they talk about,
+
+is something called planning.
+
+Planning is gonna be about putting together
+
+the entire project management plan.
+
+Now before you can execute a project,
+
+execution is about doing work.
+
+Before you can actually start doing work on a project,
+
+don't you think it's good to have a plan in place,
+
+that how are you going to manage your scope?
+
+Like what if there's somebody wants to change the scope,
+
+how do they do that?
+
+What happens if the project goes off scope?
+
+What if the project goes off budget?
+
+How do you do that?
+
+Do you even know what work to do, when to do it,
+
+how to do it?
+
+Do you know who should be doing what work?
+
+That is something we're gonna want to put together
+
+in a project management plan.
+
+Now, the project management plan has 24 processes,
+
+and you can see that there is quite a lot of these processes
+
+that is listed here.
+
+And once again, guys, we are gonna be going through
+
+every single one of these processes.
+
+I'm gonna give you guys,
+
+I'm gonna tell you guys what they are
+
+and how you can apply them.
+
+So 24 processes.
+
+Combined, these 24 processes will give you
+
+the project management plan,
+
+which is basically a document
+
+that's gonna tell you how to execute,
+
+how to monitor and control, and how to close your project.
+
+Once planning is done, guys, you're gonna execute,
+
+and you're going to monitor and control
+
+the project together.
+
+What does this mean?
+
+Well, executing is about starting the work.
+
+When you think execution, think of work.
+
+Think of, "Okay, the project is executed now."
+
+Let's say the project was to paint this room.
+
+Now let's go and start painting the actual room.
+
+You'll notice that you have basically 10 processes here.
+
+And this one, a lot of this here deals with
+
+acquiring the people and the physical materials,
+
+developing and managing your team,
+
+managing risk, selecting a vendor
+
+are some of the things you're gonna be doing here.
+
+So, 10 processes listed here
+
+that we have to go through in here.
+
+Now remember, execution is about doing work.
+
+Once that work is getting done,
+
+you notice I have a double face arrow,
+
+once the work is getting done, what do you have to do?
+
+You have to make sure that the work is getting done
+
+according to the plan.
+
+You see, one of the things that,
+
+one of the things that happens when we manage a project,
+
+one of the things that we, as project managers,
+
+should be doing is,
+
+once the work is getting done,
+
+once the the painter is painting the room,
+
+the software developer is coding the application,
+
+once they're doing that,
+
+we, as a project manager,
+
+have to make sure that they stay on actual budget.
+
+We wanna make sure that they stay on schedule,
+
+we wanna make sure they're doing the right work.
+
+Like you come into the room,
+
+and you see the painter is painting the room,
+
+you gotta look back and say,
+
+"Oh, is he doing the right job here?
+
+"Is he actually doing the job
+
+"that was supposed to get done?"
+
+Maybe, maybe not. So let's see.
+
+So in this particular one, in monitoring and controlling,
+
+we are gonna be monitoring the work, watching the work,
+
+and controlling it to make sure it gets done.
+
+So monitor is more like watching.
+
+Controlling is telling them what to do.
+
+So we're going to go through these 11 processes
+
+that we need to go through in this section
+
+of monitoring and controlling.
+
+So in this one we're looking at, we're saying,
+
+"Okay, are we on schedule, are we on budget,
+
+"are we on scope, are we following the right risk,
+
+"are we monitoring risk," and so on.
+
+Finally, as you do the work,
+
+you monitor and control the work, and you finish the work,
+
+you're gonna have to close out your project.
+
+Just one process here.
+
+So, closing is gonna be where you're gonna
+
+formally bring the project to a complete close.
+
+It's gonna be when you're going to close out the project,
+
+release the project team, archive the project records,
+
+and transfer the deliverable.
+
+So that's what these 49 processes,
+
+that you guys see here, are about.
+
+Now, if you're saying,
+
+"Okay, that's not so bad to understand.
+
+"So I initiate it, right, I actually get it approved,
+
+"get the project approved, start the project, plan it.
+
+"I put together a plan, execute it.
+
+"I start the work, monitor and controlling,
+
+"I monitor and control the work,
+
+"make sure the work stays on plan,
+
+"and then I close it and I'm done."
+
+Now, if this sounds pretty easy to understand,
+
+then yeah, it's pretty easy to understand.
+
+And once again, you can see all these processes
+
+all listed here on the slide here.
+
+Now these processes, you know,
+
+they don't look so difficult to understand.
+
+But, I'm gonna make this a little difficult for you.
+
+Now you're probably saying, "Why does he wanna do that?"
+
+Because, well, you need to know this.
+
+So if you guys remember what a phase is,
+
+remember what a phase is, who makes up phases, all right?
+
+This was covered in the beginning of the class.
+
+Who makes up a phase?
+
+A phase is made up, by who?
+
+By project managers, right?
+
+Who makes up a phase?
+
+A project manager determines the phases on a project.
+
+What are the phases?
+
+It's the life cycle of the project.
+
+It's everything that we go through from beginning to end.
+
+What are the phases?
+
+Well, let's say you're using these predictive projects,
+
+you're using predictive for software development.
+
+So what are you gonna do?
+
+Well, you have to design the software,
+
+you have to code the software,
+
+you have to test the software,
+
+you have to release the software.
+
+So four phases.
+
+You see, these 49 processes, they're objective.
+
+Like, what's the main goal of these 49 processes?
+
+49 processes will output a deliverable.
+
+Now these 49 processes does not actually,
+
+these 49 processes does not actually live within
+
+the entirety of the project itself.
+
+It lives in every phase of the project.
+
+So, if you're doing those four phases,
+
+design, develop or code, test, install,
+
+if you're doing those four phases,
+
+every single phase would have these 49 processes.
+
+So designing would have all of these 49 processes.
+
+Coding, all 49 processes.
+
+So let me give you an example.
+
+So let's say you're designing the software.
+
+You're going to do what?
+
+You're going to get a charter for it.
+
+You're gonna identify stakeholders in the design end.
+
+You're gonna plan how to design.
+
+You're gonna execute and monitor and controlling
+
+the design of itself.
+
+And then we're gonna close off design.
+
+Notice how this last process is called
+
+"close project or phase."
+
+The other thing here
+
+is when you move on to the next phase now,
+
+which is gonna be coding,
+
+well that one has its own initiating.
+
+You're gonna have to get a charter for it,
+
+you're gonna have to plan it,
+
+you're gonna have to execute the coding to actually code it.
+
+Then you're gonna monitor and control it,
+
+and then you're gonna close it.
+
+They each is gonna give you a deliverable.
+
+If you think about this,
+
+if you're designing, the output is the schematics,
+
+or the design diagrams.
+
+If you use these 49 processes that I have here,
+
+then by the time you finish these 49 processes,
+
+you're gonna have the design schematics.
+
+If you're coding, you're gonna follow these 49 processes,
+
+and eventually you're gonna have the coded software.
+
+If you're follow these 49 processes and you're testing,
+
+you're gonna have the test results.
+
+The main objective that I want you guys to understand
+
+is that, in these 49 processes,
+
+you have to understand that, basically, what you're doing
+
+is you're using these 49 processes to build the deliverables
+
+on the project every single phase.
+
+Now, if your project has one phase,
+
+then these 49 processes is only gonna be done that time.
+
+You only do it once.
+
+So I want you guys to remember now,
+
+these 49 processes lives in every phase of the project.
+
+If you have multiple phases in a project,
+
+then you're gonna be doing these 49 processes a lot.
+
+The "Process Groups: A Practice Guide,"
+
+which was formally known as "PMBOK Guide," sixth edition,
+
+does say one thing.
+
+A project will follow most of these processes
+
+most of the time.
+
+And they just don't follow them once,
+
+a lot of times we follow them multiple times.
+
+For example, the process of identify stakeholders,
+
+as you guys can see,
+
+there is a process called identify stakeholders.
+
+You think about this, when do you identify stakeholder?
+
+All the time.
+
+Stakeholders comes and goes.
+
+Mary's a stakeholder today, but Mary left the company.
+
+Now Bob is.
+
+Always keep identifying your stakeholders.
+
+Things like identify risks,
+
+you're gonna be doing all the time.
+
+You know what that process is?
+
+And this is what it says it is,
+
+you're gonna be knowing the risk on your project.
+
+So identify risk is something you do consistently,
+
+because risk changes every single day.
+
+Every day you wake up, there's a new risk in this world
+
+that can hurt you or hurt your project.
+
+Okay, very good guys.
+
+Hopefully you guys got this.
+
+These are gonna be the 49 processes.
+
+Now, as we go through this course,
+
+this section, this course,
+
+what we're gonna be doing is we're gonna be
+
+looking at those 49 processes.
+
+We're gonna be looking at some of their ITTOs,
+
+and we're gonna understand what they are.
+
+So whenever, if you ever have to manage a project
+
+in a predictive environment using these processes,
+
+you'll know exactly what they are.
