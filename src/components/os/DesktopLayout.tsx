@@ -43,7 +43,10 @@ export const DesktopLayout: React.FC = () => {
   };
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-[#008080] relative flex flex-col font-sans">
+    <div className="h-screen w-screen overflow-hidden bg-slate-700 relative flex flex-col font-sans">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
+          <div className="text-9xl font-bold text-white tracking-widest uppercase">Aethelgard</div>
+      </div>
       {/* Notifications */}
       <ToastNotification />
       {/* Desktop Area */}
