@@ -1,20 +1,42 @@
 import React, { useState } from 'react';
-import { Users, FileText, AlertTriangle, LayoutDashboard, PieChart } from 'lucide-react';
+import { Users, FileText, AlertTriangle, LayoutDashboard, PieChart, MessageSquare } from 'lucide-react';
 import { StakeholderRegister } from './StakeholderRegister';
 import { CharterBuilder } from './CharterBuilder';
 import { AssumptionLog } from './AssumptionLog';
+import { EmailApp } from '../email/EmailApp';
 import { PerformanceReport } from '../../scenes/PerformanceReport';
-import { DndContext, DragEndEvent, DragOverlay, useSensor, useSensors, PointerSensor } from '@dnd-kit/core';
+import { DndContext, DragEndEvent, useDroppable, useSensor, useSensors, PointerSensor } from '@dnd-kit/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { identifyStakeholder, updateStakeholderPosition, assignEvidenceToSection } from '../../../features/pmisSlice';
 import { PowerLevel, InterestLevel, Email, EvidenceItem } from '../../../types';
 import { RootState } from '../../../store';
-import { INITIAL_EMAILS } from '../../../data/initialData';
 
-type Tab = 'dashboard' | 'stakeholders' | 'charter' | 'assumptions' | 'report';
+type Tab = 'dashboard' | 'communications' | 'stakeholders' | 'charter' | 'assumptions' | 'report';
+
+// Mini Drop Zone Component for the Communications Tab
+const StakeholderDropZone = () => {
+  const { setNodeRef, isOver } = useDroppable({
+    id: 'stakeholder-register-drop-zone',
+    data: { type: 'stakeholder-register' },
+  });
+
+  return (
+    <div
+      ref={setNodeRef}
+      className={`w-64 border-l border-gray-200 p-4 transition-colors flex flex-col items-center justify-center text-center
+        ${isOver ? 'bg-purple-100 border-purple-500' : 'bg-gray-50'}
+      `}
+    >
+      <Users size={32} className={isOver ? 'text-purple-600' : 'text-gray-400'} />
+      <p className="mt-2 text-sm font-medium text-gray-600">
+        {isOver ? 'Drop to Identify!' : 'Drag Emails Here to Identify Stakeholders'}
+      </p>
+    </div>
+  );
+};
 
 export const PMISApp: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<Tab>('stakeholders');
+  const [activeTab, setActiveTab] = useState<Tab>('communications'); // Default to Communications for flow
   const dispatch = useDispatch();
   const { stakeholders } = useSelector((state: RootState) => state.pmis);
   const { charterSubmissionCount } = useSelector((state: RootState) => state.game);
@@ -88,14 +110,21 @@ export const PMISApp: React.FC = () => {
         
         {/* Navigation Tabs */}
         <div className="bg-white border-b border-gray-200 px-4 pt-2 flex space-x-1 shrink-0">
-            <button 
+            <button
                 onClick={() => setActiveTab('dashboard')}
                 className={`px-4 py-2 text-sm font-medium rounded-t-lg flex items-center space-x-2 border-t border-l border-r ${activeTab === 'dashboard' ? 'bg-gray-100 border-gray-200 text-purple-700' : 'bg-white border-transparent text-gray-500 hover:text-gray-700'}`}
             >
                 <LayoutDashboard size={16} />
                 <span>Dashboard</span>
             </button>
-            <button 
+            <button
+                onClick={() => setActiveTab('communications')}
+                className={`px-4 py-2 text-sm font-medium rounded-t-lg flex items-center space-x-2 border-t border-l border-r ${activeTab === 'communications' ? 'bg-gray-100 border-gray-200 text-purple-700' : 'bg-white border-transparent text-gray-500 hover:text-gray-700'}`}
+            >
+                <MessageSquare size={16} />
+                <span>Communications</span>
+            </button>
+            <button
                 onClick={() => setActiveTab('stakeholders')}
                 className={`px-4 py-2 text-sm font-medium rounded-t-lg flex items-center space-x-2 border-t border-l border-r ${activeTab === 'stakeholders' ? 'bg-gray-100 border-gray-200 text-purple-700' : 'bg-white border-transparent text-gray-500 hover:text-gray-700'}`}
             >
@@ -136,6 +165,18 @@ export const PMISApp: React.FC = () => {
                 </div>
             )}
             
+            {activeTab === 'communications' && (
+                <div className="flex h-full">
+                    <div className="flex-1 border-r border-gray-200">
+                        {/* We use a wrapper to override some EmailApp styles if needed,
+                            but EmailApp is designed as h-full so it should fit. */}
+                        <EmailApp />
+                    </div>
+                    {/* Persistent Drop Zone for easy drag-and-drop */}
+                    <StakeholderDropZone />
+                </div>
+            )}
+
             {activeTab === 'stakeholders' && <StakeholderRegister />}
             
             {activeTab === 'charter' && <CharterBuilder />}

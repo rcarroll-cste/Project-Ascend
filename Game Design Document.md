@@ -17,10 +17,36 @@
 
 ---
 
+## 1.5 Instructional Design Strategy
+
+**Project Ascend** utilizes a **"Situated Learning"** approach, embedding PMP concepts directly into the environment and mechanics rather than delivering them via lectures or quizzes. The game is designed to help players **internalize** complex PMBOK definitions by making them functional tools for survival in the corporate simulation.
+
+### 1.5.1 Terminology as Mechanics
+We transform abstract definitions into tangible game objects to facilitate active recall:
+*   **PMIS (Project Management Information System):** Not just a term to memorize, but the actual **Main Menu/HUD** the player interacts with daily. To "use the PMIS" is to play the game.
+*   **EEF (Enterprise Environmental Factors):** Represented by the **OS Desktop environment, Company Culture (Emails), and Software Constraints**. The player "feels" the EEFs limiting their actions (e.g., cannot delete emails, must use specific templates).
+*   **OPA (Organizational Process Assets):** Represented by the **"Templates" folder and Historical Data**. The player learns that success requires leveraging these assets (dragging a template) rather than starting from scratch.
+
+### 1.5.2 The "Analyze-Apply-Feedback" Loop
+Every core gameplay loop is designed to reinforce a specific cognitive process required for the exam:
+1.  **Analyze (Input):** The player receives unstructured data (an ambiguous email, a messy file). They must apply **Data Analysis** (a PMP Technique) to filter signal from noise.
+    *   *Example:* Identifying that "Sarah's complaint" is actually a "Risk" triggers a mental classification.
+2.  **Apply (Process):** The player uses a specific PMP Tool (Stakeholder Register, Charter Builder) to formalize their analysis.
+    *   *Example:* Dragging Sarah's email to the "Stakeholder Register" teaches the **Identify Stakeholders** process output.
+3.  **Feedback (Evaluation):** The system (Director Thorne) provides immediate, context-specific feedback based on PMBOK constraints.
+    *   *Example:* If the player logs a confirmed fact as an Assumption, Thorne corrects them: *"We have proof. This is a Fact, not an Assumption."* This corrects the mental model instantly.
+
+### 1.5.3 Scaffolding & Internalization
+*   **Phase 1 (Onboarding):** The player follows explicit instructions ("Click here to open Mail").
+*   **Phase 2 (Guided Practice):** The player creates the Charter with "Guard Rails" (e.g., immediate red/green feedback on drop).
+*   **Phase 3 (Autonomous Application):** The player must manage multiple inputs (Emails + Chat + Files) simultaneously, simulating the real-world pressure. Success here proves **Mastery**.
+
+---
+
 ## 2. Narrative Architecture
 
 ### 2.1 The Scenario: "Project Genesis"
-*   **Setting:** The player's desk (The "Cockpit"). A realistic OS interface featuring an Email Client, a Browser (for research), and the Company Intranet (PMIS).
+*   **Setting:** The player's desk (The "Cockpit"). A realistic OS interface. The primary tool is the **Integrated PMIS** (Project Management Information System), which aggregates Email, Stakeholders, and Documentation.
 *   **The Plot:** Aethelgard is launching a controversial new "Smart Office" initiative. The Senior PM abruptly quit.
 *   **The Mentor (Quest Giver):** *Director Thorne*. He is stern, exacting, and follows the PMBOK Guide religiously. He provides the **Acceptance Criteria** for your tasks.
 *   **The Conflict:** The project is messy. Stakeholders are arguing via email. The Business Case is buried in a PDF attachment. You must bring order to chaos.
@@ -45,15 +71,15 @@ The player never sees 3D models. They interact with "People" through their digit
 The game takes place entirely on a simulated computer desktop. The "Game Loop" mimics the PMP workflow.
 
 ### 3.1 Mechanic: The Inbox Analysis (Identify Stakeholders)
-*   **The Activity:** The player opens the "Inbox" app. It is full of 30+ unread messages.
+*   **The Activity:** The player navigates to the **"Communications" Tab** within the PMIS. It is full of 30+ unread messages.
 *   **The Cognitive Task (Realism):** Reading comprehension and filtration.
     *   *Message A:* "Hey, can we order pizza for lunch?" (Noise - Ignore).
     *   *Message B:* "I need to review the security protocols before this goes live." - *Head of Security* (Signal - Stakeholder).
 *   **The Interaction:**
     *   **[LMB Click]:** Player clicks the email body to read it.
     *   **[LMB Click + Hold]:** Player grabs the **Drag Handle (Grip Icon)** on the left of the email row.
-    *   **[Drag]:** Player moves cursor to the open **Stakeholder Register App** window.
-    *   **[Release]:** Player drops the email to generate a new entry.
+    *   **[Drag]:** Player drags the email to the **"Stakeholders" Tab** (on the sidebar or split screen).
+    *   **[Release]:** Player drops the email into the Stakeholder Register.
     *   **[LMB Click]:** Player selects attributes (Role, Power, Interest) from dropdown menus.
 *   **The Test:** If the player ignores the Head of Security, an event triggers later: "Security Breach! Project Delayed." -> **FAIL STATE**.
 
@@ -99,6 +125,21 @@ Instead of HP, the player has **Sponsor Confidence**.
 | **Organizational Process Assets (OPA)** | "Templates" Folder | Player uses the "Standard Charter Template" instead of writing from scratch (Efficiency Bonus). |
 | **Expert Judgment** | "Chat App" | Player can message the "Senior Engineer" to ask for clarification. (Costs time). |
 | **Business Case** | "CFO Email" | Player must extract the "Why" (ROI) from the email to justify the project. |
+
+### 4.3 Pedagogical Mapping (PMP Concept Alignment)
+
+This section details how specific gameplay actions reinforce the learning objectives defined in the PMP Process definitions.
+
+Gameplay Action | PMP Concept | Source Transcript | Pedagogical Rationale |
+:--- | :--- | :--- | :--- |
+**Dragging Email to Stakeholder Register** | **Identify Stakeholders** (Process) | `88. Identify stakeholders_processed.txt` | Simulates "regularly analyzing and recording relevant information". The act of "capturing" an email turns unstructured data into structured data (The Register). |
+**Classifying "Role" (Sponsor vs. Manager)** | **Directions of Influence** (Model) | `88. Identify stakeholders_processed.txt` | Teaches the difference between **Upwards** (Sponsor), **Downwards** (Team), and **Sidewards** (Functional Manager) influence. |
+**Grid Placement (Power/Interest)** | **Power/Interest Grid** (Model) | `88. Identify stakeholders_processed.txt` | Groups stakeholders based on authority and concern. Correct placement (e.g., High Power/High Interest) reinforces the strategy (e.g., "Manage Closely"). |
+**Filtering "Pizza" Emails** | **Data Analysis** (Technique) | `88. Identify stakeholders_processed.txt` | Simulates the cognitive load of distinguishing **Active Participants** from noise or **Passive Participants**. |
+**Unlocking PMIS via Email** | **Project Charter - Inputs** | `87. Develop Project Charter_processed.txt` | Demonstrates that **Business Documents** (Business Case/Need) and **Agreements** are inputs required to authorize the project. |
+**Dragging "ROI" to Charter** | **Business Case** (Entity) | `87. Develop Project Charter_processed.txt` | "Is it worth the investment?" The player must identify the *economic feasibility* (ROI) to justify the charter. |
+**Assumption vs. Fact Modal** | **Assumption Log** (Output) | `87. Develop Project Charter_processed.txt` | Enforces the definition: "A factor considered true without proof." Teaches the validation logic: If proven false later, it becomes a Risk. |
+**Rejecting "Server Schematics"** | **High-Level Information** (Constraint) | `87. Develop Project Charter_processed.txt` | Enforces the rule that the Charter is **High-Level**. Detailed specs belong in the Project Management Plan, not the Charter. |
 
 ---
 
@@ -173,32 +214,30 @@ This project utilizes a standard "Point and Click" interface typical of Manageme
 *   **Wallpaper:** Aethelgard Corporate Logo (Grey/Blue).
 *   **Taskbar (Bottom):**
     *   *Start Button:* (Opens System Menu/Pause).
-    *   *Apps:* Mail (Bouncing), Files, Browser, **PMIS** (Locked/Greyed out).
-    *   *Clock:* Displays real-time countdown (e.g., "Deadline: 48 Hours").
-*   **Pedagogical Note:** This establishes the "Enterprise Environmental Factors (EEF)"—the software and culture the project lives in.
+    *   *Apps:* **PMIS** (Central Hub), Files, Browser. (Mail is now inside PMIS).
+    *   *Clock:* Displays real-time countdown.
 
 ### 7.3 Scene 2: The Call to Action (Initiating)
-*   **Event:** "Mail" icon has a red badge `(1)`.
+*   **Event:** "PMIS" icon has a notification badge.
 *   **Workflow / Input:**
-    1.  **[LMB Click]**: Player clicks "Mail" icon on taskbar.
-*   **Window:** `Mail Client` opens (Floating Window, Draggable).
+    1.  **[LMB Click]**: Player clicks "PMIS" icon.
+*   **Window:** `PMIS Dashboard` opens. Default tab: **Communications**.
 *   **Workflow / Input:**
     1.  **[LMB Click]**: Player selects the unread email from list by clicking the body.
 *   **Content:** Email from *Director Thorne*.
     *   *Subject:* "Project Genesis - IMMEDIATE ACTION REQUIRED".
     *   *Body:* Briefing. "The previous PM quit. Identify your stakeholders immediately or we lose the contract."
-*   **UI State Change:** The **PMIS** icon on the taskbar unlocks (Status: Active/Color).
-*   **Notification:** Pop-up toast: *"New Tool Unlocked: Stakeholder Register"*.
+*   **UI State Change:** The **Stakeholders** tab in the PMIS unlocks.
+*   **Notification:** Pop-up toast: *"New Module Unlocked: Stakeholder Register"*.
 
 ### 7.4 Scene 3: The Stakeholder Identification (Core Loop A)
 *   **Workflow / Input:**
-    1.  **[LMB Click]**: Player clicks **PMIS** icon.
-*   **Window:** `PMIS Dashboard` opens. Default tab: "Stakeholder Register".
-*   **Workflow / Input (The Mechanics):**
-    1.  Player arranges windows (Mail Left, PMIS Right) using **[LMB Drag Titlebar]**.
-    2.  **[LMB Click + Hold]**: Player grabs the **"Grip" icon (Drag Handle)** on the left of the email row.
-    3.  **[Drag]**: Moves cursor to `Stakeholder Register`.
-    4.  **[Release]**: Drops header into the list area.
+    1.  **[LMB Click]**: Player clicks **Stakeholders** tab to view the register.
+    2.  **[LMB Click]**: Player clicks back to **Communications** tab.
+    3.  **[Split View Toggle]**: Player clicks "Split View" (if available) OR drags email to the specific tab target.
+    4.  **[LMB Click + Hold]**: Player grabs the **"Grip" icon (Drag Handle)** on the left of the email row.
+    5.  **[Drag]**: Moves cursor to the "Stakeholders" sidebar item (or Drop Zone).
+    6.  **[Release]**: Drops header.
 *   **Modal:** A "Profile Classification" card pops up.
     *   *Dropdowns:* Role, Power.
     *   *Button:* "Confirm Entry".

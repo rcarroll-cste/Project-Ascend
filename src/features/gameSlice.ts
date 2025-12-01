@@ -10,7 +10,7 @@ const initialState: GameState = {
   hasFoundMole: false,
   hasConsultedSME: false,
   charterSubmissionCount: 0,
-  isPMISUnlocked: false,
+  isPMISUnlocked: true, // PMIS is now the central hub, so it must be open
   notifications: [],
   isOnboardingCompleted: false,
 };

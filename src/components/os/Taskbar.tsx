@@ -62,14 +62,8 @@ export const Taskbar: React.FC = () => {
 
         {/* App Icons */}
         <TaskbarIcon
-          icon={<Mail size={20} />}
-          label="Email"
-          isActive={isActive('email')}
-          onClick={() => handleAppClick('email', 'Inbox - Outlook Express', 'Email')}
-        />
-        <TaskbarIcon
           icon={<LayoutDashboard size={20} />}
-          label={isPMISUnlocked ? "PMIS" : "PMIS (Locked)"}
+          label={isPMISUnlocked ? "PMIS (Hub)" : "PMIS (Locked)"}
           isActive={isActive('pmis')}
           onClick={() => isPMISUnlocked && handleAppClick('pmis', 'Project Management Information System', 'PMIS')}
           isDisabled={!isPMISUnlocked}
