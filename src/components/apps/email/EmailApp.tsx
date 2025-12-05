@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { InboxList } from './InboxList';
 import { ComposeModal } from './ComposeModal';
-import { Mail, Calendar, Users, Settings, Edit3, Search, ChevronLeft, ChevronRight, X, Reply, ReplyAll, Forward, Trash2, Clock, Folder, FileText } from 'lucide-react';
+import { Mail, Calendar, Users, Settings, Edit3, Search, ChevronLeft, ChevronRight, Reply, ReplyAll, Forward, Trash2, Clock, Folder, FileText } from 'lucide-react';
 import { Email } from '../../../types';
 import { useDispatch } from 'react-redux';
 import { identifyStakeholder } from '../../../features/pmisSlice';

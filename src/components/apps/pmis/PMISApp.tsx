@@ -8,6 +8,8 @@ import { PerformanceReport } from '../../scenes/PerformanceReport';
 import { DndContext, DragEndEvent, useDroppable, useSensor, useSensors, PointerSensor } from '@dnd-kit/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { identifyStakeholder, updateStakeholderPosition, assignEvidenceToSection } from '../../../features/pmisSlice';
+import { addNotification } from '../../../features/gameSlice';
+import { INITIAL_STAKEHOLDERS } from '../../../data/initialData';
 import { PowerLevel, InterestLevel, Email, EvidenceItem } from '../../../types';
 import { RootState } from '../../../store';
 
@@ -36,10 +38,10 @@ const StakeholderDropZone = () => {
 };
 
 export const PMISApp: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<Tab>('communications'); // Default to Communications for flow
+  const [activeTab, setActiveTab] = useState<Tab>('charter'); // Default to Charter for Level 1
   const dispatch = useDispatch();
   const { stakeholders } = useSelector((state: RootState) => state.pmis);
-  const { charterSubmissionCount } = useSelector((state: RootState) => state.game);
+  const { currentLevel } = useSelector((state: RootState) => state.game);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -78,11 +80,41 @@ export const PMISApp: React.FC = () => {
         const stakeholderId = active.id.toString().replace('stakeholder-', '');
         const { power, interest } = over.data.current;
 
+        // Get the correct values from initial data
+        const correctStakeholder = INITIAL_STAKEHOLDERS.find(s => s.id === stakeholderId);
+        const isCorrectPlacement =
+            correctStakeholder?.power === power &&
+            correctStakeholder?.interest === interest;
+
+        // Update position in state
         dispatch(updateStakeholderPosition({
             id: stakeholderId,
             power: power as PowerLevel,
             interest: interest as InterestLevel
         }));
+
+        // Show feedback notification
+        const stakeholderName = correctStakeholder?.name || 'Stakeholder';
+        if (isCorrectPlacement) {
+            dispatch(addNotification({
+                id: `notif_${Date.now()}`,
+                title: 'Correct Placement!',
+                message: `${stakeholderName} correctly placed in the grid.`,
+                type: 'success',
+                duration: 3000,
+            }));
+        } else {
+            dispatch(addNotification({
+                id: `notif_${Date.now()}`,
+                title: 'Stakeholder Placed',
+                message: `${stakeholderName} added to grid. Review your analysis.`,
+                type: 'info',
+                duration: 3000,
+            }));
+        }
+
+        // Check if Level 2 is complete (all required stakeholders correctly placed)
+        // We need to check after state updates, so we do this in a separate effect
     }
 
     // 3. Handle Charter Builder Drop (Evidence -> Section)
@@ -97,12 +129,8 @@ export const PMISApp: React.FC = () => {
     }
   };
   
-  // Watch for charter submission to show report (Simplified logic)
-  React.useEffect(() => {
-    if (charterSubmissionCount > 0) {
-        setActiveTab('report');
-    }
-  }, [charterSubmissionCount]);
+  // Note: Charter validation is now handled in CharterBuilder
+  // The report tab is available but not auto-shown
 
   return (
     <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
@@ -145,7 +173,7 @@ export const PMISApp: React.FC = () => {
                 <AlertTriangle size={16} />
                 <span>Assumptions</span>
             </button>
-            {charterSubmissionCount > 0 && (
+            {currentLevel >= 2 && (
                 <button
                     onClick={() => setActiveTab('report')}
                     className={`px-4 py-2 text-sm font-medium rounded-t-lg flex items-center space-x-2 border-t border-l border-r ${activeTab === 'report' ? 'bg-gray-100 border-gray-200 text-purple-700' : 'bg-white border-transparent text-gray-500 hover:text-gray-700'}`}

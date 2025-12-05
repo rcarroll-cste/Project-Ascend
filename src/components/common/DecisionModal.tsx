@@ -1,5 +1,5 @@
 import React from 'react';
-import { HelpCircle, Check, X } from 'lucide-react';
+import { HelpCircle, Check } from 'lucide-react';
 
 interface DecisionModalProps {
   isOpen: boolean;

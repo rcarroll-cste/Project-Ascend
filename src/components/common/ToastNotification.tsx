@@ -6,7 +6,6 @@ import { X, CheckCircle, AlertTriangle, Info, AlertCircle } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 export const ToastNotification: React.FC = () => {
-  const dispatch = useDispatch();
   const notifications = useSelector((state: RootState) => state.game.notifications);
 
   // Auto-dismiss logic is handled by individual toast items for better control

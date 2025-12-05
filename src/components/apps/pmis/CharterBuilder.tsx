@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDroppable, useDraggable } from '@dnd-kit/core';
 import { RootState } from '../../../store';
 import { assignEvidenceToSection } from '../../../features/pmisSlice';
-import { FileText, Lock, CheckCircle, AlertCircle, Send } from 'lucide-react';
+import { FileText, Lock, CheckCircle, AlertCircle, Send, Award } from 'lucide-react';
 import { EvidenceItem } from '../../../types';
-import { incrementCharterSubmission, setGameStage } from '../../../features/gameSlice';
+import { incrementCharterSubmission, advanceLevel, addNotification, unlockProcess } from '../../../features/gameSlice';
+import { unlockContact, setContactUnread } from '../../../features/dialogueSlice';
+import { identifyStakeholder } from '../../../features/pmisSlice';
+import { motion, AnimatePresence } from 'framer-motion';
+import { logger } from '../../../utils/logger';
 
 // --- Draggable Evidence Component ---
 interface DraggableEvidenceProps {
@@ -128,39 +132,181 @@ export const CharterBuilder: React.FC = () => {
   const { charterSections } = useSelector((state: RootState) => state.pmis);
   const { items } = useSelector((state: RootState) => state.inventory);
   const { charterSubmissionCount } = useSelector((state: RootState) => state.game);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [validationErrors, setValidationErrors] = useState<string[]>([]);
 
   // Filter out items that are already assigned to a section
   const assignedIds = charterSections.map(s => s.assignedItemId).filter(Boolean);
   const availableItems = items.filter(item => !assignedIds.includes(item.id));
 
+  // Validation rules for charter sections
+  const validateCharter = (): { isValid: boolean; errors: string[] } => {
+    const errors: string[] = [];
+
+    charterSections.forEach((section) => {
+      if (section.isLocked) return; // Skip locked sections
+
+      if (!section.assignedItemId) {
+        errors.push(`${section.label}: No item assigned`);
+        return;
+      }
+
+      const assignedItem = items.find(i => i.id === section.assignedItemId);
+      if (!assignedItem) {
+        errors.push(`${section.label}: Invalid item`);
+        return;
+      }
+
+      // GDD v3.3 Step 4: Granularity Trap - Special message for Detailed Gantt
+      if (section.id === 'sec_timeline' && assignedItem.id === 'ev_detailed_gantt') {
+        errors.push(`${section.label}: Too Detailed! Charters only contain high-level milestones.`);
+        return;
+      }
+
+      // Check if item type matches required type
+      if (assignedItem.type !== section.requiredType) {
+        errors.push(`${section.label}: Wrong item type (needs ${section.requiredType})`);
+        return;
+      }
+
+      // Check if it's a distractor
+      if (assignedItem.isDistractor) {
+        errors.push(`${section.label}: Item is not suitable for the Charter`);
+      }
+    });
+
+    return { isValid: errors.length === 0, errors };
+  };
+
   const handleSubmit = () => {
-    // Basic validation check before "submitting" to the game logic
+    logger.info('CharterBuilder', 'Submit clicked', {
+      sections: charterSections.map(s => ({ id: s.id, assigned: s.assignedItemId })),
+      inventoryCount: items.length
+    });
+
+    // Check if all sections are filled
     const emptySections = charterSections.filter(s => !s.assignedItemId && !s.isLocked);
-    
+
     if (emptySections.length > 0) {
-      alert(`Please fill all sections before submitting. Missing: ${emptySections.map(s => s.label).join(', ')}`);
+      logger.warn('CharterBuilder', 'Empty sections found', { emptySections: emptySections.map(s => s.label) });
+      setValidationErrors([`Please fill all sections: ${emptySections.map(s => s.label).join(', ')}`]);
       return;
     }
 
     if (charterSubmissionCount >= 3) {
-      alert("Submission limit reached. Please consult with the Sponsor.");
+      logger.error('CharterBuilder', 'Submission limit reached');
+      setValidationErrors(['Submission limit reached. Game Over.']);
       return;
     }
 
-    // Trigger validation logic (conceptually)
-    // In a real app, this would dispatch a thunk that runs the validation logic from Developer_Specifications
-    // For now, we'll just simulate the state transition to the "Performance Report" if valid
-    // The actual validation logic will be in PMISApp or a separate utility called here.
-    // For this step, we just signal the intent.
-    
-    // We'll dispatch an action to simulate submission
+    // Validate the charter
+    const { isValid, errors } = validateCharter();
+    logger.info('CharterBuilder', 'Validation result', { isValid, errors });
+
     dispatch(incrementCharterSubmission());
-    // We assume PMISApp will handle the actual "Scene Change" to PerformanceReport upon successful validation
+
+    if (!isValid) {
+      logger.warn('CharterBuilder', 'Charter rejected', { errors });
+      setValidationErrors(errors);
+      dispatch(addNotification({
+        id: `notif_${Date.now()}`,
+        title: 'Charter Rejected',
+        message: 'Some sections have incorrect evidence. Please review.',
+        type: 'error',
+        duration: 5000,
+      }));
+      return;
+    }
+
+    // Success! Charter is valid
+    logger.info('CharterBuilder', 'Charter VALID - showing success modal');
+    setValidationErrors([]);
+    setShowSuccess(true);
+
+    // Trigger Level 2 progression after a delay
+    setTimeout(() => {
+      logger.info('CharterBuilder', 'Triggering Level 2 progression');
+
+      // Unlock Team Channel contact
+      dispatch(unlockContact('contact_team'));
+      dispatch(setContactUnread({
+        contactId: 'contact_team',
+        hasUnread: true,
+        lastMessage: 'You have been added to the Project Team channel.',
+      }));
+
+      // Unlock Marcus contact (appears in Team Channel)
+      dispatch(unlockContact('contact_marcus'));
+      dispatch(setContactUnread({
+        contactId: 'contact_marcus',
+        hasUnread: true,
+        lastMessage: 'New message from Marcus',
+      }));
+
+      // Identify Marcus as a stakeholder
+      dispatch(identifyStakeholder('sh_marcus'));
+
+      // Unlock "Identify Stakeholders" process for Level 2
+      dispatch(unlockProcess('proc_identify_stakeholders'));
+
+      // Advance to Level 2
+      dispatch(advanceLevel({ level: 2, title: "Who's Who?" }));
+      logger.info('CharterBuilder', 'Level 2 dispatched');
+
+      // Add success notification
+      dispatch(addNotification({
+        id: `notif_${Date.now()}`,
+        title: 'Charter Authorized!',
+        message: 'Level 2: "Who\'s Who?" - Identify and analyze your stakeholders.',
+        type: 'success',
+        duration: 8000,
+      }));
+    }, 2500);
   };
 
   return (
-    <div className="flex h-full p-6 space-x-6">
-      
+    <div className="flex h-full p-6 space-x-6 relative">
+      {/* Success Overlay */}
+      <AnimatePresence>
+        {showSuccess && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 bg-black/70 flex items-center justify-center z-50"
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.2, type: 'spring' }}
+              className="bg-white rounded-xl p-8 max-w-md text-center shadow-2xl"
+            >
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1, rotate: 360 }}
+                transition={{ delay: 0.4, type: 'spring' }}
+                className="w-20 h-20 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center"
+              >
+                <Award size={40} className="text-green-600" />
+              </motion.div>
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">Charter Authorized!</h2>
+              <p className="text-gray-600 mb-4">
+                Director Vane has signed your Project Charter. You now have authority to proceed.
+              </p>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8 }}
+                className="text-sm text-gray-500 border-t pt-4"
+              >
+                <p className="font-medium text-green-600">Level 1 Complete!</p>
+                <p>Advancing to Level 2: "Who's Who?"</p>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Left Column: Charter Document */}
       <div className="flex-1 flex flex-col">
         <div className="mb-4 flex justify-between items-center">
@@ -173,6 +319,27 @@ export const CharterBuilder: React.FC = () => {
              <div className="text-lg font-mono">{charterSubmissionCount}/3</div>
           </div>
         </div>
+
+        {/* Validation Errors */}
+        {validationErrors.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg"
+          >
+            <div className="flex items-start gap-2">
+              <AlertCircle size={18} className="text-red-500 mt-0.5 shrink-0" />
+              <div>
+                <h4 className="text-sm font-medium text-red-800">Charter Rejected</h4>
+                <ul className="text-sm text-red-600 mt-1 space-y-0.5">
+                  {validationErrors.map((error, i) => (
+                    <li key={i}>• {error}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </motion.div>
+        )}
 
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex-1 overflow-y-auto">
           <div className="grid grid-cols-1 gap-4">
@@ -192,7 +359,8 @@ export const CharterBuilder: React.FC = () => {
           <div className="mt-8 pt-4 border-t border-gray-100 flex justify-end">
              <button
                 onClick={handleSubmit}
-                className="flex items-center space-x-2 bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-medium transition-colors shadow-sm"
+                disabled={showSuccess}
+                className="flex items-center space-x-2 bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-medium transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
              >
                 <Send size={18} />
                 <span>Submit Charter for Authorization</span>
@@ -209,12 +377,12 @@ export const CharterBuilder: React.FC = () => {
             Evidence Inventory
           </h3>
         </div>
-        
+
         <div className="p-4 flex-1 overflow-y-auto">
             {availableItems.length === 0 ? (
                 <div className="text-center text-gray-400 mt-10">
                     <p>No items available.</p>
-                    <p className="text-xs mt-2">Check your emails or talk to stakeholders.</p>
+                    <p className="text-xs mt-2">Check Files app or extract evidence from documents.</p>
                 </div>
             ) : (
                 availableItems.map(item => (

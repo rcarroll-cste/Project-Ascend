@@ -1,8 +1,118 @@
 // Enums/Types for PMP classifications
 export type PowerLevel = 'High' | 'Low' | 'Unknown';
 export type InterestLevel = 'High' | 'Low' | 'Unknown';
+export type UrgencyLevel = 'High' | 'Low' | 'Unknown';
+export type LegitimacyLevel = 'High' | 'Low' | 'Unknown';
 export type StakeholderAttitude = 'Supportive' | 'Neutral' | 'Resistant' | 'Leading' | 'Unknown';
-export type EvidenceType = 'BusinessCase' | 'Agreement' | 'Risk' | 'TechnicalSpec' | 'Regulatory' | 'Template';
+export type SalienceClass = 'Definitive' | 'Dominant' | 'Dangerous' | 'Dependent' | 'Dormant' | 'Discretionary' | 'Demanding' | 'None';
+export type EvidenceType = 'BusinessCase' | 'Agreement' | 'Risk' | 'TechnicalSpec' | 'Regulatory' | 'Template' | 'Timeline';
+
+// Triple Constraint Metrics (Status HUD)
+export interface ConstraintMetrics {
+  schedule: number;  // 0-100, % of schedule remaining
+  budget: number;    // 0-100, % of budget remaining
+  morale: number;    // 0-100, team morale
+  scope: number;     // 0-100, 50 = balanced, <50 = scope creep, >50 = gold plating
+}
+
+// Game Over Reasons
+export type GameOverReason = 'UNAUTHORIZED_SPEND' | 'BUDGET_DEPLETED' | 'SPONSOR_LOST_CONFIDENCE';
+
+// App IDs for unlock tracking
+export type AppId = 'chatter' | 'email' | 'pmis' | 'files' | 'browser' | 'wikibok' | 'examsim';
+
+// Dialogue/Chatter System Types
+export interface DialogueChoice {
+  id: string;
+  label: string;
+  style: 'safe' | 'risky' | 'neutral'; // Visual hint (blue/red/gray outline)
+  consequences: DialogueConsequence[];
+  nextNodeId: string | null; // null = end conversation
+}
+
+export interface DialogueConsequence {
+  type: 'unlock_app' | 'game_over' | 'update_stakeholder' | 'add_notification' | 'unlock_process' | 'advance_level' | 'add_contact' | 'add_inventory' | 'identify_stakeholder' | 'decompose_stakeholder' | 'update_constraint';
+  payload: Record<string, unknown>;
+}
+
+export interface DialogueNode {
+  id: string;
+  speaker: string; // 'Director Vane', 'Marcus', 'System', 'Player'
+  speakerAvatar?: string;
+  text: string;
+  choices?: DialogueChoice[]; // If present, wait for player choice
+  autoAdvanceToNodeId?: string; // If no choices, auto-advance after typing
+  delay?: number; // ms delay before showing this node
+  consequences?: DialogueConsequence[]; // Optional consequences triggered when this node is reached
+}
+
+export interface DialogueTree {
+  id: string;
+  contactId: string;
+  nodes: DialogueNode[];
+  startNodeId: string;
+}
+
+// Chatter Contact
+export interface ChatterContact {
+  id: string;
+  name: string;
+  role: string;
+  avatarUrl: string;
+  isUnlocked: boolean;
+  hasUnreadMessages: boolean;
+  lastMessage?: string;
+}
+
+// Conversation History Entry
+export interface ConversationMessage {
+  nodeId: string;
+  speaker: string;
+  text: string;
+  timestamp: number;
+  isPlayerChoice?: boolean;
+}
+
+// Process Card for ProcessMap
+export interface ProcessCard {
+  id: string;
+  name: string;
+  processGroup: 'Initiating' | 'Planning' | 'Executing' | 'Monitoring' | 'Closing';
+  knowledgeArea: string;
+  description: string;
+  isUnlocked: boolean;
+  levelRequired: number;
+}
+
+// Document for Files App
+export interface GameDocument {
+  id: string;
+  name: string;
+  folder: 'Documents' | 'Templates' | 'OrgCharts' | 'Generated';
+  content: DocumentContent[];
+  isDiscovered: boolean;
+}
+
+export interface DocumentContent {
+  type: 'text' | 'heading' | 'highlight' | 'image';
+  text?: string;
+  highlightId?: string; // If highlightable, links to evidence
+  evidenceType?: EvidenceType;
+}
+
+// Level/Progression State
+export interface LevelObjective {
+  id: string;
+  description: string;
+  isCompleted: boolean;
+}
+
+export interface LevelState {
+  currentLevel: number;
+  levelTitle: string;
+  objectives: LevelObjective[];
+  isLevelComplete: boolean;
+}
 
 // The "NPC" entity
 export interface Stakeholder {
@@ -10,16 +120,26 @@ export interface Stakeholder {
   name: string;
   role: string; // e.g., "CEO", "Functional Manager"
   avatarUrl: string; // Path to asset
-  
-  // Attributes to be discovered via gameplay
+
+  // Power/Interest Grid attributes
   power: PowerLevel;
   interest: InterestLevel;
   attitude: StakeholderAttitude;
-  
+
+  // Salience Model attributes (Level 2)
+  urgency: UrgencyLevel;
+  legitimacy: LegitimacyLevel;
+  salienceClass?: SalienceClass;
+
   // State flags
   isIdentified: boolean; // Has the player met them?
   isAnalyzed: boolean;   // Has the player placed them on the grid correctly?
-  
+
+  // Decomposition (for broad stakeholder groups)
+  isDecomposable?: boolean;
+  childStakeholderIds?: string[];
+  parentStakeholderId?: string;
+
   // Dialogue/Narrative data
   dialogueTreeId: string;
   secret: string | null; // e.g., "Knows about the incompatibility"
@@ -57,13 +177,21 @@ export interface AssumptionEntry {
 // Global Game State
 export interface GameState {
   currentPhase: 'Initiation' | 'Planning';
-  gameStage: 'Login' | 'Investigation' | 'Authorization';
-  
-  // Global Resources
+  gameStage: 'Login' | 'Investigation' | 'Authorization' | 'GameOver';
+
+  // Level Progression
+  currentLevel: number;
+  levelTitle: string;
+  levelObjectives: Record<string, boolean>;
+
+  // Triple Constraint HUD (GDD v3.3)
+  constraints: ConstraintMetrics;
+
+  // Global Resources (legacy, may be replaced by constraints)
   socialCapital: number; // Currency for using "Expert Judgment"
   corporateCulture: number; // 0-100 (Health meter)
   riskMeter: number; // 0-100 (Risk of failure)
-  
+
   // Progression Flags
   hasFoundMole: boolean;
   hasConsultedSME: boolean;
@@ -71,6 +199,18 @@ export interface GameState {
   isPMISUnlocked: boolean;
   notifications: Notification[];
   isOnboardingCompleted: boolean;
+
+  // ExamSim (Post-Level Assessment)
+  examPending: boolean;
+  pendingExamLevel: number | null;
+
+  // App Unlock Tracking
+  unlockedApps: AppId[];
+  unlockedProcesses: string[]; // Process card IDs
+
+  // Game Over State
+  isGameOver: boolean;
+  gameOverReason: GameOverReason | null;
 }
 
 // PMIS Dashboard State
@@ -93,7 +233,7 @@ export interface WindowState {
   isMinimized: boolean;
   isMaximized: boolean;
   zIndex: number;
-  type: 'PMIS' | 'Email' | 'Browser' | 'Document'; // Types of windows
+  type: 'PMIS' | 'Email' | 'Browser' | 'Document' | 'Chatter' | 'Files' | 'WikiBOK'; // Types of windows
   contentId?: string; // Optional ID to link to specific content (e.g. document ID)
 }
 
@@ -123,4 +263,37 @@ export interface Notification {
   message: string;
   type: 'info' | 'success' | 'warning' | 'error';
   duration?: number; // ms
+}
+
+// ExamSim Types (Post-Level Assessment)
+export interface ExamQuestion {
+  id: string;
+  levelId: number;
+  question: string;
+  options: string[];
+  correctIndex: number;
+  explanation: string;
+}
+
+export interface ExamAnswer {
+  questionId: string;
+  selectedIndex: number;
+  isCorrect: boolean;
+}
+
+export interface ExamResult {
+  levelId: number;
+  score: number;
+  totalQuestions: number;
+  passed: boolean;
+  answers: ExamAnswer[];
+  completedAt: number;
+}
+
+export interface ExamState {
+  isExamActive: boolean;
+  currentLevelId: number | null;
+  currentQuestionIndex: number;
+  answers: ExamAnswer[];
+  results: ExamResult[];
 }

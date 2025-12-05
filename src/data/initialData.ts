@@ -1,24 +1,7 @@
-import { Stakeholder, EvidenceItem, CharterSection, Email } from '../types';
+import { Stakeholder, EvidenceItem, CharterSection, Email, ChatterContact, ProcessCard } from '../types';
 
+// Emails are secondary to Chatter in the GDD flow, but still useful for evidence/reference
 export const INITIAL_EMAILS: Email[] = [
-  {
-    id: 'email_thorne_intro',
-    sender: 'Director Thorne',
-    subject: 'URGENT: Project Ascend Charter',
-    preview: 'Welcome to the team. I need you to get the charter approved ASAP...',
-    timestamp: '9:00 AM',
-    isRead: false,
-    categoryColor: '#ef4444', // Red for urgent
-    triggerAction: 'UNLOCK_PMIS',
-    body: `Welcome to the team.
-    
-I need you to get the charter approved ASAP. The merger depends on it.
-
-I've attached the initial market analysis. Review it carefully.
-
-- Elias Thorne`,
-    relatedEvidenceId: 'ev_market_analysis'
-  },
   {
     id: 'email_it_support',
     sender: 'IT Support',
@@ -28,7 +11,7 @@ I've attached the initial market analysis. Review it carefully.
     isRead: true,
     categoryColor: '#3B82F6',
     body: `Your access to the Project Management Information System (PMIS) has been provisioned.
-    
+
 Username: pm_lead
 Password: [REDACTED]
 
@@ -53,45 +36,130 @@ Sarah`
   }
 ];
 
+// Chatter contacts - the primary narrative driver per GDD
+export const INITIAL_CONTACTS: ChatterContact[] = [
+  {
+    id: 'contact_vane',
+    name: 'Director Vane',
+    role: 'Sponsor (CEO)',
+    avatarUrl: '/assets/avatars/vane.png',
+    isUnlocked: true, // Available from start
+    hasUnreadMessages: true, // Level 1 starts with message from Vane
+    lastMessage: 'Welcome aboard...',
+  },
+  {
+    id: 'contact_team',
+    name: 'Team Channel',
+    role: 'Project Team',
+    avatarUrl: '/assets/avatars/team.png',
+    isUnlocked: false, // Unlocks after Charter signed
+    hasUnreadMessages: false,
+  },
+  {
+    id: 'contact_marcus',
+    name: 'Marcus',
+    role: 'Head of Legacy Systems',
+    avatarUrl: '/assets/avatars/marcus.png',
+    isUnlocked: false, // Unlocks in Level 2 via Team Channel
+    hasUnreadMessages: false,
+  },
+  {
+    id: 'contact_sarah',
+    name: 'Sarah',
+    role: 'Data Privacy Officer',
+    avatarUrl: '/assets/avatars/sarah.png',
+    isUnlocked: false, // Discovered via Org Chart hunt
+    hasUnreadMessages: false,
+  },
+];
+
 export const INITIAL_STAKEHOLDERS: Stakeholder[] = [
   {
-    id: 'sh_elias',
-    name: 'Elias Thorne',
+    id: 'sh_vane',
+    name: 'Director Vane',
     role: 'Sponsor (CEO)',
-    avatarUrl: '/assets/avatars/elias.png',
+    avatarUrl: '/assets/avatars/vane.png',
     power: 'High',
     interest: 'High',
     attitude: 'Supportive',
-    isIdentified: true,
+    // Salience Model attributes (GDD v3.3)
+    urgency: 'High',
+    legitimacy: 'High',
+    salienceClass: 'Definitive', // Power + Urgency + Legitimacy = Definitive
+    isIdentified: true, // Known from start via Chatter
     isAnalyzed: false,
-    dialogueTreeId: 'dt_elias_intro',
+    dialogueTreeId: 'dt_vane_intro',
     secret: null,
   },
   {
-    id: 'sh_sarah',
-    name: 'Sarah Jenkins',
-    role: 'Functional Manager (IT)',
-    avatarUrl: '/assets/avatars/sarah.png',
-    power: 'Low',
-    interest: 'High',
-    attitude: 'Neutral', // Starts neutral, becomes supportive if consulted
-    isIdentified: false,
+    id: 'sh_marcus',
+    name: 'Marcus',
+    role: 'Head of Legacy Systems',
+    avatarUrl: '/assets/avatars/marcus.png',
+    power: 'High',
+    interest: 'Low', // Correct placement: Keep Satisfied quadrant
+    attitude: 'Resistant', // Starts resistant, can soften if player collaborates
+    // Salience Model attributes (GDD v3.3)
+    urgency: 'Low',
+    legitimacy: 'High',
+    salienceClass: 'Dominant', // Power + Legitimacy = Dominant
+    isIdentified: false, // Identified in Level 2 via Team Channel
     isAnalyzed: false,
-    dialogueTreeId: 'dt_sarah_intro',
-    secret: 'Concerns about legacy system compatibility',
+    dialogueTreeId: 'dt_marcus_intro',
+    secret: 'Those mainframes run payroll - touching them could cause disaster',
   },
   {
-    id: 'sh_mole',
-    name: 'Marcus Reynolds',
-    role: 'VP of Sales (Rival)',
-    avatarUrl: '/assets/avatars/mole.png',
+    id: 'sh_sarah',
+    name: 'Sarah',
+    role: 'Data Privacy Officer',
+    avatarUrl: '/assets/avatars/sarah.png',
     power: 'High',
-    interest: 'Low',
-    attitude: 'Resistant',
-    isIdentified: false,
+    interest: 'High', // Correct placement: Manage Closely quadrant
+    attitude: 'Neutral',
+    // Salience Model attributes (GDD v3.3)
+    urgency: 'High',
+    legitimacy: 'High',
+    salienceClass: 'Definitive', // Power + Urgency + Legitimacy = Definitive
+    isIdentified: false, // Hidden - discovered via Org Chart hunt in Level 2
     isAnalyzed: false,
-    dialogueTreeId: 'dt_mole_intro',
-    secret: 'Secretly delaying the project to fund his own initiative',
+    dialogueTreeId: 'dt_sarah_intro',
+    secret: 'Critical compliance requirements that could halt the project',
+  },
+  // GDD v3.3 Level 2 Step 1: Broad Entry - Decomposable stakeholder group
+  {
+    id: 'sh_entire_company',
+    name: 'The Entire Company',
+    role: 'All Employees',
+    avatarUrl: '/assets/avatars/group.png',
+    power: 'Low',
+    interest: 'Low',
+    attitude: 'Unknown',
+    urgency: 'Low',
+    legitimacy: 'Low',
+    salienceClass: 'None',
+    isIdentified: false, // Added via team suggestion in Level 2
+    isAnalyzed: false,
+    isDecomposable: true, // Can be broken down
+    childStakeholderIds: ['sh_hr', 'sh_it_support', 'sh_managers'],
+    dialogueTreeId: '',
+    secret: null,
+  },
+  // GDD v3.3 Level 2 Step 3: Late Arrival - Compliance Body
+  {
+    id: 'sh_compliance',
+    name: 'Compliance Body',
+    role: 'Regulatory Oversight',
+    avatarUrl: '/assets/avatars/compliance.png',
+    power: 'High',
+    interest: 'High',
+    attitude: 'Neutral',
+    urgency: 'High',
+    legitimacy: 'High',
+    salienceClass: 'Definitive',
+    isIdentified: false, // Discovered late in Level 2
+    isAnalyzed: false,
+    dialogueTreeId: '',
+    secret: 'New regulations that affect project scope',
   },
 ];
 
@@ -146,35 +214,132 @@ export const INITIAL_EVIDENCE: EvidenceItem[] = [
     isDistractor: true,
     qualityScore: 15,
   },
+  // GDD v3.3 Step 4: Granularity Trap - Timeline documents
+  {
+    id: 'ev_milestone_summary',
+    name: 'Milestone Summary',
+    description: 'High-level project milestones for executive review.',
+    type: 'Timeline',
+    isDistractor: false,
+    qualityScore: 90,
+  },
+  {
+    id: 'ev_detailed_gantt',
+    name: 'Detailed Gantt Draft',
+    description: 'Comprehensive task-level schedule with dependencies and resources.',
+    type: 'TechnicalSpec', // Wrong type for charter - too detailed
+    isDistractor: true,
+    qualityScore: 20, // Low score - too detailed for charter
+  },
 ];
 
+// Charter sections per GDD v3.3: 4 slots - [Purpose], [Budget], [Timeline], [Risks]
 export const INITIAL_CHARTER_SECTIONS: CharterSection[] = [
   {
-    id: 'sec_business_case',
-    label: 'Business Case',
-    requiredType: 'BusinessCase',
+    id: 'sec_purpose',
+    label: 'Purpose / Business Case',
+    requiredType: 'BusinessCase', // Market Analysis Report goes here
+    assignedItemId: null,
+    isLocked: false,
+  },
+  {
+    id: 'sec_budget',
+    label: 'Budget Justification',
+    requiredType: 'Regulatory', // Legal Framework provides budget justification
+    assignedItemId: null,
+    isLocked: false,
+  },
+  {
+    id: 'sec_timeline',
+    label: 'Timeline (High-Level)',
+    requiredType: 'Timeline', // Milestone Summary only - Step 4 Granularity Trap
     assignedItemId: null,
     isLocked: false,
   },
   {
     id: 'sec_risks',
-    label: 'Key Risks',
-    requiredType: 'Risk',
+    label: 'High-Level Risks',
+    requiredType: 'Risk', // Risk Register Draft goes here
     assignedItemId: null,
     isLocked: false,
-  },
-  {
-    id: 'sec_scope',
-    label: 'Scope Description',
-    requiredType: 'Regulatory', // Mapping Legal Framework here for the vertical slice
-    assignedItemId: null,
-    isLocked: false,
-  },
-  {
-    id: 'sec_schedule',
-    label: 'Milestone Schedule',
-    requiredType: 'Agreement', // Placeholder for future evidence
-    assignedItemId: null,
-    isLocked: false, 
   },
 ];
+
+// Process Cards for ProcessMap - initially only Level 1 process is unlocked
+export const INITIAL_PROCESS_CARDS: ProcessCard[] = [
+  {
+    id: 'proc_develop_charter',
+    name: 'Develop Project Charter',
+    processGroup: 'Initiating',
+    knowledgeArea: 'Integration Management',
+    description: 'Create the document that formally authorizes the project and gives the PM authority to apply resources.',
+    isUnlocked: false, // Unlocked when player chooses "Draft Charter" in Chatter
+    levelRequired: 1,
+  },
+  {
+    id: 'proc_identify_stakeholders',
+    name: 'Identify Stakeholders',
+    processGroup: 'Initiating',
+    knowledgeArea: 'Stakeholder Management',
+    description: 'Identify people, groups, or organizations that could impact or be impacted by the project.',
+    isUnlocked: false, // Unlocked after Charter is signed
+    levelRequired: 2,
+  },
+];
+
+// GDD v3.3 Phase 3: Decomposition Mappings
+// Maps broad stakeholder groups to their specific categories
+export const DECOMPOSITION_MAPPINGS: Record<string, { children: Stakeholder[] }> = {
+  sh_entire_company: {
+    children: [
+      {
+        id: 'sh_hr',
+        name: 'HR Department',
+        role: 'Human Resources',
+        avatarUrl: '/assets/avatars/hr.png',
+        power: 'Low',
+        interest: 'High',
+        attitude: 'Neutral',
+        urgency: 'Low',
+        legitimacy: 'High',
+        salienceClass: 'Discretionary',
+        isIdentified: true,
+        isAnalyzed: false,
+        dialogueTreeId: '',
+        secret: null,
+      },
+      {
+        id: 'sh_it_support',
+        name: 'IT Support',
+        role: 'Technical Support',
+        avatarUrl: '/assets/avatars/it.png',
+        power: 'Low',
+        interest: 'High',
+        attitude: 'Supportive',
+        urgency: 'High',
+        legitimacy: 'High',
+        salienceClass: 'Dependent',
+        isIdentified: true,
+        isAnalyzed: false,
+        dialogueTreeId: '',
+        secret: null,
+      },
+      {
+        id: 'sh_managers',
+        name: 'Department Managers',
+        role: 'Middle Management',
+        avatarUrl: '/assets/avatars/managers.png',
+        power: 'High',
+        interest: 'Low',
+        attitude: 'Neutral',
+        urgency: 'Low',
+        legitimacy: 'High',
+        salienceClass: 'Dominant',
+        isIdentified: true,
+        isAnalyzed: false,
+        dialogueTreeId: '',
+        secret: null,
+      },
+    ],
+  },
+};

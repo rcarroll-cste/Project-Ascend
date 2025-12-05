@@ -2,19 +2,20 @@ import { useSelector } from 'react-redux';
 import { RootState } from './store';
 import { DesktopLayout } from './components/os/DesktopLayout';
 import { LoginScreen } from './components/scenes/LoginScreen';
+import { GameOverScreen } from './components/scenes/GameOverScreen';
 
 function App() {
   const { gameStage } = useSelector((state: RootState) => state.game);
 
-  return (
-    <>
-      {gameStage === 'Login' ? (
-        <LoginScreen />
-      ) : (
-        <DesktopLayout />
-      )}
-    </>
-  );
+  if (gameStage === 'Login') {
+    return <LoginScreen />;
+  }
+
+  if (gameStage === 'GameOver') {
+    return <GameOverScreen />;
+  }
+
+  return <DesktopLayout />;
 }
 
-export default App
+export default App;
