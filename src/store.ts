@@ -5,6 +5,8 @@ import pmisReducer from './features/pmisSlice';
 import osReducer from './features/osSlice';
 import dialogueReducer from './features/dialogueSlice';
 import examReducer from './features/examSlice';
+import processMapReducer from './features/processMapSlice';
+import documentAnalysisReducer from './features/documentAnalysisSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +16,8 @@ export const store = configureStore({
     os: osReducer,
     dialogue: dialogueReducer,
     exam: examReducer,
+    processMap: processMapReducer,
+    documentAnalysis: documentAnalysisReducer,
   },
 });
 

@@ -7,6 +7,31 @@ export type StakeholderAttitude = 'Supportive' | 'Neutral' | 'Resistant' | 'Lead
 export type SalienceClass = 'Definitive' | 'Dominant' | 'Dangerous' | 'Dependent' | 'Dormant' | 'Discretionary' | 'Demanding' | 'None';
 export type EvidenceType = 'BusinessCase' | 'Agreement' | 'Risk' | 'TechnicalSpec' | 'Regulatory' | 'Template' | 'Timeline';
 
+// Document types for ProcessMap inputs/outputs
+export type DocumentType =
+  | 'BusinessCase'
+  | 'Agreement'
+  | 'ProjectCharter'
+  | 'StakeholderRegister'
+  | 'ScopeManagementPlan'
+  | 'RequirementsDoc'
+  | 'WBS'
+  | 'Schedule'
+  | 'CostBaseline'
+  | 'RiskRegister'
+  | 'ChangeRequest'
+  | 'LessonsLearned'
+  | 'AssumptionLog';
+
+// Document Analysis Task Types
+export type AnalysisTaskType =
+  | 'find_violation'
+  | 'find_justification'
+  | 'find_deliverables'
+  | 'find_stakeholder'
+  | 'find_budget'
+  | 'free_exploration';
+
 // Triple Constraint Metrics (Status HUD)
 export interface ConstraintMetrics {
   schedule: number;  // 0-100, % of schedule remaining
@@ -19,7 +44,7 @@ export interface ConstraintMetrics {
 export type GameOverReason = 'UNAUTHORIZED_SPEND' | 'BUDGET_DEPLETED' | 'SPONSOR_LOST_CONFIDENCE';
 
 // App IDs for unlock tracking
-export type AppId = 'chatter' | 'email' | 'pmis' | 'files' | 'browser' | 'wikibok' | 'examsim';
+export type AppId = 'chatter' | 'email' | 'pmis' | 'files' | 'browser' | 'wikibok' | 'examsim' | 'processmap';
 
 // Dialogue/Chatter System Types
 export interface DialogueChoice {
@@ -82,6 +107,52 @@ export interface ProcessCard {
   description: string;
   isUnlocked: boolean;
   levelRequired: number;
+  // Enhanced fields for ProcessMap execution
+  requiredInputs: ProcessInput[];
+  optionalInputs?: ProcessInput[];
+  outputs: ProcessOutput[];
+  toolsTechniques: string[];
+}
+
+// Process Input/Output definitions
+export interface ProcessInput {
+  id: string;
+  name: string;
+  documentType: DocumentType;
+  isRequired: boolean;
+  description: string;
+  qualityImpact: number; // 0-100, how much this affects output quality
+}
+
+export interface ProcessOutput {
+  id: string;
+  name: string;
+  documentType: DocumentType;
+  templateId: string;
+  qualityFormula: 'average' | 'minimum' | 'weighted';
+}
+
+// Process Execution Record
+export interface ProcessExecution {
+  id: string;
+  processId: string;
+  timestamp: number;
+  inputs: { inputId: string; documentId: string; quality: number }[];
+  outputQuality: number;
+  outputDocumentId: string;
+  wasSuccessful: boolean;
+  missingInputs: string[];
+}
+
+// Generated Document from ProcessMap
+export interface GeneratedDocument {
+  id: string;
+  name: string;
+  processId: string;
+  createdAt: number;
+  quality: number; // 0-100
+  content: DocumentContent[];
+  isUsableAsInput: boolean;
 }
 
 // Document for Files App
@@ -91,13 +162,60 @@ export interface GameDocument {
   folder: 'Documents' | 'Templates' | 'OrgCharts' | 'Generated';
   content: DocumentContent[];
   isDiscovered: boolean;
+  // Document Analysis properties
+  activeTaskId?: string;
+  availableTasks?: string[];
+  hasBeenAnalyzed?: boolean;
 }
 
 export interface DocumentContent {
-  type: 'text' | 'heading' | 'highlight' | 'image';
+  type: 'text' | 'heading' | 'highlight' | 'image' | 'redacted';
   text?: string;
   highlightId?: string; // If highlightable, links to evidence
   evidenceType?: EvidenceType;
+  // Document Analysis properties
+  isSelectableForTask?: boolean;
+  analysisLabel?: string;
+  wrongSelectionReason?: string;
+}
+
+// Document Analysis Task
+export interface DocumentAnalysisTask {
+  id: string;
+  documentId: string;
+  taskType: AnalysisTaskType;
+  promptText: string;
+  hintText?: string;
+  correctHighlightIds: string[];
+  incorrectFeedback: Record<string, string>;
+  defaultIncorrectMessage: string;
+  successFeedback: string;
+  isCompleted: boolean;
+  levelId: number;
+  unlockCondition?: string;
+  consequence?: DocumentTaskConsequence;
+}
+
+export interface DocumentTaskConsequence {
+  type: 'extract_evidence' | 'identify_stakeholder' | 'unlock_document' | 'complete_objective' | 'advance_stage';
+  payload: Record<string, unknown>;
+}
+
+// Highlight Attempt Record
+export interface HighlightAttempt {
+  taskId: string;
+  documentId: string;
+  highlightId: string;
+  wasCorrect: boolean;
+  timestamp: number;
+}
+
+// Highlight Feedback Display
+export interface HighlightFeedback {
+  type: 'correct' | 'incorrect' | 'hint';
+  title: string;
+  message: string;
+  educationalContent?: string;
 }
 
 // Level/Progression State
@@ -233,7 +351,7 @@ export interface WindowState {
   isMinimized: boolean;
   isMaximized: boolean;
   zIndex: number;
-  type: 'PMIS' | 'Email' | 'Browser' | 'Document' | 'Chatter' | 'Files' | 'WikiBOK'; // Types of windows
+  type: 'PMIS' | 'Email' | 'Browser' | 'Document' | 'Chatter' | 'Files' | 'WikiBOK' | 'ProcessMap'; // Types of windows
   contentId?: string; // Optional ID to link to specific content (e.g. document ID)
 }
 
@@ -296,4 +414,22 @@ export interface ExamState {
   currentQuestionIndex: number;
   answers: ExamAnswer[];
   results: ExamResult[];
+}
+
+// ProcessMap State
+export interface ProcessMapState {
+  selectedProcessId: string | null;
+  assignedInputs: Record<string, string>; // inputSlotId -> documentId
+  executionHistory: ProcessExecution[];
+  generatedDocuments: GeneratedDocument[];
+  activeTab: 'library' | 'active' | 'history';
+}
+
+// Document Analysis State
+export interface DocumentAnalysisState {
+  activeTask: DocumentAnalysisTask | null;
+  completedTasks: string[];
+  attemptHistory: HighlightAttempt[];
+  selectedHighlightId: string | null;
+  lastFeedback: HighlightFeedback | null;
 }

@@ -13,13 +13,14 @@ import { ChatterApp } from '../apps/chatter/ChatterApp';
 import { FilesApp } from '../apps/files/FilesApp';
 import { WikiBOKApp } from '../apps/wikibok/WikiBOKApp';
 import { ExamSimApp } from '../apps/exam/ExamSimApp';
+import ProcessMapApp from '../apps/processmap/ProcessMapApp';
 import {
   closeWindow,
   minimizeWindow,
   maximizeWindow,
   focusWindow,
 } from '../../features/osSlice';
-import { Mail, LayoutDashboard, Folder, Globe, MessageCircle, BookOpen } from 'lucide-react';
+import { Mail, LayoutDashboard, Folder, Globe, MessageCircle, BookOpen, GitBranch } from 'lucide-react';
 
 export const DesktopLayout: React.FC = () => {
   const dispatch = useDispatch();
@@ -41,6 +42,8 @@ export const DesktopLayout: React.FC = () => {
         return <MessageCircle size={16} />;
       case 'WikiBOK':
         return <BookOpen size={16} />;
+      case 'ProcessMap':
+        return <GitBranch size={16} />;
       default:
         return <Folder size={16} />;
     }
@@ -58,6 +61,8 @@ export const DesktopLayout: React.FC = () => {
         return <FilesApp />;
       case 'WikiBOK':
         return <WikiBOKApp />;
+      case 'ProcessMap':
+        return <ProcessMapApp />;
       case 'Browser':
         return <div className="p-4 text-slate-400">Browser Content Placeholder</div>;
       default:

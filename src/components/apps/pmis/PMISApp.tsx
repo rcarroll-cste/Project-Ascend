@@ -37,6 +37,137 @@ const StakeholderDropZone = () => {
   );
 };
 
+// Dashboard Tab Component with Triple Constraint Bars
+const DashboardTab: React.FC = () => {
+  const { constraints, currentLevel, levelTitle } = useSelector((state: RootState) => state.game);
+  const { stakeholders, charterSections } = useSelector((state: RootState) => state.pmis);
+
+  // Calculate progress metrics
+  const identifiedStakeholders = stakeholders.filter(s => s.isIdentified).length;
+  const totalStakeholders = stakeholders.length;
+  const charterProgress = charterSections.filter(s => s.assignedItemId !== null).length;
+  const totalCharterSections = charterSections.length;
+
+  const ConstraintBar: React.FC<{ label: string; value: number; color: string; icon: React.ReactNode }> = ({
+    label,
+    value,
+    color,
+    icon,
+  }) => {
+    const getBarColor = () => {
+      if (value >= 80) return 'bg-green-500';
+      if (value >= 50) return 'bg-yellow-500';
+      return 'bg-red-500';
+    };
+
+    return (
+      <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2">
+            <div className={`p-2 rounded-lg ${color}`}>{icon}</div>
+            <span className="font-semibold text-gray-700">{label}</span>
+          </div>
+          <span className={`font-bold ${value >= 50 ? 'text-gray-800' : 'text-red-600'}`}>
+            {value}%
+          </span>
+        </div>
+        <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
+          <div
+            className={`h-full ${getBarColor()} rounded-full transition-all duration-500`}
+            style={{ width: `${value}%` }}
+          />
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div className="p-6 overflow-y-auto h-full">
+      <div className="max-w-4xl mx-auto">
+        {/* Header */}
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-gray-800">AscendTrack Dashboard</h1>
+          <p className="text-gray-500">Level {currentLevel}: {levelTitle}</p>
+        </div>
+
+        {/* Triple Constraint Gauges */}
+        <div className="mb-8">
+          <h2 className="text-lg font-semibold text-gray-700 mb-4">Project Health</h2>
+          <div className="grid grid-cols-2 gap-4">
+            <ConstraintBar
+              label="Schedule"
+              value={constraints.schedule}
+              color="bg-blue-100 text-blue-600"
+              icon={<LayoutDashboard size={18} />}
+            />
+            <ConstraintBar
+              label="Budget"
+              value={constraints.budget}
+              color="bg-green-100 text-green-600"
+              icon={<FileText size={18} />}
+            />
+            <ConstraintBar
+              label="Team Morale"
+              value={constraints.morale}
+              color="bg-yellow-100 text-yellow-600"
+              icon={<Users size={18} />}
+            />
+            <ConstraintBar
+              label="Scope Balance"
+              value={constraints.scope}
+              color="bg-purple-100 text-purple-600"
+              icon={<PieChart size={18} />}
+            />
+          </div>
+        </div>
+
+        {/* Progress Summary */}
+        <div className="mb-8">
+          <h2 className="text-lg font-semibold text-gray-700 mb-4">Level Progress</h2>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-indigo-100 rounded-lg">
+                  <Users size={20} className="text-indigo-600" />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Stakeholders Identified</p>
+                  <p className="text-xl font-bold text-gray-800">
+                    {identifiedStakeholders} / {totalStakeholders}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-amber-100 rounded-lg">
+                  <FileText size={20} className="text-amber-600" />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Charter Sections</p>
+                  <p className="text-xl font-bold text-gray-800">
+                    {charterProgress} / {totalCharterSections}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* PMIS Evolution Message */}
+        <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl p-6 border border-purple-200">
+          <h3 className="font-semibold text-purple-800 mb-2">📊 PMIS Evolution</h3>
+          <p className="text-sm text-purple-700">
+            As you progress through the game and implement Monitoring & Controlling processes,
+            this dashboard will evolve to include advanced analytics like Earned Value Management (EVM)
+            forecasting and predictive insights.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export const PMISApp: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>('charter'); // Default to Charter for Level 1
   const dispatch = useDispatch();
@@ -187,10 +318,7 @@ export const PMISApp: React.FC = () => {
         {/* Content Area */}
         <div className="flex-1 overflow-hidden">
             {activeTab === 'dashboard' && (
-                <div className="p-8 text-center text-gray-500">
-                    <h2 className="text-xl font-semibold mb-2">Project Dashboard</h2>
-                    <p>Metrics and KPIs will appear here.</p>
-                </div>
+                <DashboardTab />
             )}
             
             {activeTab === 'communications' && (

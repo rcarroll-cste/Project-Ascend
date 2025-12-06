@@ -1,4 +1,4 @@
-import { Stakeholder, EvidenceItem, CharterSection, Email, ChatterContact, ProcessCard } from '../types';
+import { Stakeholder, EvidenceItem, CharterSection, Email, ChatterContact } from '../types';
 
 // Emails are secondary to Chatter in the GDD flow, but still useful for evidence/reference
 export const INITIAL_EMAILS: Email[] = [
@@ -265,27 +265,9 @@ export const INITIAL_CHARTER_SECTIONS: CharterSection[] = [
   },
 ];
 
-// Process Cards for ProcessMap - initially only Level 1 process is unlocked
-export const INITIAL_PROCESS_CARDS: ProcessCard[] = [
-  {
-    id: 'proc_develop_charter',
-    name: 'Develop Project Charter',
-    processGroup: 'Initiating',
-    knowledgeArea: 'Integration Management',
-    description: 'Create the document that formally authorizes the project and gives the PM authority to apply resources.',
-    isUnlocked: false, // Unlocked when player chooses "Draft Charter" in Chatter
-    levelRequired: 1,
-  },
-  {
-    id: 'proc_identify_stakeholders',
-    name: 'Identify Stakeholders',
-    processGroup: 'Initiating',
-    knowledgeArea: 'Stakeholder Management',
-    description: 'Identify people, groups, or organizations that could impact or be impacted by the project.',
-    isUnlocked: false, // Unlocked after Charter is signed
-    levelRequired: 2,
-  },
-];
+// Process Cards for ProcessMap - now imported from dedicated file
+// Re-export for backwards compatibility
+export { PROCESS_CARDS as INITIAL_PROCESS_CARDS } from './processCards';
 
 // GDD v3.3 Phase 3: Decomposition Mappings
 // Maps broad stakeholder groups to their specific categories

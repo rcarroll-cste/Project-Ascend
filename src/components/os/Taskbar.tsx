@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { MessageCircle, LayoutDashboard, Folder, BookOpen, Power } from 'lucide-react';
+import { MessageCircle, LayoutDashboard, Folder, BookOpen, Power, GitBranch } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { RootState } from '../../store';
 import { openWindow, minimizeWindow, focusWindow } from '../../features/osSlice';
@@ -97,6 +97,13 @@ export const Taskbar: React.FC = () => {
           isActive={isActive('wikibok')}
           onClick={() => isAppUnlocked('wikibok') && handleAppClick('wikibok', 'WikiBOK', 'WikiBOK')}
           isDisabled={!isAppUnlocked('wikibok')}
+        />
+        <DesktopIcon
+          icon={<GitBranch size={24} />}
+          label="ProcessMap"
+          isActive={isActive('processmap')}
+          onClick={() => isAppUnlocked('processmap') && handleAppClick('processmap', 'ProcessMap', 'ProcessMap')}
+          isDisabled={!isAppUnlocked('processmap')}
         />
       </div>
 
