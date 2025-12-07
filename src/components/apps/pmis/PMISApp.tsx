@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Users, FileText, AlertTriangle, LayoutDashboard, MessageSquare, PieChart, FolderOpen } from 'lucide-react';
+import { Users, FileText, AlertTriangle, LayoutDashboard, MessageSquare, PieChart, FolderOpen, ScrollText } from 'lucide-react';
 import { StakeholderRegister } from './StakeholderRegister';
 import { CharterBuilder } from './CharterBuilder';
+import { SignedCharterView } from './SignedCharterView';
 import { AssumptionLog } from './AssumptionLog';
 import { DocCreator } from './DocCreator';
 import { ContextSidebar } from './ContextSidebar';
@@ -15,7 +16,7 @@ import { PowerLevel, InterestLevel, Email, EvidenceItem, CompletedBusinessDocume
 import { RootState } from '../../../store';
 import { getLevelById } from '../../../data/levels';
 
-type Tab = 'dashboard' | 'communications' | 'stakeholders' | 'doc-creator' | 'charter' | 'assumptions';
+type Tab = 'dashboard' | 'communications' | 'stakeholders' | 'doc-creator' | 'charter' | 'signed-charter' | 'assumptions';
 
 // Mini Drop Zone Component for the Communications Tab
 const StakeholderDropZone = () => {
@@ -174,7 +175,9 @@ const DashboardTab: React.FC = () => {
 };
 
 export const PMISApp: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<Tab>('charter'); // Default to Charter for Level 1
+  const { currentLevelId } = useSelector((state: RootState) => state.game);
+  // Default to Charter for Level 1, Signed Charter for Level 2+
+  const [activeTab, setActiveTab] = useState<Tab>(currentLevelId >= 2 ? 'signed-charter' : 'charter');
   const dispatch = useDispatch();
   const { stakeholders } = useSelector((state: RootState) => state.pmis);
 
@@ -415,8 +418,18 @@ export const PMISApp: React.FC = () => {
                 className={`px-4 py-2 text-sm font-medium rounded-t-lg flex items-center space-x-2 border-t border-l border-r ${activeTab === 'charter' ? 'bg-gray-100 border-gray-200 text-purple-700' : 'bg-white border-transparent text-gray-500 hover:text-gray-700'}`}
             >
                 <FileText size={16} />
-                <span>Project Charter</span>
+                <span>Charter Builder</span>
             </button>
+            {/* Signed Charter tab - appears for Level 2+ (after charter is signed) */}
+            {currentLevelId >= 2 && (
+                <button
+                    onClick={() => setActiveTab('signed-charter')}
+                    className={`px-4 py-2 text-sm font-medium rounded-t-lg flex items-center space-x-2 border-t border-l border-r ${activeTab === 'signed-charter' ? 'bg-gray-100 border-gray-200 text-purple-700' : 'bg-white border-transparent text-gray-500 hover:text-gray-700'}`}
+                >
+                    <ScrollText size={16} />
+                    <span>Signed Charter</span>
+                </button>
+            )}
             <button
                 onClick={() => setActiveTab('assumptions')}
                 className={`px-4 py-2 text-sm font-medium rounded-t-lg flex items-center space-x-2 border-t border-l border-r ${activeTab === 'assumptions' ? 'bg-gray-100 border-gray-200 text-purple-700' : 'bg-white border-transparent text-gray-500 hover:text-gray-700'}`}
@@ -452,6 +465,8 @@ export const PMISApp: React.FC = () => {
                 {activeTab === 'doc-creator' && <DocCreator />}
 
                 {activeTab === 'charter' && <CharterBuilder />}
+
+                {activeTab === 'signed-charter' && <SignedCharterView />}
 
                 {activeTab === 'assumptions' && <AssumptionLog />}
             </div>

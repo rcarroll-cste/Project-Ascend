@@ -16,9 +16,17 @@ import { ALL_LEVELS, getLevelById } from '../data/levels';
 // ENHANCED GAME STATE (GDD v4.0)
 // =============================================================================
 
+// Title Card data for level transitions (GDD v7.2 Signaling Events)
+export interface TitleCardData {
+  levelId: number;
+  title: string;
+  subtitle?: string;
+  processName?: string;
+}
+
 export interface GameStateV2 {
   // Core Game State
-  gameStage: 'Boot' | 'Login' | 'Playing' | 'ExamSim' | 'LevelComplete' | 'GameOver' | 'Ending';
+  gameStage: 'Boot' | 'Login' | 'TitleCard' | 'Playing' | 'ExamSim' | 'LevelComplete' | 'GameOver' | 'Ending';
   currentPhase: 'Initiation' | 'Planning' | 'Executing' | 'Closing';
   currentArc: CampaignArc;
 
@@ -29,6 +37,9 @@ export interface GameStateV2 {
   // Level 1 Internal Phase Tracking (GDD v7.1)
   // Enforces Chatter (Discovery) -> Doc Creator (Analysis) -> Charter (Authorization)
   level1Phase: Level1Phase;
+
+  // Title Card State (GDD v7.2)
+  titleCardData: TitleCardData | null;
 
   // Triple Constraint HUD (AscendTrack)
   constraints: ConstraintMetrics;
@@ -103,6 +114,9 @@ const initialState: GameStateV2 = {
   // Level 1 Internal Phase (starts in Discovery - Chatter)
   level1Phase: 'Discovery',
 
+  // Title Card State (null when not showing title card)
+  titleCardData: null,
+
   // Triple Constraint HUD
   constraints: {
     schedule: 100,  // 100% = on track
@@ -171,6 +185,17 @@ const gameSlice = createSlice({
       action: PayloadAction<GameStateV2['gameStage']>
     ) => {
       state.gameStage = action.payload;
+    },
+
+    // Show title card before a level begins (GDD v7.2 Signaling Events)
+    showTitleCard: (state, action: PayloadAction<TitleCardData>) => {
+      state.titleCardData = action.payload;
+      state.gameStage = 'TitleCard';
+    },
+
+    // Clear title card data
+    clearTitleCard: (state) => {
+      state.titleCardData = null;
     },
 
     startGame: (state) => {
@@ -258,10 +283,14 @@ const gameSlice = createSlice({
       const nextLevel = getLevelById(nextLevelId);
 
       if (nextLevel && state.levelProgress[nextLevelId]?.isUnlocked) {
-        state.currentLevelId = nextLevelId;
-        state.currentArc = nextLevel.arc;
-        state.gameStage = 'Playing';
-        state.levelProgress[nextLevelId].isStarted = true;
+        // Show title card before starting next level (GDD v7.2 Signaling Events)
+        state.titleCardData = {
+          levelId: nextLevelId,
+          title: `LEVEL ${nextLevelId}: ${nextLevel.narrativeTitle.toUpperCase()}`,
+          subtitle: `Process ${nextLevel.processCode}`,
+          processName: nextLevel.description,
+        };
+        state.gameStage = 'TitleCard';
       } else if (nextLevelId > 2) {
         // Demo complete after Level 2 (Initiation Phase) - trigger ending
         state.gameStage = 'Ending';
@@ -560,6 +589,8 @@ function determineEnding(scores: CumulativeScores): GameEnding {
 export const {
   // Game Stage
   setGameStage,
+  showTitleCard,
+  clearTitleCard,
   startGame,
   // Level Progression
   startLevel,

@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CreditCard, Sparkles, ArrowRight } from 'lucide-react';
 import { advanceOnboarding, selectPlayerAvatar } from '../../../features/playerSlice';
-import { setGameStage } from '../../../features/gameSlice';
+import { showTitleCard } from '../../../features/gameSlice';
 import { RootState } from '../../../store';
+import { LEVEL_01_CHARTER } from '../../../data/levels';
 import { CartoonAvatar } from '../../common/CartoonAvatar';
 
 export const BadgeGenerationScreen: React.FC = () => {
@@ -36,8 +37,13 @@ export const BadgeGenerationScreen: React.FC = () => {
 
   const handleEnterDesktop = () => {
     dispatch(advanceOnboarding());
-    // Don't unlock all apps immediately - they unlock progressively through Chatter
-    dispatch(setGameStage('Playing'));
+    // Show Level 1 Title Card (GDD v7.2 Signaling Event)
+    dispatch(showTitleCard({
+      levelId: 1,
+      title: `LEVEL 1: ${LEVEL_01_CHARTER.narrativeTitle.toUpperCase()}`,
+      subtitle: `Process ${LEVEL_01_CHARTER.processCode}: Develop Project Charter`,
+      processName: LEVEL_01_CHARTER.description,
+    }));
   };
 
   return (

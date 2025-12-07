@@ -6,6 +6,7 @@ import { GameOverScreen } from './components/scenes/GameOverScreen';
 import { LevelCompleteScreen } from './components/scenes/LevelCompleteScreen';
 import { EndingScreen } from './components/scenes/EndingScreen';
 import { ExamSimScreen } from './components/scenes/ExamSimScreen';
+import { TitleCardScene } from './components/scenes/TitleCardScene';
 import {
   HRPortalScreen,
   AvatarSelectionScreen,
@@ -37,6 +38,11 @@ function App() {
     }
     // If onboarding complete but still at Login stage, show legacy login
     return <LoginScreen />;
+  }
+
+  // Title Card screen (level transition)
+  if (gameStage === 'TitleCard') {
+    return <TitleCardScene />;
   }
 
   // Game Over screen

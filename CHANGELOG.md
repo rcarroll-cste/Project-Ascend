@@ -6,6 +6,87 @@ All notable changes to Project Ascend will be documented in this file.
 
 ## [Unreleased]
 
+### 2025-12-07 18:48 EST - Title Cards (Level Transition Signaling Events)
+
+Implemented cinematic "Level Title Cards" per GDD v7.2 Section 5 to signal phase transitions.
+
+#### Files Created
+
+- **`src/components/scenes/TitleCardScene.tsx`** - Full-screen cinematic transition component with:
+  - Dark background with scanline/CRT glow effects
+  - Boot sequence typography (white/cyan monospace with glow)
+  - Staggered animations for subtitle, title, and decorative elements
+  - Blinking `[ PRESS ENTER TO CONTINUE ]` prompt
+  - Enter key and click handlers to advance
+
+#### Files Modified
+
+1. **`src/features/gameSlice.ts`**:
+   - Added `TitleCardData` interface
+   - Added `'TitleCard'` to `gameStage` type union
+   - Added `titleCardData` state property
+   - Added `showTitleCard` and `clearTitleCard` actions
+   - Updated `advanceToNextLevel` to show title card before next level
+
+2. **`src/App.tsx`**:
+   - Added `TitleCardScene` import
+   - Added conditional render for `gameStage === 'TitleCard'`
+
+3. **`src/components/scenes/onboarding/BadgeGenerationScreen.tsx`**:
+   - Changed post-onboarding to dispatch `showTitleCard` for Level 1 instead of directly going to Playing
+
+#### Transition Flow
+
+1. **Post-Onboarding → Level 1**: Badge screen → Title Card → Playing
+2. **Level 1 Complete → Level 2**: Level Complete → Title Card → Playing
+3. **Level 2 Complete → Ending**: Directly to Ending screen
+
+---
+
+### 2025-12-07 18:40 EST - Level 2: Signed Charter View (Stakeholder Hunt)
+
+Implemented the "Stakeholder Hunt" mechanic for Level 2 per GDD v7.2 Section 5.
+
+#### New Component: `src/components/apps/pmis/SignedCharterView.tsx`
+
+A new component that renders the signed Project Charter with interactive stakeholder identification.
+
+**Features:**
+- **Full Charter Rendering**: Displays all charter sections including Project Title, Sponsor, Project Manager, Business Case, Benefits Plan, External Agreements, Assumptions, and Authorization
+- **Stakeholder Hunt Mechanic**: Clickable highlighted names (Director Vane, Project Manager) in amber color with sparkle animation on hover
+- **Visual Feedback**:
+  - Uncollected targets: Amber/gold highlighting with sparkle icon
+  - Collected targets: Green text with checkmark icon
+  - Hover tooltips guide the player
+- **Progress Tracking**: Shows "Stakeholders Found: X/Y" counter in header
+- **Redux Integration**: Dispatches `identifyStakeholder` action when names are clicked
+- **Objective Completion**: Triggers `completeObjective` for `charter_extraction` when all charter stakeholders are identified
+- **Professional Layout**: Styled as an official document with signature sections
+
+#### PMISApp Integration (`src/components/apps/pmis/PMISApp.tsx`)
+
+1. **New Import**: Added `SignedCharterView` component and `ScrollText` icon
+2. **Extended Tab Type**: Added `'signed-charter'` to the `Tab` union type
+3. **Smart Default Tab**: Level 1 shows `'charter'` (builder), Level 2+ shows `'signed-charter'`
+4. **Conditional Tab Button**: "Signed Charter" tab only visible for `currentLevelId >= 2`
+5. **Renamed Tab**: "Project Charter" renamed to "Charter Builder" for clarity
+6. **Content Rendering**: Added conditional render for `SignedCharterView` component
+
+#### Hunt Targets (Extensible)
+
+The charter includes 2 stakeholder hunt targets:
+- **Director Vane** - Sponsor (CEO) - `sh_vane`
+- **Project Manager** - Project Manager (You) - `sh_player`
+
+Additional targets can be added to the `CHARTER_HUNT_TARGETS` array.
+
+#### GDD Alignment
+
+Per GDD v7.2 Level 2 "Charter Extraction" directive:
+> *"Player highlights names in the signed Charter to auto-populate the first 2 stakeholders (Sponsor, Project Manager)."*
+
+---
+
 ### 2025-12-07 18:33 EST - Doc Creator & Charter Builder Inventory Refactor
 
 Removed local inventories from Doc Creator and Charter Builder to accept drops from the global ContextSidebar.
