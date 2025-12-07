@@ -191,6 +191,13 @@ export interface DialogueConsequence {
   payload: Record<string, unknown>;
 }
 
+// Mining target for extracting clues from dialogue
+export interface MiningTarget {
+  text: string;           // The exact text to highlight (must match text in dialogue)
+  evidenceId: string;     // The evidence item ID to unlock when collected
+  isCollected: boolean;   // Whether this clue has been collected
+}
+
 export interface DialogueNode {
   id: string;
   speaker: string; // 'Director Vane', 'Marcus', 'System', 'Player'
@@ -200,6 +207,7 @@ export interface DialogueNode {
   autoAdvanceToNodeId?: string; // If no choices, auto-advance after typing
   delay?: number; // ms delay before showing this node
   consequences?: DialogueConsequence[]; // Optional consequences triggered when this node is reached
+  miningTargets?: MiningTarget[]; // Clues that can be extracted from this dialogue
 }
 
 export interface DialogueTree {

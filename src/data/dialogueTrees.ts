@@ -1414,8 +1414,284 @@ export const DIALOGUE_HIDDEN_STAKEHOLDER: DialogueTree = {
   ],
 };
 
+// =============================================================================
+// GDD v7.1 DISCOVERY PHASE DIALOGUES WITH MINING MECHANICS
+// =============================================================================
+
+// Discovery Phase Step A: The Financials (Sponsor Vane) - Mining ROI Target
+export const DIALOGUE_VANE_FINANCIALS: DialogueTree = {
+  id: 'dt_vane_financials',
+  contactId: 'contact_vane',
+  startNodeId: 'vane_fin_1',
+  nodes: [
+    {
+      id: 'vane_fin_1',
+      speaker: 'Director Vane',
+      speakerAvatar: '/assets/avatars/vane.png',
+      text: "Before you draft the Charter, you need to understand the financial constraints.",
+      autoAdvanceToNodeId: 'vane_fin_2',
+      delay: 1200,
+    },
+    {
+      id: 'vane_fin_2',
+      speaker: 'Director Vane',
+      speakerAvatar: '/assets/avatars/vane.png',
+      text: "The Board approved this project with conditions. We have a hard cap. We must see a Return on Investment of $350k within 12 months.",
+      delay: 2000,
+      miningTargets: [
+        {
+          text: 'Return on Investment of $350k within 12 months',
+          evidenceId: 'ev_clue_roi_target',
+          isCollected: false,
+        },
+      ],
+      choices: [
+        {
+          id: 'vane_fin_understood',
+          label: 'I understand the ROI requirements',
+          style: 'safe',
+          consequences: [],
+          nextNodeId: 'vane_fin_3',
+        },
+        {
+          id: 'vane_fin_question',
+          label: 'What happens if we exceed budget?',
+          style: 'neutral',
+          consequences: [],
+          nextNodeId: 'vane_fin_warning',
+        },
+      ],
+    },
+    {
+      id: 'vane_fin_warning',
+      speaker: 'Director Vane',
+      speakerAvatar: '/assets/avatars/vane.png',
+      text: "Then the project gets cancelled. And you get to explain to the Board why we wasted their money. Don't let that happen.",
+      autoAdvanceToNodeId: 'vane_fin_3',
+      delay: 1800,
+    },
+    {
+      id: 'vane_fin_3',
+      speaker: 'Director Vane',
+      speakerAvatar: '/assets/avatars/vane.png',
+      text: "Good. Now talk to the Strategy team about alignment. And check with Legal about the vendor agreement.",
+      delay: 1500,
+    },
+  ],
+};
+
+// Discovery Phase Step B: The Strategy (Strategy Lead) - Mining Strategic Alignment
+export const DIALOGUE_STRATEGY_LEAD: DialogueTree = {
+  id: 'dt_strategy_lead',
+  contactId: 'contact_strategy',
+  startNodeId: 'strategy_1',
+  nodes: [
+    {
+      id: 'strategy_1',
+      speaker: 'Strategy Lead',
+      speakerAvatar: '/assets/avatars/strategy.png',
+      text: "Director Vane mentioned you'd be reaching out. You want to understand the strategic context?",
+      delay: 1200,
+      choices: [
+        {
+          id: 'strategy_ask',
+          label: 'What are the long-term goals for this project?',
+          style: 'safe',
+          consequences: [],
+          nextNodeId: 'strategy_2',
+        },
+      ],
+    },
+    {
+      id: 'strategy_2',
+      speaker: 'Strategy Lead',
+      speakerAvatar: '/assets/avatars/strategy.png',
+      text: "Here's the thing - this isn't about profit. It's about Internal Efficiency to align with the Q4 Corporate Goal.",
+      delay: 1800,
+      miningTargets: [
+        {
+          text: "Internal Efficiency to align with the Q4 Corporate Goal",
+          evidenceId: 'ev_clue_strategic_align',
+          isCollected: false,
+        },
+      ],
+      autoAdvanceToNodeId: 'strategy_3',
+    },
+    {
+      id: 'strategy_3',
+      speaker: 'Strategy Lead',
+      speakerAvatar: '/assets/avatars/strategy.png',
+      text: "The old servers are causing 3-hour delays in daily reports. That's killing our competitive edge. Fix that, and the Board is happy.",
+      delay: 2000,
+      choices: [
+        {
+          id: 'strategy_thanks',
+          label: 'This helps clarify the benefits. Thank you.',
+          style: 'safe',
+          consequences: [
+            {
+              type: 'add_notification',
+              payload: {
+                title: 'Strategic Context Gathered',
+                message: 'You now understand the difference between ROI and strategic alignment.',
+                type: 'success',
+              },
+            },
+          ],
+          nextNodeId: 'strategy_4',
+        },
+      ],
+    },
+    {
+      id: 'strategy_4',
+      speaker: 'Strategy Lead',
+      speakerAvatar: '/assets/avatars/strategy.png',
+      text: "Remember - ROI is for the Business Case. Strategic alignment is for the Benefits Management Plan. Don't confuse them.",
+      delay: 1500,
+    },
+  ],
+};
+
+// Discovery Phase Step C: The Uncertainty (Vane again) - Mining Assumption
+export const DIALOGUE_VANE_ASSUMPTION: DialogueTree = {
+  id: 'dt_vane_assumption',
+  contactId: 'contact_vane',
+  startNodeId: 'vane_assume_1',
+  nodes: [
+    {
+      id: 'vane_assume_1',
+      speaker: 'Director Vane',
+      speakerAvatar: '/assets/avatars/vane.png',
+      text: "One more thing about the site preparation...",
+      autoAdvanceToNodeId: 'vane_assume_2',
+      delay: 1000,
+    },
+    {
+      id: 'vane_assume_2',
+      speaker: 'Director Vane',
+      speakerAvatar: '/assets/avatars/vane.png',
+      text: "Facilities will probably have the power ready by the time TechCore arrives. They've promised Q1 delivery.",
+      delay: 1800,
+      miningTargets: [
+        {
+          text: 'Facilities will probably have the power ready',
+          evidenceId: 'ev_clue_power_assumption',
+          isCollected: false,
+        },
+      ],
+      choices: [
+        {
+          id: 'vane_assume_accept',
+          label: 'Understood. I\'ll plan accordingly.',
+          style: 'neutral',
+          consequences: [],
+          nextNodeId: 'vane_assume_3',
+        },
+        {
+          id: 'vane_assume_question',
+          label: 'Is that confirmed or just expected?',
+          style: 'safe',
+          consequences: [
+            {
+              type: 'add_notification',
+              payload: {
+                title: 'Critical Thinking!',
+                message: 'Questioning assumptions shows good PM instincts.',
+                type: 'success',
+              },
+            },
+          ],
+          nextNodeId: 'vane_assume_honest',
+        },
+      ],
+    },
+    {
+      id: 'vane_assume_honest',
+      speaker: 'Director Vane',
+      speakerAvatar: '/assets/avatars/vane.png',
+      text: "...It's expected. Facilities hasn't confirmed. Good catch. Log that as an assumption and verify it.",
+      autoAdvanceToNodeId: 'vane_assume_3',
+      delay: 1500,
+    },
+    {
+      id: 'vane_assume_3',
+      speaker: 'Director Vane',
+      speakerAvatar: '/assets/avatars/vane.png',
+      text: "Remember: Assumptions without verification become risks. Track them properly.",
+      delay: 1500,
+    },
+  ],
+};
+
+// Discovery Phase Step D: The Agreement (Legal Counsel) - File Attachment
+export const DIALOGUE_LEGAL_AGREEMENT: DialogueTree = {
+  id: 'dt_legal_agreement',
+  contactId: 'contact_legal',
+  startNodeId: 'legal_1',
+  nodes: [
+    {
+      id: 'legal_1',
+      speaker: 'Legal Counsel',
+      speakerAvatar: '/assets/avatars/legal.png',
+      text: "You're the new PM on Titan? I've been waiting for someone to ask about the vendor contract.",
+      delay: 1200,
+      choices: [
+        {
+          id: 'legal_ask',
+          label: 'What do I need to know about vendor agreements?',
+          style: 'safe',
+          consequences: [],
+          nextNodeId: 'legal_2',
+        },
+      ],
+    },
+    {
+      id: 'legal_2',
+      speaker: 'Legal Counsel',
+      speakerAvatar: '/assets/avatars/legal.png',
+      text: "We already signed a Master Services Agreement with TechCore. You must stick to their rates. Any deviation requires renegotiation.",
+      delay: 1800,
+      autoAdvanceToNodeId: 'legal_3',
+    },
+    {
+      id: 'legal_3',
+      speaker: 'Legal Counsel',
+      speakerAvatar: '/assets/avatars/legal.png',
+      text: "Here - I'm sending you the contract. This is an official Agreement that must be referenced in your Charter.",
+      delay: 1500,
+      miningTargets: [
+        {
+          text: 'Master Services Agreement with TechCore',
+          evidenceId: 'ev_file_techcore_msa',
+          isCollected: false,
+        },
+      ],
+      autoAdvanceToNodeId: 'legal_4',
+    },
+    {
+      id: 'legal_4',
+      speaker: 'System',
+      text: '📎 File attached: TechCore_MSA.pdf',
+      autoAdvanceToNodeId: 'legal_5',
+      delay: 500,
+    },
+    {
+      id: 'legal_5',
+      speaker: 'Legal Counsel',
+      speakerAvatar: '/assets/avatars/legal.png',
+      text: "Read it carefully. There's a clause about regulatory compliance that might affect your timeline.",
+      delay: 1500,
+    },
+  ],
+};
+
 // All dialogue trees for easy import
 export const DIALOGUE_TREES: DialogueTree[] = [
+  // GDD v7.1 Discovery Phase Dialogues (Mining Mechanics)
+  DIALOGUE_VANE_FINANCIALS,
+  DIALOGUE_STRATEGY_LEAD,
+  DIALOGUE_VANE_ASSUMPTION,
+  DIALOGUE_LEGAL_AGREEMENT,
   // Prologue & Arc 1 Dialogues
   DIALOGUE_PROLOGUE_COMPLETE,
   DIALOGUE_VANE_CHARTER_INTRO,

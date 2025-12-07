@@ -6,6 +6,78 @@ All notable changes to Project Ascend will be documented in this file.
 
 ## [Unreleased]
 
+### 2025-12-07 17:14 EST - Chatter Mining Mechanic (GDD v7.1 Discovery Phase)
+
+Implemented the "Clue Mining" mechanic for the Discovery Phase, allowing players to extract clues from dialogue text.
+
+#### Data Structure Updates (`src/types/index.ts`)
+- **Added `MiningTarget` interface** with:
+  - `text`: The exact text to highlight in dialogue (must match dialogue text)
+  - `evidenceId`: The evidence item ID to unlock when collected
+  - `isCollected`: State tracking whether the clue has been mined
+- **Updated `DialogueNode` interface** with optional `miningTargets?: MiningTarget[]` property
+
+#### ChatterMessage Component (`src/components/apps/chatter/ChatterMessage.tsx`)
+- Added `miningTargets` and `onMineClue` props
+- **New `renderTextWithMiningTargets()` function**:
+  - Renders minable text highlighted in **gold/amber color** with sparkle icon animation
+  - Provides click handler to collect clues
+  - Shows visual feedback: underline, hover scale effects
+  - Collected clues display strikethrough styling with green checkmark
+  - Tooltip guidance for uncollected vs collected states
+
+#### ChatterApp Updates (`src/components/apps/chatter/ChatterApp.tsx`)
+- Added `collectMiningTarget` action import from dialogueSlice
+- Added `collectedMiningTargets` state selector
+- **New `handleMineClue()` callback**:
+  - Finds evidence item by ID from INITIAL_EVIDENCE
+  - Dispatches `addItem` to add evidence to inventory
+  - Dispatches `collectMiningTarget` to mark as collected
+  - Shows success toast notification with clue name
+- **New `getMiningTargetsForNode()` helper**:
+  - Merges dialogue node mining targets with collection state
+  - Returns updated `isCollected` status based on Redux state
+- Passed `miningTargets` and `onMineClue` props to ChatterMessage component
+
+#### DialogueSlice Updates (`src/features/dialogueSlice.ts`)
+- Added `collectedMiningTargets: string[]` to DialogueState interface
+- Added `collectMiningTarget` reducer action (prevents duplicates)
+- Updated `resetDialogue` to clear collected mining targets
+
+#### New GDD Discovery Phase Dialogues (`src/data/dialogueTrees.ts`)
+Created 4 new dialogue trees matching GDD v7.1 Phase 1 (Discovery):
+
+1. **`DIALOGUE_VANE_FINANCIALS`** (Step A: The Financials)
+   - Mining target: "Return on Investment of $350k within 12 months"
+   - Evidence: `ev_clue_roi_target`
+
+2. **`DIALOGUE_STRATEGY_LEAD`** (Step B: The Strategy)
+   - Mining target: "Internal Efficiency to align with the Q4 Corporate Goal"
+   - Evidence: `ev_clue_strategic_align`
+   - Teaches distinction between ROI (Business Case) vs Strategic Alignment (Benefits Plan)
+
+3. **`DIALOGUE_VANE_ASSUMPTION`** (Step C: The Uncertainty)
+   - Mining target: "Facilities will probably have the power ready"
+   - Evidence: `ev_clue_power_assumption` (TRAP - this is an assumption, not a fact)
+   - Player can question if this is confirmed or expected
+
+4. **`DIALOGUE_LEGAL_AGREEMENT`** (Step D: The Agreement)
+   - Mining target: "Master Services Agreement with TechCore"
+   - Evidence: `ev_file_techcore_msa`
+   - Includes file attachment system message
+
+#### New Evidence Items (`src/data/initialData.ts`)
+Added 4 GDD v7.1 Discovery Phase evidence items:
+- `ev_clue_roi_target`: ROI clue for Business Case (qualityScore: 100)
+- `ev_clue_strategic_align`: Strategic alignment clue for Benefits Plan (qualityScore: 95)
+- `ev_clue_power_assumption`: **Distractor/Trap** - should go to Assumption Log, not Business Case (qualityScore: 0)
+- `ev_file_techcore_msa`: Agreement file attachment (qualityScore: 100)
+
+#### New Contact (`src/data/initialData.ts`)
+- Added `contact_strategy` (Strategy Lead) for Strategic Planning dialogues
+
+---
+
 ### 2025-12-07 15:34 EST - UI/UX Fixes and Prologue Removal
 
 Session focused on fixing window management, app unlock flow, and removing the Prologue level.

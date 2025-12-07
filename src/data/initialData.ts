@@ -162,6 +162,14 @@ export const INITIAL_CONTACTS: ChatterContact[] = [
     hasUnreadMessages: false,
   },
   {
+    id: 'contact_strategy',
+    name: 'Strategy Lead',
+    role: 'Strategic Planning',
+    avatarUrl: '/assets/avatars/strategy.png',
+    isUnlocked: false, // Unlocks during Discovery Phase
+    hasUnreadMessages: false,
+  },
+  {
     id: 'contact_compliance',
     name: 'Compliance Officer',
     role: 'Regulatory Compliance (External)',
@@ -281,6 +289,52 @@ export const INITIAL_STAKEHOLDERS: Stakeholder[] = [
 ];
 
 export const INITIAL_EVIDENCE: EvidenceItem[] = [
+  // =============================================================================
+  // GDD v7.1 CLUE MINING EVIDENCE ITEMS (Discovery Phase)
+  // These are extracted from Chatter dialogue via the mining mechanic
+  // =============================================================================
+
+  // Clue: ROI Target from Sponsor Vane (GDD Phase 1 Step A)
+  {
+    id: 'ev_clue_roi_target',
+    name: 'Clue: ROI Target $350k',
+    description: 'We must see a Return on Investment of $350k within 12 months.',
+    type: 'BusinessCase',
+    isDistractor: false,
+    qualityScore: 100,
+  },
+  // Clue: Strategic Alignment from Strategy Lead (GDD Phase 1 Step B)
+  {
+    id: 'ev_clue_strategic_align',
+    name: 'Clue: Strategic Alignment',
+    description: "This isn't about profit. It's about Internal Efficiency to align with the Q4 Corporate Goal.",
+    type: 'BusinessCase', // Goes into Benefits Management Plan
+    isDistractor: false,
+    qualityScore: 95,
+  },
+  // Clue: Assumption from Sponsor Vane (GDD Phase 1 Step C)
+  {
+    id: 'ev_clue_power_assumption',
+    name: 'Claim: Power Ready by Q1',
+    description: 'Facilities will probably have the power ready by the time TechCore arrives.',
+    type: 'BusinessCase', // This is actually an ASSUMPTION - will fail if placed in Business Case
+    isDistractor: true, // Trap: should go to Assumption Log, not Business Case
+    qualityScore: 0,
+  },
+  // File: TechCore MSA from Legal Counsel (GDD Phase 1 Step D)
+  {
+    id: 'ev_file_techcore_msa',
+    name: 'TechCore_MSA.pdf',
+    description: 'Master Services Agreement with TechCore. Contains rate constraints and regulatory clause.',
+    type: 'Agreement',
+    isDistractor: false,
+    qualityScore: 100,
+  },
+
+  // =============================================================================
+  // ORIGINAL EVIDENCE ITEMS
+  // =============================================================================
+
   // Correct Items - Server Migration Narrative
   {
     id: 'ev_market_analysis',

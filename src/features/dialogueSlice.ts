@@ -9,6 +9,7 @@ interface DialogueState {
   currentNodeId: Record<string, string | null>; // contactId -> current dialogue node
   isTyping: boolean;
   pendingChoices: boolean; // Whether we're waiting for player to make a choice
+  collectedMiningTargets: string[]; // Array of evidenceIds that have been collected via mining
 }
 
 const initialState: DialogueState = {
@@ -18,6 +19,7 @@ const initialState: DialogueState = {
   currentNodeId: {},
   isTyping: false,
   pendingChoices: false,
+  collectedMiningTargets: [],
 };
 
 const dialogueSlice = createSlice({
@@ -148,6 +150,14 @@ const dialogueSlice = createSlice({
       state.currentNodeId = {};
       state.isTyping = false;
       state.pendingChoices = false;
+      state.collectedMiningTargets = [];
+    },
+
+    // Mark a mining target as collected
+    collectMiningTarget: (state, action: PayloadAction<string>) => {
+      if (!state.collectedMiningTargets.includes(action.payload)) {
+        state.collectedMiningTargets.push(action.payload);
+      }
     },
   },
 });
@@ -164,6 +174,7 @@ export const {
   selectChoice,
   clearConversation,
   resetDialogue,
+  collectMiningTarget,
 } = dialogueSlice.actions;
 
 export default dialogueSlice.reducer;

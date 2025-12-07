@@ -1,7 +1,7 @@
 # **Game Design Document: "Project Ascend - The Initiation Protocol"**
 
-**Version:** 6.6
-**Scope:** Initiating Process Group (Levels 0-2)
+**Version:** 7.1
+**Scope:** Initiating Process Group (Levels 1-2)
 **Lead Architect:** Lead Instructional Game Designer
 
 ---
@@ -23,7 +23,7 @@ This module focuses exclusively on the **Initiating Process Group**, covering th
 2.  **Identify Stakeholders** (Process 13.1)
 
 **Educational Goal:**
-To move beyond rote memorization to **Bloom's Taxonomy Level 4 (Analysis)**. Players learn why "Initiating" is not just paperwork, but the act of securing authority and understanding the political landscape before work begins.
+To move beyond rote memorization to **Bloom's Taxonomy Level 4 (Analysis)**. Players do not just "review" documents; they must **synthesize** the Project Charter by actively gathering requirements, distinguishing between economic feasibility and value delivery, and integrating external agreements.
 
 ---
 
@@ -42,63 +42,60 @@ A macOS-style application launcher containing the essential tools.
 
 | App | Description | Unlocked |
 |-----|-------------|----------|
-| **Chatter** | Branching dialogue system for Stakeholder interviews | **Immediate** (Only active app at start) |
-| **WikiBOK** | In-game PMBOK Guide encyclopedia | Level 0 (Post-Tutorial) |
-| **Files** | Document viewer (Business Case, Agreements) | Level 1 |
-| **PMIS** | Project Management Information System (The central hub) | Level 1 |
-| **ProcessMap** | A drag-and-drop tool to visualize Inputs/Tools/Outputs | Level 1 |
-| **Email** | Narrative engine - incoming emails drive the plot | Level 1 |
-| **ExamSim** | Performance review module triggered after each level | Level 1+ |
+| **Chatter** | Branching dialogue system for Stakeholder interviews (Data Mining) | **Level 1** |
+| **WikiBOK** | In-game PMBOK Guide encyclopedia | **Level 1** |
+| **PMIS** | Project Management Information System (The central hub) | **Level 1** |
+| **Email** | Narrative engine - incoming emails drive the plot | **Level 1** |
+| **ExamSim** | Performance review module triggered after each level | **Level 1+** |
 
 ### **2.3 The PMIS Application**
-The central command hub for the project. For this module, it features **4 specific tabs**:
+The central command hub for the project. This application has been overhauled to support the **Synthesis Gameplay Loop**.
 
+**Layout:**
+*   **Main Workspace:** The center area where documents are drafted.
+*   **The Context Sidebar (New Feature):** A dynamic, slide-out inventory panel on the right side of the window. It acts as a holding area for information gathered during gameplay.
+    *   **Tab A: Clues:** Stores text snippets extracted from Chatter conversations (e.g., "ROI Target: 15%").
+    *   **Tab B: Files:** Stores physical attachments unlocked via Chatter (e.g., "Vendor_Agreement.pdf").
+
+**Tabs:**
 | Tab | Description | Function |
 |-----|-------------|----------|
 | **Dashboard** | Project status summary | Visualizes the "Health" of the initiation phase. |
-| **Charter** | The Project Charter builder | Drag-and-drop zone for Business Case and Agreements. |
-| **Assumptions** | Assumption Log | Interface to classify "Facts" vs "Assumptions". |
+| **Doc Creator** | Business Document Builder | Interface to drag *Clues* into *Business Case* or *Benefits Plan* templates. |
+| **Charter** | The Project Charter builder | Drag-and-drop zone for completed Business Docs and Agreements. |
+| **Assumptions** | Assumption Log | **New Function:** The final destination for unverified claims (Clues that failed the Business Case check). |
 | **Stakeholders** | Stakeholder Register | A grid to input Name, Power, Interest, and Classification. |
 
 ### **2.4 Guidance System: "MentOS"**
 To ensure the player never feels lost, a multi-layered guidance system is integrated into the OS.
 
 *   **1. The "Current Directive" Widget:** A persistent HUD element in the top-right corner.
-    *   **Primary Directive:** Displays the high-level Phase Goal (e.g., "Objective: Obtain Project Authorization").
-    *   **Current Task:** Displays the immediate next step (e.g., "Locate the Business Case in Files App").
+    *   **Primary Directive:** Displays the high-level Phase Goal (e.g., "Objective: Authorization").
+    *   **Current Task:** Displays the immediate next step (e.g., "Interview Legal Counsel for Contracts").
 *   **2. The Tutorial Bot ("MentOS"):** A friendly, floating AI assistant character (a small, glowing orb).
     *   **Function:** Appears automatically when a player idles for 10 seconds or makes a mistake.
-    *   **Dialogue:** Provides contextual pedagogical nudges (e.g., "I noticed you're trying to spend money. Have you checked if a Charter exists yet?").
+    *   **Dialogue:** Provides contextual pedagogical nudges.
     *   **Hint System:** Clicking the small "?" icon next to the task triggers MentOS to explain the *why* behind the task.
-*   **3. Visual Constraints:**
-    *   Irrelevant apps are **greyed out** and locked with a padlock icon.
-    *   **Contextual Cursors:** The mouse cursor changes based on the required action (e.g., turns into a **Red Pen** during the Charter Review phase).
 
 ---
 
 ## **3. Gameplay Mechanics**
 
-### **3.1 Core Loop: The "Check-Act" Cycle**
-1.  **Trigger:** An email or Chatter message arrives.
-2.  **Guidance Update:** The **Current Directive** updates, and **MentOS** highlights the relevant app.
-3.  **Validation:** Player checks **WikiBOK** or **Files** to see if they have authority.
-4.  **Action:** Player performs the correct PMBOK process (e.g., refuse to spend until Charter is signed).
-5.  **Documentation:** Player updates the **PMIS** (Log the assumption, Add the stakeholder).
-6.  **Assessment:** **ExamSim** launches to test the concept just applied.
+### **3.1 Core Loop: Discovery -> Analysis -> Authorization**
+The game replaces standard validation with a three-phase construction loop:
+1.  **Discovery (Chatter):** Player interviews stakeholders to "mine" data. Correct dialogue choices extract **Clues** (text snippets) or unlock **Files** (Agreements).
+2.  **Analysis (PMIS - Doc Creator):** Player sorts collected Clues into the correct Business Document (Business Case vs. Benefits Management Plan).
+    *   **Assumption Triage (New Mechanic):** Clues that represent uncertainty (e.g., "Facilities might be ready") will be rejected by Business Documents. The player must identify these as "Leftovers" and drag them into the **Assumption Log**.
+3.  **Authorization (PMIS - Charter):** Player synthesizes the final Charter by combining the valid Business Documents and the Agreement File.
 
-### **3.2 ProcessMap: The "Contextual Crafting" System**
-*   **Location:** A standalone app.
-*   **The Mechanic:** To officially "start" a process, the player must configure the input/output flow.
-*   **Example (Level 1):**
-    *   *Center:* **Develop Project Charter**
-    *   *Input Slots:* Player drags **Business Case** and **Agreements** here.
-    *   *Output Slots:* Player drags **Project Charter** and **Assumption Log** here.
-    *   *Fail State:* Dragging "Gantt Chart" or "Detailed Budget" (these are Planning outputs, not Initiating).
+### **3.2 Chatter: The Mining Mechanic**
+*   **Clue Mining:** When a Stakeholder reveals a critical piece of information (e.g., "We need to make $350k back"), the text highlights gold. The player clicks it to "Collect Clue," sending it to the **PMIS Context Sidebar**.
+*   **File Unlocking:** When a Stakeholder provides a document (e.g., Legal sends a contract), a file attachment appears in the chat stream. Clicking it "Downloads" it to the **PMIS Context Sidebar**.
 
-### **3.3 Chatter: The Detective Mechanic**
-Used primarily for **Stakeholder Analysis**.
-*   **Mechanic:** Players choose dialogue options to extract three data points: **Interest**, **Power**, and **Attitude**.
-*   **Key Feature:** "Hidden Stakeholders." Mentioning a specific topic (e.g., "Compliance") with one NPC unlocks a new contact in the directory.
+### **3.3 Document Synthesis (Drag-and-Drop)**
+*   **Sorting:** In the PMIS, the player must drag Clues from the Sidebar to the correct slot.
+    *   *Example:* Dragging "Strategic Goal: Internal Efficiency" into the **Business Case** will fail (incorrect). It belongs in the **Benefits Management Plan**.
+*   **Feedback:** MentOS provides immediate feedback if the player confuses "Economic Feasibility" with "Strategic Alignment."
 
 ---
 
@@ -112,71 +109,89 @@ Before the simulation begins, the player initializes their workstation.
 
 ### **Stage 2: Visual Avatar Selection**
 *   **Action:** Player selects a visual avatar from a gallery of professional portraits.
-*   **Constraint:** This selection is **purely cosmetic**. It does not affect stats or gameplay mechanics.
+*   **Constraint:** This selection is **purely cosmetic**.
 *   **Output:** The selected face appears on the digital ID badge and in the corner of the OS.
 
-### **Stage 3: System Boot (Restricted Mode)**
-*   **Narrative:** "User Profile Created. Access Level: Probationary."
-*   **UI State:** The AscendOS desktop loads.
-*   **Restriction:** **Chatter** is the ONLY icon in color. All other apps (Files, PMIS, Email, WikiBOK) are **greyed out** and unclickable.
-*   **Guidance:** **MentOS** pops up: *"Welcome, Intern! I've locked your other apps until you check in with your supervisor. Click 'Chatter' to begin."*
-*   **Objective:** The player is forced to click **Chatter** to receive their first instruction.
+### **Stage 3: System Boot**
+*   **Narrative:** "User Profile Created. Access Level: Junior PM. Loading AscendOS..."
+*   **UI State:** The AscendOS desktop loads fully.
+*   **Guidance:** **MentOS** pops up: *"Welcome to your first day! Your inbox is already blinking. It looks like Director Vane needs you immediately."*
+*   **Transition:** The **Email** app icon pulses, signaling the start of Level 1.
 
 ---
 
 ## **5. Campaign Progression: The Initiation Phase**
 
-The game consists of a Prologue and two core Levels.
-
-### **Prologue (Level 0): "Day Zero"**
-*   **Narrative:** You are locked out of the main systems. The only active channel is a blinking notification in **Chatter**.
-*   **Objective:** Complete the dialogue tree with the "System Admin" bot to unlock the rest of the OS.
-*   **Lesson:** Professional Responsibility. The bot asks ethical questions (e.g., "Do you want to see the old PM's private files?"). Answering correctly (No) unlocks the **WikiBOK** and **Email** apps.
-
 ### **Level 1: The Authorization**
 *   **Process:** **4.1 Develop Project Charter**
-*   **Narrative:** The Sponsor (Director Vane) wants you to start ordering equipment *now* to beat a price hike.
-*   **Conflict:** You have no authority yet.
-*   **Gameplay Flow:**
-    1.  **Refusal:** Choose dialogue to politely refuse spending until authorized.
-        *   *Directive:* "Find justification for the project."
-    2.  **Financial Check (The Redline Protocol):**
-        *   *Trigger:* Email from Vane: *"Draft Charter attached. I put in $500k for the budget. That should cover the new equipment and the deluxe warranty."*
-        *   *Guidance:* Directive updates to **"Verify Financial Alignment."**
-        *   *Intervention:* If player attempts to sign the Charter immediately, **MentOS** intervenes: *"Wait! You cannot authorize spending without verifying the Return on Investment. Check the Business Case."*
-        *   *Correction:* Player opens **Files > Business Case**. The text explicitly reads: **"Maximum authorized investment to maintain positive ROI: $350,000."**
-        *   *Mechanic:* Player uses a "Redline Tool" cursor to drag the correct $350k figure onto the Charter.
-        *   *Feedback:* Vane replies: *"Fine. We will stick to the $350k cap found in the Business Case, but that means we have to cut the warranty."*
-    3.  **Strategic Check (The Alignment Puzzle):**
-        *   *Action:* Vane asks to add a "Customer Loyalty Module" to the project.
-        *   *Validation:* Open **Files > Benefits Management Plan**.
-        *   *Discovery:* The plan states the strategy is "Internal Efficiency," not "Customer Growth."
-        *   *Decision:* Player must flag this misalignment in the Charter draft to get full points.
-        *   *Lesson:* The Benefits Management Plan governs the Strategic goals.
-    4.  **Drafting:** Use the **PMIS > Charter** tab to finalize the document.
-        *   *Challenge:* Filter out "Detailed Schedule" (trap) and include "Summary Milestones" (correct).
-    5.  **Assumption Logging:** Vane mentions "Facilities will probably have the power ready."
-        *   *Directive:* "Log Sponsor's statement as an Assumption."
-        *   *Action:* Player inputs this into **PMIS > Assumptions**.
-*   **ExamSim:** 5 Questions on Charter purpose, inputs (Business Case vs Benefits Plan), and authority.
+*   **Narrative:** Sponsor Vane wants to order equipment immediately. The previous PM left no documentation. You cannot create a Charter because the inputs (Business Case, Benefits Plan) are missing.
+*   **Objective:** Reconstruct the Business Documents and synthesize a Charter to authorize the project.
+
+**Phase 1: Discovery (Chatter)**
+*   **Directive:** "Gather Requirements for Business Documents."
+*   **Step A: The Financials (Sponsor Vane):**
+    *   *Dialogue:* Challenge Vane on the budget.
+    *   *Result:* He admits, "We have a hard cap. We must see a Return on Investment of $350k within 12 months."
+    *   *Action:* Player clicks the highlighted text. **Clue Collected: "ROI Target: $350k"**.
+*   **Step B: The Strategy (Strategy Lead):**
+    *   *Dialogue:* Ask about the long-term goal.
+    *   *Result:* "This isn't about profit. It's about Internal Efficiency to align with the Q4 Corporate Goal."
+    *   *Action:* Player clicks highlighted text. **Clue Collected: "Strategic Align: Internal Efficiency"**.
+*   **Step C: The Uncertainty (Sponsor Vane):**
+    *   *Dialogue:* Ask about site readiness.
+    *   *Result:* "Facilities will probably have the power ready by the time TechCore arrives."
+    *   *Action:* Player clicks highlighted text. **Clue Collected: "Claim: Power Ready by Q1"**.
+*   **Step D: The Agreement (Legal Counsel):**
+    *   *Dialogue:* Ask about external vendors.
+    *   *Result:* "We already signed a Master Services Agreement with TechCore. You must stick to their rates. Sending it now."
+    *   *Event:* A file icon appears in the chat: `TechCore_MSA.pdf`.
+    *   *Action:* Player clicks the file. **File Collected: Sent to PMIS Sidebar**.
+
+**Phase 2: Analysis (PMIS > Doc Creator)**
+*   **Directive:** "Sort Clues into Business Documents."
+*   **Action:** Player opens **PMIS**. The Sidebar contains 3 Clues.
+*   **Sorting Puzzle:**
+    *   Player drags "ROI Target: $350k" -> **Business Case Template**. (Success)
+    *   Player drags "Strategic Align: Internal Efficiency" -> **Benefits Management Plan Template**. (Success)
+    *   Player drags "Claim: Power Ready by Q1" -> **Business Case Template**. (**Fail State**)
+        *   *Feedback:* MentOS intervenes: *"Wait! Is this a proven financial fact? Or is the Sponsor just hoping it happens? Business Cases require data, not hope."*
+    *   **The Triage:** Player realizes this is a "Leftover." They switch tabs to **Assumptions** and drag the "Claim" clue there.
+        *   *Result:* The clue is accepted and labeled: **"Assumption 001: Site Power Availability."**
+
+**Phase 3: Authorization (PMIS > Charter)**
+*   **Directive:** "Synthesize Project Charter."
+*   **Unlock:** The **Charter Tab** unlocks.
+*   **Synthesis:**
+    *   Input Slot 1: Drag **Business Case** (Internal).
+    *   Input Slot 2: Drag **Benefits Management Plan** (Internal).
+    *   Input Slot 3: Drag **TechCore_MSA.pdf** from the Sidebar (External).
+*   **Result:** The Charter text auto-populates based on these valid inputs.
+*   **Final Action:** Player signs the Charter.
+
+*   **ExamSim:** 5 Questions on Inputs to Charter (Business Documents vs Agreements), and the difference between Business Case and Benefits Management Plan.
+
+---
 
 ### **Level 2: The Stakeholder Hunt**
 *   **Process:** **13.1 Identify Stakeholders**
 *   **Narrative:** The Charter is signed. Now, who will impact this project? The register is empty.
-*   **Gameplay Flow:**
-    1.  **Charter Extraction:**
-        *   *Directive:* "Review Signed Charter for Key Roles."
-        *   *Action:* Player highlights names in the signed Charter to auto-populate the first 2 stakeholders (Sponsor, Project Manager).
-    2.  **The Interrogation:** Use **Chatter** to interview the Sales VP.
-        *   *Choice:* Ask about "Bonus Targets" (Interest) vs "Staffing" (Resources).
-        *   *Result:* Discover he is **High Power / High Interest**.
-    3.  **The External Factor (Mastery Mechanic):**
-        *   *Action:* During the interview, someone mentions "Environmental Regulations."
-        *   *Directive:* "Investigate Legal Obligations in Files."
-        *   *Investigation:* Player opens **Files > Agreements**.
-        *   *Discovery:* Find the contact info for the "Regulatory Compliance Officer" (External Stakeholder).
-        *   *Mapping:* Player must map this external person on the grid.
-    4.  **Data Entry:** Player opens **PMIS > Stakeholders** and manually maps everyone on the **Power/Interest Grid**.
+
+**Gameplay Flow:**
+1.  **Charter Extraction:**
+    *   *Directive:* "Review Signed Charter for Key Roles."
+    *   *Action:* Player highlights names in the signed Charter to auto-populate the first 2 stakeholders (Sponsor, Project Manager).
+2.  **The Interrogation (Chatter):**
+    *   *Target:* Marcus (Sales VP).
+    *   *Mining:* Player chooses dialogue options to determine **Interest** (Bonus Targets) and **Power** (High).
+3.  **The External Factor (Mastery Mechanic):**
+    *   *Trigger:* During the interview, Marcus mentions "Environmental Regulations."
+    *   *Action:* Player opens the **TechCore_MSA.pdf** (stored in Sidebar from Level 1).
+    *   *Discovery:* Reading the PDF reveals a clause: *"Subject to review by Regulatory Compliance Officer."*
+    *   *Action:* Player clicks the name in the PDF to add the "Regulatory Officer" to the Stakeholder list.
+4.  **Data Entry:**
+    *   Player opens **PMIS > Stakeholders**.
+    *   Manually maps everyone on the **Power/Interest Grid**.
+
 *   **ExamSim:** 5 Questions on Stakeholder Analysis, External vs Internal, and Power/Interest Grids.
 
 ---
@@ -191,16 +206,16 @@ Director Vane reviews your PMIS Dashboard.
 **Outcomes:**
 
 1.  **Kill Point (Failure):**
-    *   *Condition:* Failed to sign Charter OR Missed Key Stakeholder (High Power/High Interest).
+    *   *Condition:* Failed to synthesize Charter correctly (Wrong inputs) OR Missed Key Stakeholder.
     *   *Result:* "Project Cancelled. You ordered equipment without authority and ignored the VP of Sales. Please report to HR."
 
 2.  **Conditional Pass (C Grade):**
-    *   *Condition:* Charter signed, but Strategic Alignment ignored or External Stakeholder missed.
-    *   *Result:* "I'll approve this, but you missed a regulatory requirement. We are now at risk of fines. Fix the Register immediately."
+    *   *Condition:* Charter signed, but Strategic Alignment confused in Phase 2.
+    *   *Result:* "I'll approve this, but you confused our strategy with our financials. Be more careful in Planning."
 
 3.  **Green Light (Success):**
-    *   *Condition:* All documents correct, Strategic Alignment verified, Regulatory Officer identified.
-    *   *Result:* "Excellent work. You caught the misalignment with the Benefits Plan and identified the Regulator early. You are formally authorized to proceed to the Planning Phase."
+    *   *Condition:* All documents correctly synthesized, Agreement utilized, Regulatory Officer identified.
+    *   *Result:* "Excellent work. The Charter is solid, and you caught the regulatory requirement in the MSA. You are formally authorized to proceed to the Planning Phase."
     *   *Reward:* "Initiating Process Group" Achievement Badge.
 
 ---
@@ -209,28 +224,26 @@ Director Vane reviews your PMIS Dashboard.
 
 | Slice | Purpose |
 |-------|---------|
-| `gameSlice` | Tracks current level (0-2), Game Stage, and **Current Directive ID**. |
-| `pmisSlice` | Stores the state of the Charter (Signed/Unsigned), Assumption Log (Array of strings), and Stakeholder Register (Array of Objects). |
+| `gameSlice` | Tracks current level (1-2), Game Stage, and **Current Directive ID**. |
+| `pmisSlice` | Tracks: `collectedClues` (Array), `sidebarFiles` (Array), `charterState` (Locked/Signed), `stakeholderList`. |
 | `playerSlice` | Stores Player Name, Visual Avatar ID. |
 | `examSlice` | Manages the question pool for Level 1 and Level 2. |
-| `constraintSlice` | Tracks the "projected" health of Budget/Schedule/Scope (backend only, no HUD). |
 
 ## **8. Asset Requirements**
 
-*   **Documents:**
-    *   `Business_Case.pdf` (Valid Input - Financials. Contains text: **"Maximum authorized investment to maintain positive ROI: $350,000."**)
-    *   `Benefits_Management_Plan.pdf` (Valid Input - Strategy. Contains text: **"Strategic Focus: Internal Operational Efficiency and Cost Reduction."**)
-    *   `Vendor_Agreement.pdf` (Valid Input - External Stakeholders)
-    *   `Detailed_Gantt.xlsx` (Invalid Input / Trap)
-    *   `Project_Charter_Template` (The container)
+*   **Documents (Files):**
+    *   `TechCore_MSA.pdf` (The Agreement. Contains clause about Regulatory Officer).
+*   **Document Templates (Containers):**
+    *   `Business_Case_Template` (Accepts "ROI" clues).
+    *   `Benefits_Plan_Template` (Accepts "Strategy" clues).
+    *   `Project_Charter_Template` (Accepts completed docs + PDF).
 *   **UI Elements:**
-    *   `Directive_Widget_Background.png`
-    *   `MentOS_Avatar.png` (Glowing Orb)
-    *   `Padlock_Icon.png` (For greyed-out apps)
-    *   `Redline_Cursor.png` (For L1 Mechanic)
-*   **NPCs:**
-    *   Director Vane (Sponsor) - Stern, impatient.
-    *   Marcus (Sales VP) - Aggressive, bonus-focused.
-    *   Sarah (IT Lead) - Helpful, technical.
-    *   Legal Counsel - Risk-averse, slow.
-    *   Regulatory Compliance Officer (External) - Formal, bureaucratic.
+    *   `Sidebar_Panel.png` (The inventory container).
+    *   `Clue_Icon.png` (Small text bubble icon).
+    *   `File_Icon.png` (PDF icon).
+    *   `MentOS_Avatar.png` (Glowing Orb).
+*   **Text Strings (Clues):**
+    *   "ROI Target: $350k within 12 months"
+    *   "Strategic Align: Internal Efficiency"
+    *   "Claim: Power Ready by Q1" (Assumption)
+    *   "Goal: Improve Customer Loyalty" (Distractor/Trap)

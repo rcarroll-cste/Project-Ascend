@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Bash(npx tsc:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(npm run build)",
+      "Bash(time:*)",
+      "Bash(powershell:*)"
     ],
     "deny": [],
     "ask": []

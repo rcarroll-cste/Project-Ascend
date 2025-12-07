@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
-import { User } from 'lucide-react';
+import { User, Sparkles } from 'lucide-react';
 import { getNPCAvatar } from '../../../data/npcAvatars';
 import { CartoonAvatar } from '../../common/CartoonAvatar';
+import { MiningTarget } from '../../../types';
 
 interface ChatterMessageProps {
   speaker: string;
@@ -10,6 +11,8 @@ interface ChatterMessageProps {
   isPlayer?: boolean;
   isSystem?: boolean;
   isTyping?: boolean;
+  miningTargets?: MiningTarget[];
+  onMineClue?: (evidenceId: string, targetText: string) => void;
 }
 
 export function ChatterMessage({
@@ -19,7 +22,89 @@ export function ChatterMessage({
   isPlayer = false,
   isSystem = false,
   isTyping = false,
+  miningTargets = [],
+  onMineClue,
 }: ChatterMessageProps) {
+  // Render text with mining targets highlighted
+  const renderTextWithMiningTargets = (
+    messageText: string,
+    targets: MiningTarget[]
+  ) => {
+    if (!targets || targets.length === 0) {
+      return <span>{messageText}</span>;
+    }
+
+    // Sort targets by their position in the text to handle overlapping correctly
+    const sortedTargets = [...targets].sort(
+      (a, b) => messageText.indexOf(a.text) - messageText.indexOf(b.text)
+    );
+
+    const elements: React.ReactNode[] = [];
+    let lastIndex = 0;
+
+    sortedTargets.forEach((target, idx) => {
+      const startIndex = messageText.indexOf(target.text, lastIndex);
+      if (startIndex === -1) return; // Target text not found
+
+      // Add text before the target
+      if (startIndex > lastIndex) {
+        elements.push(
+          <span key={`text-${idx}`}>{messageText.slice(lastIndex, startIndex)}</span>
+        );
+      }
+
+      // Add the mining target (highlighted and clickable)
+      const isCollected = target.isCollected;
+      elements.push(
+        <motion.span
+          key={`target-${idx}`}
+          className={`relative inline-flex items-center gap-1 cursor-pointer transition-all ${
+            isCollected
+              ? 'text-slate-400 line-through'
+              : 'text-amber-400 hover:text-amber-300 font-medium'
+          }`}
+          onClick={() => {
+            if (!isCollected && onMineClue) {
+              onMineClue(target.evidenceId, target.text);
+            }
+          }}
+          whileHover={!isCollected ? { scale: 1.02 } : {}}
+          whileTap={!isCollected ? { scale: 0.98 } : {}}
+          title={isCollected ? 'Clue collected!' : 'Click to collect this clue'}
+        >
+          {!isCollected && (
+            <motion.span
+              className="inline-block"
+              animate={{
+                opacity: [0.5, 1, 0.5],
+                scale: [0.95, 1.05, 0.95]
+              }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <Sparkles size={12} className="text-amber-400" />
+            </motion.span>
+          )}
+          <span className={!isCollected ? 'underline decoration-amber-400/50 decoration-2 underline-offset-2' : ''}>
+            {target.text}
+          </span>
+          {isCollected && (
+            <span className="text-xs text-green-400 ml-1">✓</span>
+          )}
+        </motion.span>
+      );
+
+      lastIndex = startIndex + target.text.length;
+    });
+
+    // Add remaining text after the last target
+    if (lastIndex < messageText.length) {
+      elements.push(
+        <span key="text-end">{messageText.slice(lastIndex)}</span>
+      );
+    }
+
+    return <>{elements}</>;
+  };
   if (isSystem) {
     return (
       <motion.div
@@ -86,7 +171,9 @@ export function ChatterMessage({
               />
             </div>
           ) : (
-            <p className="text-sm whitespace-pre-wrap">{text}</p>
+            <p className="text-sm whitespace-pre-wrap">
+              {renderTextWithMiningTargets(text, miningTargets)}
+            </p>
           )}
         </div>
       </div>

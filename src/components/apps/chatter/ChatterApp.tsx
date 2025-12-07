@@ -15,6 +15,7 @@ import {
   startDialogue,
   unlockContact,
   setContactUnread,
+  collectMiningTarget,
 } from '../../../features/dialogueSlice';
 import {
   unlockApp,
@@ -29,14 +30,14 @@ import { ChatterMessage } from './ChatterMessage';
 import { ChatterChoices } from './ChatterChoices';
 import { getDialogueTreeByContact } from '../../../data/dialogueTrees';
 import { INITIAL_EVIDENCE } from '../../../data/initialData';
-import { DialogueChoice, AppId } from '../../../types';
+import { DialogueChoice, AppId, MiningTarget } from '../../../types';
 import { logger } from '../../../utils/logger';
 
 export function ChatterApp() {
   const dispatch = useDispatch();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const { contacts, activeContactId, conversations, currentNodeId, isTyping, pendingChoices } =
+  const { contacts, activeContactId, conversations, currentNodeId, isTyping, pendingChoices, collectedMiningTargets } =
     useSelector((state: RootState) => state.dialogue);
 
   const activeContact = contacts.find((c) => c.id === activeContactId);
@@ -227,6 +228,47 @@ export function ChatterApp() {
     );
   };
 
+  // Handle mining clue collection
+  const handleMineClue = useCallback((evidenceId: string, targetText: string) => {
+    logger.info('ChatterApp', 'Mining clue collected', {
+      evidenceId,
+      targetText
+    });
+
+    // Find the evidence item
+    const evidenceItem = INITIAL_EVIDENCE.find((e) => e.id === evidenceId);
+    if (evidenceItem) {
+      // Add to inventory
+      dispatch(addItem(evidenceItem));
+
+      // Mark as collected in dialogue state
+      dispatch(collectMiningTarget(evidenceId));
+
+      // Show notification
+      dispatch(
+        addNotification({
+          id: `clue_${Date.now()}`,
+          title: 'Clue Collected!',
+          message: `"${evidenceItem.name}" added to your inventory.`,
+          type: 'success',
+          duration: 4000,
+        })
+      );
+    }
+  }, [dispatch]);
+
+  // Helper function to get mining targets with collection state for a specific node
+  const getMiningTargetsForNode = useCallback((nodeId: string): MiningTarget[] => {
+    const node = dialogueTree?.nodes.find((n) => n.id === nodeId);
+    if (!node?.miningTargets) return [];
+
+    // Update isCollected based on our state
+    return node.miningTargets.map((target) => ({
+      ...target,
+      isCollected: collectedMiningTargets.includes(target.evidenceId),
+    }));
+  }, [dialogueTree, collectedMiningTargets]);
+
   // Filter to only unlocked contacts
   const unlockedContacts = contacts.filter((c) => c.isUnlocked);
 
@@ -313,6 +355,8 @@ export function ChatterApp() {
                     text={msg.text}
                     isPlayer={msg.isPlayerChoice}
                     isSystem={msg.speaker === 'System'}
+                    miningTargets={getMiningTargetsForNode(msg.nodeId)}
+                    onMineClue={handleMineClue}
                   />
                 ))}
               </AnimatePresence>
