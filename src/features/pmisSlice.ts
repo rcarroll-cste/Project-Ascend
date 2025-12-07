@@ -6,6 +6,11 @@ const initialState: PMISState = {
   stakeholders: INITIAL_STAKEHOLDERS,
   charterSections: INITIAL_CHARTER_SECTIONS,
   assumptionLog: [],
+  documentAssignments: {
+    'business-case': [],
+    'benefits-plan': [],
+    'assumption-log': [],
+  },
 };
 
 const pmisSlice = createSlice({
@@ -97,6 +102,34 @@ const pmisSlice = createSlice({
         state.stakeholders.push(action.payload);
       }
     },
+
+    // Document Assignment Management (Doc Creator)
+    assignClueToDocument: (state, action: PayloadAction<{ zoneId: string; itemId: string }>) => {
+      const { zoneId, itemId } = action.payload;
+
+      // Remove from any other zone first
+      Object.keys(state.documentAssignments).forEach(zone => {
+        state.documentAssignments[zone] = state.documentAssignments[zone].filter(id => id !== itemId);
+      });
+
+      // Add to the target zone
+      if (!state.documentAssignments[zoneId].includes(itemId)) {
+        state.documentAssignments[zoneId].push(itemId);
+      }
+    },
+
+    removeClueFromDocument: (state, action: PayloadAction<{ zoneId: string; itemId: string }>) => {
+      const { zoneId, itemId } = action.payload;
+      state.documentAssignments[zoneId] = state.documentAssignments[zoneId].filter(id => id !== itemId);
+    },
+
+    clearDocumentAssignments: (state) => {
+      state.documentAssignments = {
+        'business-case': [],
+        'benefits-plan': [],
+        'assumption-log': [],
+      };
+    },
   },
 });
 
@@ -110,6 +143,9 @@ export const {
   classifyAssumption,
   decomposeStakeholder,
   addStakeholder,
+  assignClueToDocument,
+  removeClueFromDocument,
+  clearDocumentAssignments,
 } = pmisSlice.actions;
 
 export default pmisSlice.reducer;

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Users, FileText, AlertTriangle, LayoutDashboard, MessageSquare, PieChart } from 'lucide-react';
+import { Users, FileText, AlertTriangle, LayoutDashboard, MessageSquare, PieChart, FolderOpen } from 'lucide-react';
 import { StakeholderRegister } from './StakeholderRegister';
 import { CharterBuilder } from './CharterBuilder';
 import { AssumptionLog } from './AssumptionLog';
+import { DocCreator } from './DocCreator';
 import { EmailApp } from '../email/EmailApp';
 import { DndContext, DragEndEvent, useDroppable, useSensor, useSensors, PointerSensor } from '@dnd-kit/core';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,7 +14,7 @@ import { PowerLevel, InterestLevel, Email, EvidenceItem } from '../../../types';
 import { RootState } from '../../../store';
 import { getLevelById } from '../../../data/levels';
 
-type Tab = 'dashboard' | 'communications' | 'stakeholders' | 'charter' | 'assumptions';
+type Tab = 'dashboard' | 'communications' | 'stakeholders' | 'doc-creator' | 'charter' | 'assumptions';
 
 // Mini Drop Zone Component for the Communications Tab
 const StakeholderDropZone = () => {
@@ -323,6 +324,18 @@ export const PMISApp: React.FC = () => {
         detail: { itemId, category }
       }));
     }
+
+    // 5. Handle Doc Creator Drop (Clue -> Document Zone)
+    // DocCreator uses custom events for validation and MentOS feedback
+    if (active.data.current?.type === 'doc-clue' && over.data.current?.type === 'doc-zone') {
+      const item = active.data.current.item as EvidenceItem;
+      const zoneId = over.data.current.zoneId;
+
+      // Dispatch custom event for DocCreator to handle
+      window.dispatchEvent(new CustomEvent('doc-creator-drop', {
+        detail: { itemId: item.id, zoneId }
+      }));
+    }
   };
   
   // Note: Charter validation is now handled in CharterBuilder
@@ -355,7 +368,14 @@ export const PMISApp: React.FC = () => {
                 <Users size={16} />
                 <span>Stakeholders</span>
             </button>
-            <button 
+            <button
+                onClick={() => setActiveTab('doc-creator')}
+                className={`px-4 py-2 text-sm font-medium rounded-t-lg flex items-center space-x-2 border-t border-l border-r ${activeTab === 'doc-creator' ? 'bg-gray-100 border-gray-200 text-purple-700' : 'bg-white border-transparent text-gray-500 hover:text-gray-700'}`}
+            >
+                <FolderOpen size={16} />
+                <span>Doc Creator</span>
+            </button>
+            <button
                 onClick={() => setActiveTab('charter')}
                 className={`px-4 py-2 text-sm font-medium rounded-t-lg flex items-center space-x-2 border-t border-l border-r ${activeTab === 'charter' ? 'bg-gray-100 border-gray-200 text-purple-700' : 'bg-white border-transparent text-gray-500 hover:text-gray-700'}`}
             >
@@ -391,7 +411,9 @@ export const PMISApp: React.FC = () => {
             )}
 
             {activeTab === 'stakeholders' && <StakeholderRegister />}
-            
+
+            {activeTab === 'doc-creator' && <DocCreator />}
+
             {activeTab === 'charter' && <CharterBuilder />}
 
             {activeTab === 'assumptions' && <AssumptionLog />}

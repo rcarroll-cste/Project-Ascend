@@ -6,6 +6,63 @@ All notable changes to Project Ascend will be documented in this file.
 
 ## [Unreleased]
 
+### 2025-12-07 17:26 EST - PMIS Doc Creator (GDD v7.1 Analysis Phase)
+
+Implemented the "Doc Creator" tab for the PMIS Analysis Phase, allowing players to sort collected clues into Business Documents or the Assumption Log.
+
+#### New Component Created
+
+**`src/components/apps/pmis/DocCreator.tsx`** - Complete sorting interface with:
+- **Sidebar (EvidenceList)**: Displays collected clues with category color-coding
+  - Financial clues: Green left border
+  - Strategic clues: Blue left border
+  - Assumption clues: Amber left border
+- **Three Document Drop Zones**:
+  - **Business Case**: Accepts Financial/ROI clues (e.g., ROI Target $350k)
+  - **Benefits Management Plan**: Accepts Strategic/Value clues (e.g., Strategic Alignment)
+  - **Assumption Log**: Accepts unverified claims (e.g., "Power Ready by Q1")
+- **Clue Category Detection**: `getClueCategory()` function analyzes evidence items to determine correct destination
+- **MentOS Feedback Modal**: Pedagogical feedback on incorrect drops with contextual hints
+- **Progress Summary**: Shows document status with item counts per zone
+- **Level Objectives Panel**: Displays relevant objectives with completion tracking
+
+#### Validation Logic
+
+- **Correct Drops**: Items added to zone, success notification shown
+- **Incorrect Drops**: MentOS modal appears with:
+  - Title explaining the error (e.g., "Wrong Document!")
+  - Message about the item's actual category
+  - Hint about where the item should go
+- **Assumption Triage (GDD Key Mechanic)**: When player tries to put an assumption into Business Case, MentOS asks "Is this a proven fact? Or is this just a hope?"
+
+#### Redux State Updates
+
+**`src/features/pmisSlice.ts`**:
+- Added `documentAssignments: Record<string, string[]>` to initial state
+- New actions:
+  - `assignClueToDocument({ zoneId, itemId })`: Adds clue to document zone
+  - `removeClueFromDocument({ zoneId, itemId })`: Removes clue from zone
+  - `clearDocumentAssignments()`: Resets all assignments
+
+**`src/types/index.ts`**:
+- Updated `PMISState` interface to include `documentAssignments` property
+
+#### PMISApp Integration
+
+**`src/components/apps/pmis/PMISApp.tsx`**:
+- Added "Doc Creator" tab with FolderOpen icon in navigation
+- Added handler for `doc-clue` to `doc-zone` drag-and-drop events
+- Dispatches `doc-creator-drop` custom event for DocCreator to handle
+
+#### Drag-and-Drop Implementation
+
+- Uses `@dnd-kit/core` (consistent with existing patterns)
+- `DraggableClue` component for sidebar items
+- `DocumentDropZone` component for each document target
+- Custom event pattern (`doc-creator-drop`) for validation in component
+
+---
+
 ### 2025-12-07 17:14 EST - Chatter Mining Mechanic (GDD v7.1 Discovery Phase)
 
 Implemented the "Clue Mining" mechanic for the Discovery Phase, allowing players to extract clues from dialogue text.

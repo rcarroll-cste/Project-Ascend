@@ -476,6 +476,7 @@ export interface PMISState {
   stakeholders: Stakeholder[];
   charterSections: CharterSection[];
   assumptionLog: AssumptionEntry[];
+  documentAssignments: Record<string, string[]>;
 }
 // Inventory State
 export interface InventoryState {
