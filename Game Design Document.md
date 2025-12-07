@@ -1,6 +1,6 @@
 # **Game Design Document: "Project Ascend - The Initiation Protocol"**
 
-**Version:** 7.1
+**Version:** 7.2
 **Scope:** Initiating Process Group (Levels 1-2)
 **Lead Architect:** Lead Instructional Game Designer
 
@@ -115,16 +115,23 @@ Before the simulation begins, the player initializes their workstation.
 ### **Stage 3: System Boot**
 *   **Narrative:** "User Profile Created. Access Level: Junior PM. Loading AscendOS..."
 *   **UI State:** The AscendOS desktop loads fully.
-*   **Guidance:** **MentOS** pops up: *"Welcome to your first day! Your inbox is already blinking. It looks like Director Vane needs you immediately."*
-*   **Transition:** The **Email** app icon pulses, signaling the start of Level 1.
+*   **Transition:** Fade to Title Card.
 
 ---
 
 ## **5. Campaign Progression: The Initiation Phase**
 
+### **Signaling Event: Title Card 1**
+Before the desktop becomes interactive, a full-screen title card appears to set the learning objective.
+*   **Visual:** Dark background, bold white/cyan typography (Command Line / Boot Sequence style).
+*   **Main Title:** **LEVEL 1: THE AUTHORIZATION**
+*   **Sub-Title:** Process 4.1: Develop Project Charter
+*   **Prompt:** `[ PRESS ENTER TO CONTINUE ]`
+
 ### **Level 1: The Authorization**
 *   **Process:** **4.1 Develop Project Charter**
 *   **Narrative:** Sponsor Vane wants to order equipment immediately. The previous PM left no documentation. You cannot create a Charter because the inputs (Business Case, Benefits Plan) are missing.
+*   **Guidance:** **MentOS** pops up: *"Welcome to your first day! Your inbox is already blinking. It looks like Director Vane needs you immediately."*
 *   **Objective:** Reconstruct the Business Documents and synthesize a Charter to authorize the project.
 
 **Phase 1: Discovery (Chatter)**
@@ -171,6 +178,13 @@ Before the simulation begins, the player initializes their workstation.
 *   **ExamSim:** 5 Questions on Inputs to Charter (Business Documents vs Agreements), and the difference between Business Case and Benefits Management Plan.
 
 ---
+
+### **Signaling Event: Title Card 2**
+Upon completing the ExamSim for Level 1, the screen transitions to the next objective.
+*   **Visual:** Dark background, bold white/cyan typography.
+*   **Main Title:** **LEVEL 2: THE STAKEHOLDER HUNT**
+*   **Sub-Title:** Process 13.1: Identify Stakeholders
+*   **Prompt:** `[ PRESS ENTER TO CONTINUE ]`
 
 ### **Level 2: The Stakeholder Hunt**
 *   **Process:** **13.1 Identify Stakeholders**
@@ -224,7 +238,7 @@ Director Vane reviews your PMIS Dashboard.
 
 | Slice | Purpose |
 |-------|---------|
-| `gameSlice` | Tracks current level (1-2), Game Stage, and **Current Directive ID**. |
+| `gameSlice` | Tracks current level (1-2), Game Stage, **Title Screen State** (Active/Inactive), and **Current Directive ID**. |
 | `pmisSlice` | Tracks: `collectedClues` (Array), `sidebarFiles` (Array), `charterState` (Locked/Signed), `stakeholderList`. |
 | `playerSlice` | Stores Player Name, Visual Avatar ID. |
 | `examSlice` | Manages the question pool for Level 1 and Level 2. |
@@ -242,6 +256,7 @@ Director Vane reviews your PMIS Dashboard.
     *   `Clue_Icon.png` (Small text bubble icon).
     *   `File_Icon.png` (PDF icon).
     *   `MentOS_Avatar.png` (Glowing Orb).
+    *   `Title_Card_BG.png` (Dark, tech-themed background for Level transitions).
 *   **Text Strings (Clues):**
     *   "ROI Target: $350k within 12 months"
     *   "Strategic Align: Internal Efficiency"

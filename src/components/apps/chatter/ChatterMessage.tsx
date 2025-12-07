@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
-import { User, Sparkles } from 'lucide-react';
+import { User, Sparkles, FileText, Download, Check } from 'lucide-react';
 import { getNPCAvatar } from '../../../data/npcAvatars';
 import { CartoonAvatar } from '../../common/CartoonAvatar';
-import { MiningTarget } from '../../../types';
+import { MiningTarget, EvidenceItem } from '../../../types';
 
 interface ChatterMessageProps {
   speaker: string;
@@ -13,6 +13,9 @@ interface ChatterMessageProps {
   isTyping?: boolean;
   miningTargets?: MiningTarget[];
   onMineClue?: (evidenceId: string, targetText: string) => void;
+  attachment?: EvidenceItem | null;
+  isAttachmentDownloaded?: boolean;
+  onDownloadAttachment?: (evidenceId: string) => void;
 }
 
 export function ChatterMessage({
@@ -24,6 +27,9 @@ export function ChatterMessage({
   isTyping = false,
   miningTargets = [],
   onMineClue,
+  attachment,
+  isAttachmentDownloaded = false,
+  onDownloadAttachment,
 }: ChatterMessageProps) {
   // Render text with mining targets highlighted
   const renderTextWithMiningTargets = (
@@ -176,6 +182,40 @@ export function ChatterMessage({
             </p>
           )}
         </div>
+
+        {/* File Attachment Card */}
+        {attachment && (
+          <motion.button
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            onClick={() => {
+              if (!isAttachmentDownloaded && onDownloadAttachment) {
+                onDownloadAttachment(attachment.id);
+              }
+            }}
+            disabled={isAttachmentDownloaded}
+            className={`mt-2 flex items-center gap-3 px-3 py-2 rounded-lg border transition-all ${
+              isAttachmentDownloaded
+                ? 'bg-slate-800/50 border-green-600/30 cursor-default'
+                : 'bg-slate-800 border-slate-600 hover:border-blue-500 hover:bg-slate-700 cursor-pointer'
+            }`}
+            title={isAttachmentDownloaded ? 'Downloaded to Sidebar' : 'Click to download'}
+          >
+            <div className={`p-2 rounded ${isAttachmentDownloaded ? 'bg-green-600/20' : 'bg-blue-600/20'}`}>
+              <FileText size={18} className={isAttachmentDownloaded ? 'text-green-400' : 'text-blue-400'} />
+            </div>
+            <div className="flex-1 text-left min-w-0">
+              <div className="text-sm font-medium text-slate-200 truncate">{attachment.name}</div>
+              <div className="text-xs text-slate-500 truncate">{attachment.type}</div>
+            </div>
+            {isAttachmentDownloaded ? (
+              <Check size={16} className="text-green-400 flex-shrink-0" />
+            ) : (
+              <Download size={16} className="text-slate-400 flex-shrink-0" />
+            )}
+          </motion.button>
+        )}
       </div>
     </motion.div>
   );

@@ -4,6 +4,7 @@ import { StakeholderRegister } from './StakeholderRegister';
 import { CharterBuilder } from './CharterBuilder';
 import { AssumptionLog } from './AssumptionLog';
 import { DocCreator } from './DocCreator';
+import { ContextSidebar } from './ContextSidebar';
 import { EmailApp } from '../email/EmailApp';
 import { DndContext, DragEndEvent, useDroppable, useSensor, useSensors, PointerSensor } from '@dnd-kit/core';
 import { useDispatch, useSelector } from 'react-redux';
@@ -446,9 +447,23 @@ export const PMISApp: React.FC = () => {
 
             {activeTab === 'stakeholders' && <StakeholderRegister />}
 
-            {activeTab === 'doc-creator' && <DocCreator />}
+            {activeTab === 'doc-creator' && (
+                <div className="flex h-full">
+                    <div className="flex-1 overflow-hidden">
+                        <DocCreator />
+                    </div>
+                    <ContextSidebar />
+                </div>
+            )}
 
-            {activeTab === 'charter' && <CharterBuilder />}
+            {activeTab === 'charter' && (
+                <div className="flex h-full">
+                    <div className="flex-1 overflow-hidden">
+                        <CharterBuilder />
+                    </div>
+                    <ContextSidebar />
+                </div>
+            )}
 
             {activeTab === 'assumptions' && <AssumptionLog />}
         </div>

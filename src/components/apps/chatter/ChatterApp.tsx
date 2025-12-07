@@ -30,7 +30,7 @@ import { ChatterMessage } from './ChatterMessage';
 import { ChatterChoices } from './ChatterChoices';
 import { getDialogueTreeByContact } from '../../../data/dialogueTrees';
 import { INITIAL_EVIDENCE } from '../../../data/initialData';
-import { DialogueChoice, AppId, MiningTarget } from '../../../types';
+import { DialogueChoice, AppId, MiningTarget, EvidenceItem } from '../../../types';
 import { logger } from '../../../utils/logger';
 
 export function ChatterApp() {
@@ -39,6 +39,7 @@ export function ChatterApp() {
 
   const { contacts, activeContactId, conversations, currentNodeId, isTyping, pendingChoices, collectedMiningTargets } =
     useSelector((state: RootState) => state.dialogue);
+  const inventoryItems = useSelector((state: RootState) => state.inventory.items);
 
   const activeContact = contacts.find((c) => c.id === activeContactId);
   const activeConversation = activeContactId ? conversations[activeContactId] || [] : [];
@@ -269,6 +270,43 @@ export function ChatterApp() {
     }));
   }, [dialogueTree, collectedMiningTargets]);
 
+  // Helper function to get attachment evidence item for a specific node
+  const getAttachmentForNode = useCallback((nodeId: string): EvidenceItem | null => {
+    const node = dialogueTree?.nodes.find((n) => n.id === nodeId);
+    if (!node?.attachment) return null;
+
+    // Find the evidence item by ID
+    const evidenceItem = INITIAL_EVIDENCE.find((e) => e.id === node.attachment);
+    return evidenceItem || null;
+  }, [dialogueTree]);
+
+  // Check if an attachment has been downloaded (exists in inventory)
+  const isAttachmentDownloaded = useCallback((evidenceId: string): boolean => {
+    return inventoryItems.some((item) => item.id === evidenceId);
+  }, [inventoryItems]);
+
+  // Handle downloading an attachment
+  const handleDownloadAttachment = useCallback((evidenceId: string) => {
+    logger.info('ChatterApp', 'Downloading attachment', { evidenceId });
+
+    const evidenceItem = INITIAL_EVIDENCE.find((e) => e.id === evidenceId);
+    if (evidenceItem) {
+      // Add to inventory
+      dispatch(addItem(evidenceItem));
+
+      // Show notification
+      dispatch(
+        addNotification({
+          id: `download_${Date.now()}`,
+          title: 'Downloaded to Sidebar',
+          message: `"${evidenceItem.name}" has been added to your inventory.`,
+          type: 'success',
+          duration: 4000,
+        })
+      );
+    }
+  }, [dispatch]);
+
   // Filter to only unlocked contacts
   const unlockedContacts = contacts.filter((c) => c.isUnlocked);
 
@@ -348,17 +386,23 @@ export function ChatterApp() {
             {/* Messages Area */}
             <div className="flex-1 overflow-y-auto p-4">
               <AnimatePresence>
-                {activeConversation.map((msg, index) => (
-                  <ChatterMessage
-                    key={`${msg.nodeId}-${index}`}
-                    speaker={msg.speaker}
-                    text={msg.text}
-                    isPlayer={msg.isPlayerChoice}
-                    isSystem={msg.speaker === 'System'}
-                    miningTargets={getMiningTargetsForNode(msg.nodeId)}
-                    onMineClue={handleMineClue}
-                  />
-                ))}
+                {activeConversation.map((msg, index) => {
+                  const attachment = getAttachmentForNode(msg.nodeId);
+                  return (
+                    <ChatterMessage
+                      key={`${msg.nodeId}-${index}`}
+                      speaker={msg.speaker}
+                      text={msg.text}
+                      isPlayer={msg.isPlayerChoice}
+                      isSystem={msg.speaker === 'System'}
+                      miningTargets={getMiningTargetsForNode(msg.nodeId)}
+                      onMineClue={handleMineClue}
+                      attachment={attachment}
+                      isAttachmentDownloaded={attachment ? isAttachmentDownloaded(attachment.id) : false}
+                      onDownloadAttachment={handleDownloadAttachment}
+                    />
+                  );
+                })}
               </AnimatePresence>
 
               {/* Typing Indicator */}

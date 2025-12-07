@@ -6,6 +6,87 @@ All notable changes to Project Ascend will be documented in this file.
 
 ## [Unreleased]
 
+### 2025-12-07 23:21 EST - PMIS Context Sidebar
+
+Implemented the persistent, slide-out inventory panel for the PMIS application per GDD v7.1.
+
+#### New Component Created
+
+**`src/components/apps/pmis/ContextSidebar.tsx`** - Slide-out inventory panel with:
+
+##### Tab Features
+- **Tab A - Clues**: Lists collected BusinessCase items (Financial/Strategic text snippets extracted from Chatter conversations)
+- **Tab B - Files**: Lists collected Agreement items (PDFs like TechCore_MSA.pdf)
+
+##### Visual Features
+- **Slide-out animation**: Uses Framer Motion for smooth expand/collapse transitions (280px expanded, 48px collapsed)
+- **Collapsible design**: Toggle button on the left edge to minimize when not needed
+- **Distinct icons**:
+  - Clues: Yellow lightbulb icon with yellow accent border
+  - Files: Blue/red document icons (red for PDFs)
+- **Badge counts**: Shows number of items in each tab and total count when collapsed
+- **Empty states**: Helpful guidance when no items collected
+
+##### Drag & Drop Integration
+- **Clue items** are draggable with type `'doc-clue'` - compatible with Doc Creator drop zones
+- **File items** are draggable with type `'evidence'` - compatible with Charter Builder drop zones
+- Uses `@dnd-kit/core` for drag-and-drop functionality, consistent with the existing codebase
+
+#### PMISApp Integration (`src/components/apps/pmis/PMISApp.tsx`)
+- Added `ContextSidebar` import
+- Integrated sidebar for **Doc Creator** tab (wraps DocCreator in flex container)
+- Integrated sidebar for **Charter Builder** tab (wraps CharterBuilder in flex container)
+- Sidebar appears as a persistent right-side panel that can be collapsed
+
+#### Usage
+Items collected during Chatter conversations appear in the Context Sidebar and can be dragged directly to:
+- Doc Creator zones (Clues → Business Case, Benefits Plan, or Assumption Log)
+- Charter Builder sections (Files/Agreements → Agreement section)
+
+---
+
+### 2025-12-07 23:14 EST - Chatter File Attachments
+
+Implemented file attachment rendering in Chatter messages to allow "downloading" agreements and other documents from dialogue.
+
+#### Type Updates (`src/types/index.ts:217`)
+- Added optional `attachment?: string` property to `DialogueNode` interface for storing evidence item IDs
+
+#### ChatterMessage Component (`src/components/apps/chatter/ChatterMessage.tsx`)
+- Added new props: `attachment`, `isAttachmentDownloaded`, `onDownloadAttachment`
+- Added imports for `FileText`, `Download`, `Check` icons and `EvidenceItem` type
+- **New File Card UI**:
+  - Renders below message bubble when attachment exists
+  - Shows file icon (blue when downloadable, green when downloaded)
+  - Displays file name and evidence type
+  - Download/check icon indicates current state
+  - Click handler triggers download callback
+  - Disabled state when already downloaded
+
+#### ChatterApp Updates (`src/components/apps/chatter/ChatterApp.tsx`)
+- Added `inventoryItems` selector to track downloaded items
+- **New Helper Functions**:
+  - `getAttachmentForNode(nodeId)`: Retrieves evidence item from dialogue node's attachment ID
+  - `isAttachmentDownloaded(evidenceId)`: Checks if item exists in inventory
+- **New Handler `handleDownloadAttachment()`**:
+  - Adds evidence item to inventory via `addItem` action
+  - Shows "Downloaded to Sidebar" toast notification
+- Updated message rendering to pass attachment props to `ChatterMessage`
+
+#### Usage Example
+```typescript
+// In dialogue tree definition
+{
+  id: 'node_agreement',
+  speaker: 'Legal Counsel',
+  text: "Here's the Master Services Agreement we discussed.",
+  attachment: 'ev_file_techcore_msa',  // EvidenceItem ID from INITIAL_EVIDENCE
+  autoAdvanceToNodeId: 'node_next'
+}
+```
+
+---
+
 ### 2025-12-07 22:46 EST - Content Synchronization (Level 1)
 
 Synchronized Level 1 assets and data with GDD v7.1 requirements, adding phase tracking to enforce the gameplay flow.

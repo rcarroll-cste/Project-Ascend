@@ -214,6 +214,7 @@ export interface DialogueNode {
   delay?: number; // ms delay before showing this node
   consequences?: DialogueConsequence[]; // Optional consequences triggered when this node is reached
   miningTargets?: MiningTarget[]; // Clues that can be extracted from this dialogue
+  attachment?: string; // Optional EvidenceItem ID to render as downloadable file
 }
 
 export interface DialogueTree {
