@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useDroppable, useDraggable } from '@dnd-kit/core';
+import { useDroppable } from '@dnd-kit/core';
 import { RootState } from '../../../store';
 import { assignEvidenceToSection } from '../../../features/pmisSlice';
-import { FileText, Lock, CheckCircle, AlertCircle, Send, Award, BookOpen, ShieldCheck, ShieldAlert, Briefcase, Target, FileCheck } from 'lucide-react';
+import { FileText, Lock, CheckCircle, AlertCircle, Send, Award, ShieldCheck, ShieldAlert, Briefcase, Target } from 'lucide-react';
 import { EvidenceItem, CompletedBusinessDocument } from '../../../types';
 import {
   incrementCharterSubmission,
@@ -17,109 +17,6 @@ import { unlockContact, setContactUnread } from '../../../features/dialogueSlice
 import { identifyStakeholder } from '../../../features/pmisSlice';
 import { motion, AnimatePresence } from 'framer-motion';
 import { logger } from '../../../utils/logger';
-import { getLevelById } from '../../../data/levels';
-
-// --- Draggable Completed Document Component ---
-// These are the outputs from the Analysis phase (Doc Creator)
-interface DraggableCompletedDocumentProps {
-  document: CompletedBusinessDocument;
-}
-
-const DraggableCompletedDocument: React.FC<DraggableCompletedDocumentProps> = ({ document }) => {
-  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
-    id: `completed-doc-${document.id}`,
-    data: {
-      type: 'completed-document',
-      document: document,
-    },
-  });
-
-  const style = transform ? {
-    transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-  } : undefined;
-
-  const isBusinessCase = document.type === 'BusinessCase';
-  const Icon = isBusinessCase ? Briefcase : Target;
-  const colorClass = isBusinessCase ? 'text-emerald-600' : 'text-blue-600';
-  const bgClass = isBusinessCase ? 'bg-emerald-50 border-emerald-200' : 'bg-blue-50 border-blue-200';
-
-  return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      {...listeners}
-      {...attributes}
-      className={`
-        p-3 ${bgClass} border rounded-lg shadow-sm cursor-grab active:cursor-grabbing mb-2
-        hover:shadow-md transition-all
-        ${isDragging ? 'opacity-50 ring-2 ring-purple-500' : ''}
-      `}
-    >
-      <div className="flex items-start space-x-2">
-        <div className={`p-1.5 rounded ${isBusinessCase ? 'bg-emerald-100' : 'bg-blue-100'}`}>
-          <Icon className={colorClass} size={18} />
-        </div>
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-1.5">
-            <h4 className="text-sm font-semibold text-gray-800 leading-tight">{document.name}</h4>
-            <FileCheck size={14} className="text-green-500" />
-          </div>
-          <p className="text-xs text-gray-500 mt-1 line-clamp-2">{document.description}</p>
-          <div className="flex items-center gap-2 mt-2">
-            <span className="text-xs px-1.5 py-0.5 bg-white/70 rounded text-gray-600">
-              {document.assignedClueIds.length} clue{document.assignedClueIds.length !== 1 ? 's' : ''}
-            </span>
-            <span className="text-xs text-green-600 font-medium">
-              Quality: {document.qualityScore}%
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// --- Draggable Evidence Component ---
-// For external documents like Agreements (TechCore_MSA.pdf)
-interface DraggableEvidenceProps {
-  item: EvidenceItem;
-}
-
-const DraggableEvidence: React.FC<DraggableEvidenceProps> = ({ item }) => {
-  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
-    id: `evidence-${item.id}`,
-    data: {
-      type: 'evidence',
-      item: item,
-    },
-  });
-
-  const style = transform ? {
-    transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-  } : undefined;
-
-  return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      {...listeners}
-      {...attributes}
-      className={`
-        p-3 bg-white border rounded shadow-sm cursor-grab active:cursor-grabbing mb-2
-        hover:border-purple-500 transition-colors
-        ${isDragging ? 'opacity-50 ring-2 ring-purple-500' : 'border-gray-200'}
-      `}
-    >
-      <div className="flex items-start space-x-2">
-        <FileText className="text-blue-500 shrink-0" size={18} />
-        <div>
-          <h4 className="text-sm font-medium text-gray-800 leading-tight">{item.name}</h4>
-          <p className="text-xs text-gray-500 mt-1 line-clamp-2">{item.description}</p>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 // --- Droppable Charter Section Component ---
 interface CharterSectionProps {
@@ -276,12 +173,7 @@ export const CharterBuilder: React.FC = () => {
   // GDD v6.6 Strategic Alignment Check
   const [strategicAlignmentVerified, setStrategicAlignmentVerified] = useState(false);
 
-  const currentLevel = getLevelById(currentLevelId);
   const currentProgress = levelProgress[currentLevelId];
-
-  // Get completed documents from the Analysis phase
-  const completedBusinessCase = completedDocuments.find(d => d.id === 'completed_business_case' && d.isComplete);
-  const completedBenefitsPlan = completedDocuments.find(d => d.id === 'completed_benefits_plan' && d.isComplete);
 
   // Track objective completion
   useEffect(() => {
@@ -304,19 +196,6 @@ export const CharterBuilder: React.FC = () => {
       );
     }
   }, [items, currentLevelId, currentProgress, dispatch]);
-
-  // Filter out items that are already assigned to a section
-  const assignedIds = charterSections.map(s => s.assignedItemId).filter(Boolean);
-
-  // Available completed documents (not yet assigned)
-  const availableCompletedDocs = completedDocuments.filter(
-    doc => doc.isComplete && !assignedIds.includes(doc.id)
-  );
-
-  // Available evidence items (Agreement type only, for external documents)
-  const availableAgreements = items.filter(
-    item => item.type === 'Agreement' && !item.isDistractor && !assignedIds.includes(item.id)
-  );
 
   // Get expected document type for each section
   const getSectionExpectedType = (sectionId: string): 'BusinessCase' | 'BenefitsManagementPlan' | 'Agreement' | undefined => {
@@ -486,14 +365,6 @@ export const CharterBuilder: React.FC = () => {
     }, 2500);
   };
 
-  // Calculate objectives progress
-  const objectivesStatus = currentLevel?.objectives.map((obj) => ({
-    ...obj,
-    isCompleted: currentProgress?.objectivesCompleted[obj.id] || false,
-  })) || [];
-
-  const completedObjectivesCount = objectivesStatus.filter((o) => o.isCompleted).length;
-
   return (
     <div className="flex h-full p-6 space-x-6 relative">
       {/* Success Overlay */}
@@ -633,125 +504,6 @@ export const CharterBuilder: React.FC = () => {
                 <Send size={18} />
                 <span>Submit Charter for Authorization</span>
              </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Right Column: Inventory & Objectives */}
-      <div className="w-80 flex flex-col gap-4">
-        {/* Level Objectives Panel */}
-        {currentLevel && (
-          <div className="bg-purple-50 rounded-xl border border-purple-200 p-4">
-            <h3 className="font-semibold text-purple-800 flex items-center gap-2 mb-3">
-              <BookOpen size={16} />
-              Level {currentLevelId} Objectives
-            </h3>
-            <div className="text-xs text-purple-600 mb-2">
-              {completedObjectivesCount}/{objectivesStatus.length} completed
-            </div>
-            <ul className="space-y-2">
-              {objectivesStatus.slice(0, 4).map((obj) => (
-                <li
-                  key={obj.id}
-                  className={`flex items-start gap-2 text-sm ${
-                    obj.isCompleted ? 'text-green-700' : 'text-gray-600'
-                  }`}
-                >
-                  {obj.isCompleted ? (
-                    <CheckCircle size={14} className="text-green-500 mt-0.5 shrink-0" />
-                  ) : (
-                    <div className="w-3.5 h-3.5 rounded-full border-2 border-gray-300 mt-0.5 shrink-0" />
-                  )}
-                  <span className={obj.isCompleted ? 'line-through opacity-60' : ''}>
-                    {obj.description}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {/* Charter Inputs Inventory */}
-        <div className="flex-1 flex flex-col bg-gray-50 rounded-xl border border-gray-200">
-          <div className="p-4 border-b border-gray-200 bg-white rounded-t-xl">
-            <h3 className="font-semibold text-gray-700 flex items-center">
-              <FileText size={18} className="mr-2 text-purple-600" />
-              Charter Inputs
-            </h3>
-            <p className="text-xs text-gray-500 mt-1">
-              Drag documents to their corresponding slots
-            </p>
-          </div>
-
-          <div className="p-4 flex-1 overflow-y-auto space-y-4">
-            {/* Completed Documents Section */}
-            {availableCompletedDocs.length > 0 && (
-              <div>
-                <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-1">
-                  <FileCheck size={12} />
-                  Completed Documents (from Analysis)
-                </h4>
-                {availableCompletedDocs.map((doc) => (
-                  <DraggableCompletedDocument key={doc.id} document={doc} />
-                ))}
-              </div>
-            )}
-
-            {/* External Agreements Section */}
-            {availableAgreements.length > 0 && (
-              <div>
-                <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-1">
-                  <FileText size={12} />
-                  External Agreements
-                </h4>
-                {availableAgreements.map((item) => (
-                  <DraggableEvidence key={item.id} item={item} />
-                ))}
-              </div>
-            )}
-
-            {/* Empty State */}
-            {availableCompletedDocs.length === 0 && availableAgreements.length === 0 && (
-              <div className="text-center text-gray-400 py-8">
-                <FileText size={32} className="mx-auto mb-2 opacity-50" />
-                <p className="text-sm font-medium">No inputs available</p>
-                <p className="text-xs mt-2">
-                  Complete the Analysis phase in Doc Creator to generate Business Documents.
-                </p>
-                <p className="text-xs mt-1">
-                  Collect Agreement files from Chatter conversations.
-                </p>
-              </div>
-            )}
-
-            {/* Status Summary */}
-            {(completedBusinessCase || completedBenefitsPlan) && (
-              <div className="mt-4 p-3 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-lg">
-                <h4 className="text-xs font-semibold text-green-700 mb-2">Analysis Phase Status</h4>
-                <ul className="space-y-1 text-xs">
-                  <li className="flex items-center gap-2">
-                    {completedBusinessCase ? (
-                      <CheckCircle size={12} className="text-green-500" />
-                    ) : (
-                      <div className="w-3 h-3 rounded-full border-2 border-gray-300" />
-                    )}
-                    <span className={completedBusinessCase ? 'text-green-700' : 'text-gray-500'}>
-                      Business Case
-                    </span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    {completedBenefitsPlan ? (
-                      <CheckCircle size={12} className="text-green-500" />
-                    ) : (
-                      <div className="w-3 h-3 rounded-full border-2 border-gray-300" />
-                    )}
-                    <span className={completedBenefitsPlan ? 'text-green-700' : 'text-gray-500'}>
-                      Benefits Management Plan
-                    </span>
-                  </li>
-                </ul>
-              </div>
-            )}
           </div>
         </div>
       </div>

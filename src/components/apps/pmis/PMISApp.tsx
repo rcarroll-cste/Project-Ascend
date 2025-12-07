@@ -427,45 +427,37 @@ export const PMISApp: React.FC = () => {
             {/* PMP and Report tabs removed for Demo scope (Levels 0-2 only) */}
         </div>
 
-        {/* Content Area */}
-        <div className="flex-1 overflow-hidden">
-            {activeTab === 'dashboard' && (
-                <DashboardTab />
-            )}
-            
-            {activeTab === 'communications' && (
-                <div className="flex h-full">
-                    <div className="flex-1 border-r border-gray-200">
-                        {/* We use a wrapper to override some EmailApp styles if needed,
-                            but EmailApp is designed as h-full so it should fit. */}
-                        <EmailApp />
+        {/* Content Area - Sidebar + Main Content */}
+        <div className="flex-1 overflow-hidden flex">
+            {/* Main Content Area */}
+            <div className="flex-1 overflow-hidden">
+                {activeTab === 'dashboard' && (
+                    <DashboardTab />
+                )}
+
+                {activeTab === 'communications' && (
+                    <div className="flex h-full">
+                        <div className="flex-1 border-r border-gray-200">
+                            {/* We use a wrapper to override some EmailApp styles if needed,
+                                but EmailApp is designed as h-full so it should fit. */}
+                            <EmailApp />
+                        </div>
+                        {/* Persistent Drop Zone for easy drag-and-drop */}
+                        <StakeholderDropZone />
                     </div>
-                    {/* Persistent Drop Zone for easy drag-and-drop */}
-                    <StakeholderDropZone />
-                </div>
-            )}
+                )}
 
-            {activeTab === 'stakeholders' && <StakeholderRegister />}
+                {activeTab === 'stakeholders' && <StakeholderRegister />}
 
-            {activeTab === 'doc-creator' && (
-                <div className="flex h-full">
-                    <div className="flex-1 overflow-hidden">
-                        <DocCreator />
-                    </div>
-                    <ContextSidebar />
-                </div>
-            )}
+                {activeTab === 'doc-creator' && <DocCreator />}
 
-            {activeTab === 'charter' && (
-                <div className="flex h-full">
-                    <div className="flex-1 overflow-hidden">
-                        <CharterBuilder />
-                    </div>
-                    <ContextSidebar />
-                </div>
-            )}
+                {activeTab === 'charter' && <CharterBuilder />}
 
-            {activeTab === 'assumptions' && <AssumptionLog />}
+                {activeTab === 'assumptions' && <AssumptionLog />}
+            </div>
+
+            {/* Global Context Sidebar - Available across all tabs */}
+            <ContextSidebar />
         </div>
 
         </div>

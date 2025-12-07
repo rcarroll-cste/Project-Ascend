@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useDroppable, useDraggable } from '@dnd-kit/core';
+import { useDroppable } from '@dnd-kit/core';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RootState } from '../../../store';
 import { addAssumptionEntry, assignClueToDocument, removeClueFromDocument, completeBusinessDocument } from '../../../features/pmisSlice';
@@ -14,12 +14,9 @@ import {
   AlertTriangle,
   CheckCircle,
   HelpCircle,
-  BookOpen,
-  Lightbulb,
   X
 } from 'lucide-react';
 import { nanoid } from '@reduxjs/toolkit';
-import { getLevelById } from '../../../data/levels';
 
 // =============================================================================
 // CLUE CATEGORY DEFINITIONS
@@ -159,66 +156,6 @@ const getMentosFeedback = (
     message: 'This clue doesn\'t seem to fit here.',
     hint: 'Review the document types and what information each one needs.',
   };
-};
-
-// =============================================================================
-// DRAGGABLE CLUE COMPONENT
-// =============================================================================
-
-interface DraggableClueProps {
-  item: EvidenceItem;
-  isAssigned: boolean;
-}
-
-const DraggableClue: React.FC<DraggableClueProps> = ({ item, isAssigned }) => {
-  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
-    id: `doc-clue-${item.id}`,
-    data: {
-      type: 'doc-clue',
-      item: item,
-    },
-    disabled: isAssigned,
-  });
-
-  const style = transform ? {
-    transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-  } : undefined;
-
-  const category = getClueCategory(item);
-  const categoryColors: Record<ClueCategory, string> = {
-    Financial: 'border-l-emerald-500',
-    Strategic: 'border-l-blue-500',
-    Assumption: 'border-l-amber-500',
-    Unknown: 'border-l-gray-400',
-  };
-
-  return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      {...listeners}
-      {...attributes}
-      className={`
-        p-3 bg-white border-l-4 ${categoryColors[category]} rounded-r shadow-sm
-        cursor-grab active:cursor-grabbing mb-2
-        hover:shadow-md transition-all
-        ${isDragging ? 'opacity-50 ring-2 ring-purple-500 z-50' : ''}
-        ${isAssigned ? 'opacity-40 cursor-not-allowed' : ''}
-      `}
-    >
-      <div className="flex items-start space-x-2">
-        <Lightbulb className="text-yellow-500 shrink-0" size={16} />
-        <div className="flex-1 min-w-0">
-          <h4 className="text-sm font-medium text-gray-800 leading-tight truncate">
-            {item.name}
-          </h4>
-          <p className="text-xs text-gray-500 mt-1 line-clamp-2">
-            {item.description}
-          </p>
-        </div>
-      </div>
-    </div>
-  );
 };
 
 // =============================================================================
@@ -389,23 +326,8 @@ export const DocCreator: React.FC = () => {
   const [mentosModalOpen, setMentosModalOpen] = useState(false);
   const [mentosFeedback, setMentosFeedback] = useState<MentosFeedback | null>(null);
 
-  // Get current level data
-  const currentLevel = getLevelById(currentLevelId);
+  // Get current level progress
   const currentProgress = levelProgress[currentLevelId];
-
-  // Filter clues from inventory (items that can be sorted into documents)
-  // Per GDD: Clues are text snippets extracted from Chatter conversations
-  const clueItems = inventoryItems.filter(item =>
-    item.id.startsWith('ev_clue_') ||
-    item.name.toLowerCase().includes('clue:') ||
-    item.name.toLowerCase().includes('claim:')
-  );
-
-  // Get all assigned item IDs
-  const allAssignedIds = Object.values(documentAssignments).flat();
-
-  // Check if an item is assigned to any document
-  const isItemAssigned = (itemId: string) => allAssignedIds.includes(itemId);
 
   // Get assigned items for a zone
   const getZoneItems = (zoneId: string): EvidenceItem[] => {
@@ -529,80 +451,8 @@ export const DocCreator: React.FC = () => {
     };
   }, [inventoryItems, dispatch, showNotification]);
 
-  // Calculate objectives for sidebar
-  const objectives = currentLevel?.objectives.filter(obj =>
-    obj.id === 'sort_clues_to_docs' || obj.id === 'create_business_case'
-  ).map(obj => ({
-    ...obj,
-    isCompleted: currentProgress?.objectivesCompleted[obj.id] ?? false,
-  })) || [];
-
   return (
     <div className="flex h-full">
-      {/* Left Sidebar: Clue Inventory */}
-      <div className="w-72 bg-slate-50 border-r border-slate-200 flex flex-col shrink-0">
-        {/* Header */}
-        <div className="p-4 border-b border-slate-200 bg-white">
-          <h3 className="font-semibold text-gray-700 flex items-center gap-2">
-            <Lightbulb size={18} className="text-yellow-500" />
-            Collected Clues
-          </h3>
-          <p className="text-xs text-gray-500 mt-1">
-            Drag clues to the correct document
-          </p>
-        </div>
-
-        {/* Clue List */}
-        <div className="flex-1 p-4 overflow-y-auto">
-          {clueItems.length === 0 ? (
-            <div className="text-center py-8 text-gray-400">
-              <Lightbulb size={32} className="mx-auto mb-2 opacity-50" />
-              <p className="text-sm">No clues collected yet.</p>
-              <p className="text-xs mt-1">
-                Use Chatter to interview stakeholders and mine clues.
-              </p>
-            </div>
-          ) : (
-            clueItems.map(item => (
-              <DraggableClue
-                key={item.id}
-                item={item}
-                isAssigned={isItemAssigned(item.id)}
-              />
-            ))
-          )}
-        </div>
-
-        {/* Level Objectives */}
-        {objectives.length > 0 && (
-          <div className="p-4 border-t border-slate-200 bg-purple-50">
-            <h4 className="text-xs font-semibold text-purple-700 uppercase tracking-wider flex items-center gap-1 mb-2">
-              <BookOpen size={12} />
-              Objectives
-            </h4>
-            <ul className="space-y-1">
-              {objectives.map(obj => (
-                <li
-                  key={obj.id}
-                  className={`flex items-center gap-2 text-xs ${
-                    obj.isCompleted ? 'text-green-600' : 'text-gray-600'
-                  }`}
-                >
-                  {obj.isCompleted ? (
-                    <CheckCircle size={12} className="text-green-500" />
-                  ) : (
-                    <div className="w-3 h-3 rounded-full border-2 border-gray-300" />
-                  )}
-                  <span className={obj.isCompleted ? 'line-through opacity-60' : ''}>
-                    {obj.description}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-
       {/* Main Content: Document Zones */}
       <div className="flex-1 p-6 overflow-y-auto">
         <div className="max-w-4xl mx-auto">

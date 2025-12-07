@@ -6,6 +6,58 @@ All notable changes to Project Ascend will be documented in this file.
 
 ## [Unreleased]
 
+### 2025-12-07 18:33 EST - Doc Creator & Charter Builder Inventory Refactor
+
+Removed local inventories from Doc Creator and Charter Builder to accept drops from the global ContextSidebar.
+
+#### DocCreator.tsx Changes
+
+1. **Removed local sidebar** - Deleted the left "Clue Inventory" panel (previously showed collected clues)
+2. **Removed `DraggableClue` component** - No longer needed since draggable clues are now provided by ContextSidebar
+3. **Cleaned up imports**:
+   - Removed `useDraggable` from @dnd-kit/core
+   - Removed `BookOpen`, `Lightbulb` from lucide-react
+   - Removed `getLevelById` import
+4. **Removed unused variables**: `currentLevel`, `clueItems`, `isItemAssigned`
+5. **Drop zones remain functional** - Accept clue items (`type: 'doc-clue'`) dragged from the global ContextSidebar
+
+#### CharterBuilder.tsx Changes
+
+1. **Removed right column** - Deleted the "Charter Inputs" inventory panel (previously showed completed documents and agreements)
+2. **Removed draggable components**:
+   - `DraggableCompletedDocument` - Now provided by ContextSidebar
+   - `DraggableEvidence` - Now provided by ContextSidebar
+3. **Cleaned up imports**:
+   - Removed `useDraggable` from @dnd-kit/core
+   - Removed `BookOpen`, `FileCheck` from lucide-react
+   - Removed `getLevelById` import
+4. **Removed unused variables**: `currentLevel`, `availableCompletedDocs`, `availableAgreements`, `completedBusinessCase`, `completedBenefitsPlan`, `objectivesStatus`, `completedObjectivesCount`
+5. **Drop zones remain functional** - Accept:
+   - `CompletedBusinessDocument` items (`type: 'completed-document'`) from Redux
+   - Agreement files (`type: 'evidence'`) from the global Sidebar
+
+#### Architecture Improvement
+
+Both components now rely entirely on the global `ContextSidebar` for drag sources, creating a cleaner architecture where inventory management is centralized. This eliminates duplicate inventory displays and provides a consistent drag-and-drop experience across PMIS tabs.
+
+---
+
+### 2025-12-07 23:28 EST - PMIS Layout Refactor (Global Sidebar)
+
+Refactored PMISApp layout to make the ContextSidebar global across all tabs.
+
+#### Layout Changes (`src/components/apps/pmis/PMISApp.tsx`)
+
+1. **Restructured content area layout** - Changed from `flex-1 overflow-hidden` to `flex-1 overflow-hidden flex` to create a horizontal flex container
+2. **Created main content wrapper** - Added a new `div` with `flex-1 overflow-hidden` to contain all tab content
+3. **Made ContextSidebar global** - Moved `<ContextSidebar />` outside of individual tab conditionals, placed as sibling to main content area so it appears on the right side of all tabs
+4. **Simplified tab content** - Removed nested flex containers from `doc-creator` and `charter` tabs since sidebar is now global
+
+#### Drag & Drop
+- `DndContext` already wraps the entire component (lines 380-464), so drag operations work seamlessly across the sidebar and any tab's content area
+
+---
+
 ### 2025-12-07 23:21 EST - PMIS Context Sidebar
 
 Implemented the persistent, slide-out inventory panel for the PMIS application per GDD v7.1.
