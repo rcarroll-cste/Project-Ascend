@@ -6,6 +6,68 @@ All notable changes to Project Ascend will be documented in this file.
 
 ## [Unreleased]
 
+### 2025-12-07 22:38 EST - PMIS Authorization Phase (Charter Synthesis)
+
+Updated the CharterBuilder to consume the outputs of the Analysis phase (Doc Creator), implementing the GDD v7.1 three-phase flow: Discovery → Analysis → Authorization.
+
+#### Types (`src/types/index.ts`)
+- Added `CompletedBusinessDocument` interface to represent outputs from the Analysis phase (Doc Creator)
+  - Fields: `id`, `type` ('BusinessCase' | 'BenefitsManagementPlan'), `name`, `description`, `assignedClueIds`, `isComplete`, `completedAt`, `qualityScore`
+- Updated `PMISState` interface to include `completedDocuments: CompletedBusinessDocument[]`
+
+#### Redux State (`src/features/pmisSlice.ts`)
+- Added `completedDocuments: []` to initial state
+- New reducer actions:
+  - `completeBusinessDocument`: Creates/updates a completed document from Analysis phase
+  - `markDocumentComplete`: Marks a document as complete with quality score
+  - `assignCompletedDocumentToSection`: Assigns a completed document to a charter section
+
+#### Doc Creator Updates (`src/components/apps/pmis/DocCreator.tsx`)
+- Now generates `CompletedBusinessDocument` objects when clues are correctly sorted:
+  - ROI clue → Business Case → generates "Completed Business Case" (qualityScore: 100)
+  - Strategic Alignment clue → Benefits Plan → generates "Completed Benefits Management Plan" (qualityScore: 95)
+- Updated success notification to indicate documents are "ready for the Charter"
+
+#### Charter Sections (`src/data/initialData.ts`)
+- Restructured `INITIAL_CHARTER_SECTIONS` to match GDD v7.1 Phase 3 Authorization:
+  - `sec_business_case`: Accepts completed Business Case (Internal document)
+  - `sec_benefits_plan`: Accepts completed Benefits Management Plan (Internal document)
+  - `sec_agreement`: Accepts external Agreement files (e.g., TechCore_MSA.pdf)
+
+#### Charter Builder Overhaul (`src/components/apps/pmis/CharterBuilder.tsx`)
+- **New `DraggableCompletedDocument` component**:
+  - Distinct visual styling with document-type icons (Briefcase for Business Case, Target for Benefits Plan)
+  - Shows clue count and quality score
+  - Color-coded backgrounds (emerald for Business Case, blue for Benefits Plan)
+- **Updated `CharterSectionZone` component**:
+  - Now accepts `completedDocuments` and `expectedDocType` props
+  - Displays both completed documents and evidence items appropriately
+  - Shows document details including clue count and quality percentage
+  - Dynamic placeholder text based on expected document type
+- **Updated validation logic**:
+  - Validates completed document types match section expectations
+  - Provides clear error messages when wrong document type is used
+  - Instructs players to use completed documents from Doc Creator, not raw clues
+- **Redesigned sidebar inventory**:
+  - Split into "Completed Documents (from Analysis)" and "External Agreements" sections
+  - Shows "Analysis Phase Status" summary with Business Case and Benefits Plan completion checkmarks
+  - Empty state guides players to complete Analysis phase first
+
+#### PMISApp Drag Handler (`src/components/apps/pmis/PMISApp.tsx`)
+- Added handler for `completed-document` drag type to `charter-section` targets
+- Validates document type matches section expectation before assignment
+- Shows success/warning notifications based on drop validity
+
+#### Bug Fixes
+- Fixed unused variable warnings in `App.tsx`, `CharterBuilder.tsx`, and `PMISApp.tsx`
+
+#### The Complete GDD v7.1 Flow
+1. **Discovery Phase (Chatter)**: Player mines clues from stakeholder conversations
+2. **Analysis Phase (Doc Creator)**: Player sorts clues into Business Case, Benefits Plan, or Assumption Log → generates "Completed" documents
+3. **Authorization Phase (Charter)**: Player drags completed Business Case, Benefits Plan, and external Agreements into Charter sections → Charter is synthesized and authorized
+
+---
+
 ### 2025-12-07 17:26 EST - PMIS Doc Creator (GDD v7.1 Analysis Phase)
 
 Implemented the "Doc Creator" tab for the PMIS Analysis Phase, allowing players to sort collected clues into Business Documents or the Assumption Log.

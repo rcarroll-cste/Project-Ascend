@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useDroppable, useDraggable } from '@dnd-kit/core';
 import { RootState } from '../../../store';
 import { assignEvidenceToSection } from '../../../features/pmisSlice';
-import { FileText, Lock, CheckCircle, AlertCircle, Send, Award, BookOpen, ShieldCheck, ShieldAlert } from 'lucide-react';
-import { EvidenceItem } from '../../../types';
+import { FileText, Lock, CheckCircle, AlertCircle, Send, Award, BookOpen, ShieldCheck, ShieldAlert, Briefcase, Target, FileCheck } from 'lucide-react';
+import { EvidenceItem, CompletedBusinessDocument } from '../../../types';
 import {
   incrementCharterSubmission,
   addNotification,
@@ -19,7 +19,68 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { logger } from '../../../utils/logger';
 import { getLevelById } from '../../../data/levels';
 
+// --- Draggable Completed Document Component ---
+// These are the outputs from the Analysis phase (Doc Creator)
+interface DraggableCompletedDocumentProps {
+  document: CompletedBusinessDocument;
+}
+
+const DraggableCompletedDocument: React.FC<DraggableCompletedDocumentProps> = ({ document }) => {
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+    id: `completed-doc-${document.id}`,
+    data: {
+      type: 'completed-document',
+      document: document,
+    },
+  });
+
+  const style = transform ? {
+    transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+  } : undefined;
+
+  const isBusinessCase = document.type === 'BusinessCase';
+  const Icon = isBusinessCase ? Briefcase : Target;
+  const colorClass = isBusinessCase ? 'text-emerald-600' : 'text-blue-600';
+  const bgClass = isBusinessCase ? 'bg-emerald-50 border-emerald-200' : 'bg-blue-50 border-blue-200';
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...listeners}
+      {...attributes}
+      className={`
+        p-3 ${bgClass} border rounded-lg shadow-sm cursor-grab active:cursor-grabbing mb-2
+        hover:shadow-md transition-all
+        ${isDragging ? 'opacity-50 ring-2 ring-purple-500' : ''}
+      `}
+    >
+      <div className="flex items-start space-x-2">
+        <div className={`p-1.5 rounded ${isBusinessCase ? 'bg-emerald-100' : 'bg-blue-100'}`}>
+          <Icon className={colorClass} size={18} />
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-1.5">
+            <h4 className="text-sm font-semibold text-gray-800 leading-tight">{document.name}</h4>
+            <FileCheck size={14} className="text-green-500" />
+          </div>
+          <p className="text-xs text-gray-500 mt-1 line-clamp-2">{document.description}</p>
+          <div className="flex items-center gap-2 mt-2">
+            <span className="text-xs px-1.5 py-0.5 bg-white/70 rounded text-gray-600">
+              {document.assignedClueIds.length} clue{document.assignedClueIds.length !== 1 ? 's' : ''}
+            </span>
+            <span className="text-xs text-green-600 font-medium">
+              Quality: {document.qualityScore}%
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // --- Draggable Evidence Component ---
+// For external documents like Agreements (TechCore_MSA.pdf)
 interface DraggableEvidenceProps {
   item: EvidenceItem;
 }
@@ -67,26 +128,63 @@ interface CharterSectionProps {
   requiredType: string;
   assignedItemId: string | null;
   items: EvidenceItem[];
+  completedDocuments: CompletedBusinessDocument[];
   isLocked: boolean;
+  expectedDocType?: 'BusinessCase' | 'BenefitsManagementPlan' | 'Agreement';
 }
 
-const CharterSectionZone: React.FC<CharterSectionProps> = ({ id, label, requiredType, assignedItemId, items, isLocked }) => {
+const CharterSectionZone: React.FC<CharterSectionProps> = ({
+  id,
+  label,
+  requiredType,
+  assignedItemId,
+  items,
+  completedDocuments,
+  isLocked,
+  expectedDocType
+}) => {
   const { setNodeRef, isOver } = useDroppable({
     id: `charter-section-${id}`,
     data: {
       type: 'charter-section',
       sectionId: id,
       requiredType,
+      expectedDocType,
     },
     disabled: isLocked,
   });
 
-  const assignedItem = items.find(i => i.id === assignedItemId);
   const dispatch = useDispatch();
+
+  // Check if assigned item is a completed document or an evidence item
+  const assignedCompletedDoc = completedDocuments.find(d => d.id === assignedItemId);
+  const assignedEvidence = items.find(i => i.id === assignedItemId);
+  const hasAssignment = assignedCompletedDoc || assignedEvidence;
 
   const handleRemove = () => {
     dispatch(assignEvidenceToSection({ sectionId: id, evidenceId: null }));
   };
+
+  // Determine placeholder text based on expected type
+  const getPlaceholderText = () => {
+    if (expectedDocType === 'BusinessCase') return 'Drag Business Case here';
+    if (expectedDocType === 'BenefitsManagementPlan') return 'Drag Benefits Plan here';
+    if (expectedDocType === 'Agreement') return 'Drag Agreement here';
+    return `Drop ${requiredType} here`;
+  };
+
+  // Get icon based on expected type
+  const getIcon = () => {
+    if (assignedCompletedDoc) {
+      return assignedCompletedDoc.type === 'BusinessCase' ? Briefcase : Target;
+    }
+    return FileText;
+  };
+
+  const Icon = getIcon();
+  const iconColor = assignedCompletedDoc?.type === 'BusinessCase' ? 'text-emerald-600' :
+                    assignedCompletedDoc?.type === 'BenefitsManagementPlan' ? 'text-blue-600' :
+                    'text-green-600';
 
   return (
     <div
@@ -94,7 +192,7 @@ const CharterSectionZone: React.FC<CharterSectionProps> = ({ id, label, required
       className={`
         relative p-4 rounded-lg border-2 border-dashed transition-all min-h-[120px] flex flex-col justify-center
         ${isOver ? 'bg-purple-50 border-purple-500' : 'bg-gray-50 border-gray-300'}
-        ${assignedItem ? 'border-solid border-green-500 bg-green-50' : ''}
+        ${hasAssignment ? 'border-solid border-green-500 bg-green-50' : ''}
         ${isLocked ? 'opacity-75 cursor-not-allowed bg-gray-100' : ''}
       `}
     >
@@ -109,19 +207,49 @@ const CharterSectionZone: React.FC<CharterSectionProps> = ({ id, label, required
         </div>
       )}
 
-      {!assignedItem && !isLocked && (
+      {!hasAssignment && !isLocked && (
         <div className="text-center text-gray-400 text-sm mt-4">
-          Drop {requiredType} here
+          {getPlaceholderText()}
         </div>
       )}
 
-      {assignedItem && (
+      {/* Display assigned completed document */}
+      {assignedCompletedDoc && (
+        <div className="mt-6 bg-white p-3 rounded border border-green-200 shadow-sm">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2 overflow-hidden">
+              <Icon size={18} className={iconColor} />
+              <div>
+                <span className="text-sm font-medium">{assignedCompletedDoc.name}</span>
+                <div className="flex items-center gap-2 mt-0.5">
+                  <span className="text-xs text-gray-500">
+                    {assignedCompletedDoc.assignedClueIds.length} clue{assignedCompletedDoc.assignedClueIds.length !== 1 ? 's' : ''}
+                  </span>
+                  <span className="text-xs text-green-600 font-medium">
+                    {assignedCompletedDoc.qualityScore}%
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={handleRemove}
+              className="text-gray-400 hover:text-red-500 ml-2"
+              title="Remove document"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Display assigned evidence item (for Agreements) */}
+      {assignedEvidence && !assignedCompletedDoc && (
         <div className="mt-6 bg-white p-2 rounded border border-green-200 shadow-sm flex items-center justify-between">
           <div className="flex items-center space-x-2 overflow-hidden">
             <CheckCircle size={16} className="text-green-600 shrink-0" />
-            <span className="text-sm font-medium truncate">{assignedItem.name}</span>
+            <span className="text-sm font-medium truncate">{assignedEvidence.name}</span>
           </div>
-          <button 
+          <button
             onClick={handleRemove}
             className="text-gray-400 hover:text-red-500 ml-2"
             title="Remove item"
@@ -137,7 +265,7 @@ const CharterSectionZone: React.FC<CharterSectionProps> = ({ id, label, required
 // --- Main Builder Component ---
 export const CharterBuilder: React.FC = () => {
   const dispatch = useDispatch();
-  const { charterSections } = useSelector((state: RootState) => state.pmis);
+  const { charterSections, completedDocuments } = useSelector((state: RootState) => state.pmis);
   const { items } = useSelector((state: RootState) => state.inventory);
   const { charterSubmissionCount, currentLevelId, levelProgress } = useSelector(
     (state: RootState) => state.game
@@ -150,6 +278,10 @@ export const CharterBuilder: React.FC = () => {
 
   const currentLevel = getLevelById(currentLevelId);
   const currentProgress = levelProgress[currentLevelId];
+
+  // Get completed documents from the Analysis phase
+  const completedBusinessCase = completedDocuments.find(d => d.id === 'completed_business_case' && d.isComplete);
+  const completedBenefitsPlan = completedDocuments.find(d => d.id === 'completed_benefits_plan' && d.isComplete);
 
   // Track objective completion
   useEffect(() => {
@@ -175,9 +307,28 @@ export const CharterBuilder: React.FC = () => {
 
   // Filter out items that are already assigned to a section
   const assignedIds = charterSections.map(s => s.assignedItemId).filter(Boolean);
-  const availableItems = items.filter(item => !assignedIds.includes(item.id));
 
-  // Validation rules for charter sections
+  // Available completed documents (not yet assigned)
+  const availableCompletedDocs = completedDocuments.filter(
+    doc => doc.isComplete && !assignedIds.includes(doc.id)
+  );
+
+  // Available evidence items (Agreement type only, for external documents)
+  const availableAgreements = items.filter(
+    item => item.type === 'Agreement' && !item.isDistractor && !assignedIds.includes(item.id)
+  );
+
+  // Get expected document type for each section
+  const getSectionExpectedType = (sectionId: string): 'BusinessCase' | 'BenefitsManagementPlan' | 'Agreement' | undefined => {
+    switch (sectionId) {
+      case 'sec_business_case': return 'BusinessCase';
+      case 'sec_benefits_plan': return 'BenefitsManagementPlan';
+      case 'sec_agreement': return 'Agreement';
+      default: return undefined;
+    }
+  };
+
+  // Validation rules for charter sections - Updated for GDD v7.1 flow
   const validateCharter = (): { isValid: boolean; errors: string[] } => {
     const errors: string[] = [];
 
@@ -189,33 +340,47 @@ export const CharterBuilder: React.FC = () => {
         return;
       }
 
+      // Check if it's a completed document
+      const assignedCompletedDoc = completedDocuments.find(d => d.id === section.assignedItemId);
+      if (assignedCompletedDoc) {
+        // Validate completed document type matches section expectation
+        if (section.id === 'sec_business_case' && assignedCompletedDoc.type !== 'BusinessCase') {
+          errors.push(`${section.label}: This section requires the completed Business Case from the Analysis phase.`);
+          return;
+        }
+        if (section.id === 'sec_benefits_plan' && assignedCompletedDoc.type !== 'BenefitsManagementPlan') {
+          errors.push(`${section.label}: This section requires the completed Benefits Management Plan from the Analysis phase.`);
+          return;
+        }
+        // Completed document is valid
+        return;
+      }
+
+      // Check if it's an evidence item (for Agreement section)
       const assignedItem = items.find(i => i.id === section.assignedItemId);
       if (!assignedItem) {
         errors.push(`${section.label}: Invalid item`);
         return;
       }
 
-      // GDD v3.3 Step 4: Granularity Trap - Special message for Detailed Gantt
-      if (section.id === 'sec_timeline' && assignedItem.id === 'ev_detailed_gantt') {
-        errors.push(`${section.label}: Too Detailed! Charters only contain high-level milestones.`);
+      // Agreement section validation
+      if (section.id === 'sec_agreement') {
+        if (assignedItem.type !== 'Agreement') {
+          errors.push(`${section.label}: This section requires an external Agreement document.`);
+          return;
+        }
+        if (assignedItem.isDistractor) {
+          errors.push(`${section.label}: This agreement is not valid for the Charter.`);
+          return;
+        }
         return;
       }
 
-      // GDD v6.6 Financial Redline Protocol - Special message for wrong budget
-      if (section.id === 'sec_budget' && assignedItem.id === 'ev_budget_500k') {
-        errors.push(`${section.label}: Budget Violation! $500,000 exceeds the authorized ROI cap of $350,000. Check the Business Case Investment Constraints.`);
+      // If we get here with an evidence item for Business Case or Benefits Plan sections,
+      // inform the user to use completed documents from Doc Creator
+      if (section.id === 'sec_business_case' || section.id === 'sec_benefits_plan') {
+        errors.push(`${section.label}: Use the completed document from Doc Creator, not raw clues.`);
         return;
-      }
-
-      // Check if item type matches required type
-      if (assignedItem.type !== section.requiredType) {
-        errors.push(`${section.label}: Wrong item type (needs ${section.requiredType})`);
-        return;
-      }
-
-      // Check if it's a distractor (general case)
-      if (assignedItem.isDistractor) {
-        errors.push(`${section.label}: This item is not suitable for the Charter. Verify against source documents.`);
       }
     });
 
@@ -416,7 +581,9 @@ export const CharterBuilder: React.FC = () => {
                 requiredType={section.requiredType}
                 assignedItemId={section.assignedItemId}
                 items={items}
+                completedDocuments={completedDocuments}
                 isLocked={section.isLocked}
+                expectedDocType={getSectionExpectedType(section.id)}
               />
             ))}
           </div>
@@ -504,27 +671,86 @@ export const CharterBuilder: React.FC = () => {
           </div>
         )}
 
-        {/* Evidence Inventory */}
+        {/* Charter Inputs Inventory */}
         <div className="flex-1 flex flex-col bg-gray-50 rounded-xl border border-gray-200">
           <div className="p-4 border-b border-gray-200 bg-white rounded-t-xl">
             <h3 className="font-semibold text-gray-700 flex items-center">
               <FileText size={18} className="mr-2 text-purple-600" />
-              Evidence Inventory
+              Charter Inputs
             </h3>
+            <p className="text-xs text-gray-500 mt-1">
+              Drag documents to their corresponding slots
+            </p>
           </div>
 
-          <div className="p-4 flex-1 overflow-y-auto">
-            {availableItems.length === 0 ? (
-              <div className="text-center text-gray-400 mt-10">
-                <p>No items available.</p>
+          <div className="p-4 flex-1 overflow-y-auto space-y-4">
+            {/* Completed Documents Section */}
+            {availableCompletedDocs.length > 0 && (
+              <div>
+                <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-1">
+                  <FileCheck size={12} />
+                  Completed Documents (from Analysis)
+                </h4>
+                {availableCompletedDocs.map((doc) => (
+                  <DraggableCompletedDocument key={doc.id} document={doc} />
+                ))}
+              </div>
+            )}
+
+            {/* External Agreements Section */}
+            {availableAgreements.length > 0 && (
+              <div>
+                <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-1">
+                  <FileText size={12} />
+                  External Agreements
+                </h4>
+                {availableAgreements.map((item) => (
+                  <DraggableEvidence key={item.id} item={item} />
+                ))}
+              </div>
+            )}
+
+            {/* Empty State */}
+            {availableCompletedDocs.length === 0 && availableAgreements.length === 0 && (
+              <div className="text-center text-gray-400 py-8">
+                <FileText size={32} className="mx-auto mb-2 opacity-50" />
+                <p className="text-sm font-medium">No inputs available</p>
                 <p className="text-xs mt-2">
-                  Check Files app or extract evidence from documents.
+                  Complete the Analysis phase in Doc Creator to generate Business Documents.
+                </p>
+                <p className="text-xs mt-1">
+                  Collect Agreement files from Chatter conversations.
                 </p>
               </div>
-            ) : (
-              availableItems.map((item) => (
-                <DraggableEvidence key={item.id} item={item} />
-              ))
+            )}
+
+            {/* Status Summary */}
+            {(completedBusinessCase || completedBenefitsPlan) && (
+              <div className="mt-4 p-3 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-lg">
+                <h4 className="text-xs font-semibold text-green-700 mb-2">Analysis Phase Status</h4>
+                <ul className="space-y-1 text-xs">
+                  <li className="flex items-center gap-2">
+                    {completedBusinessCase ? (
+                      <CheckCircle size={12} className="text-green-500" />
+                    ) : (
+                      <div className="w-3 h-3 rounded-full border-2 border-gray-300" />
+                    )}
+                    <span className={completedBusinessCase ? 'text-green-700' : 'text-gray-500'}>
+                      Business Case
+                    </span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    {completedBenefitsPlan ? (
+                      <CheckCircle size={12} className="text-green-500" />
+                    ) : (
+                      <div className="w-3 h-3 rounded-full border-2 border-gray-300" />
+                    )}
+                    <span className={completedBenefitsPlan ? 'text-green-700' : 'text-gray-500'}>
+                      Benefits Management Plan
+                    </span>
+                  </li>
+                </ul>
+              </div>
             )}
           </div>
         </div>

@@ -7,10 +7,10 @@ import { DocCreator } from './DocCreator';
 import { EmailApp } from '../email/EmailApp';
 import { DndContext, DragEndEvent, useDroppable, useSensor, useSensors, PointerSensor } from '@dnd-kit/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { identifyStakeholder, updateStakeholderPosition, assignEvidenceToSection } from '../../../features/pmisSlice';
+import { identifyStakeholder, updateStakeholderPosition, assignEvidenceToSection, assignCompletedDocumentToSection } from '../../../features/pmisSlice';
 import { addNotification } from '../../../features/gameSlice';
 import { INITIAL_STAKEHOLDERS } from '../../../data/initialData';
-import { PowerLevel, InterestLevel, Email, EvidenceItem } from '../../../types';
+import { PowerLevel, InterestLevel, Email, EvidenceItem, CompletedBusinessDocument } from '../../../types';
 import { RootState } from '../../../store';
 import { getLevelById } from '../../../data/levels';
 
@@ -311,6 +311,40 @@ export const PMISApp: React.FC = () => {
         sectionId: sectionId,
         evidenceId: item.id
       }));
+    }
+
+    // 3b. Handle Charter Builder Drop (Completed Document -> Section)
+    // GDD v7.1: Completed Business Case and Benefits Plan from Analysis phase
+    if (active.data.current?.type === 'completed-document' && over.data.current?.type === 'charter-section') {
+      const document = active.data.current.document as CompletedBusinessDocument;
+      const sectionId = over.data.current.sectionId;
+
+      // Validate document type matches section expectation
+      const isValidDrop =
+        (sectionId === 'sec_business_case' && document.type === 'BusinessCase') ||
+        (sectionId === 'sec_benefits_plan' && document.type === 'BenefitsManagementPlan');
+
+      if (isValidDrop) {
+        dispatch(assignCompletedDocumentToSection({
+          sectionId: sectionId,
+          documentId: document.id
+        }));
+        dispatch(addNotification({
+          id: `notif_${Date.now()}`,
+          title: 'Document Assigned',
+          message: `${document.name} added to Charter.`,
+          type: 'success',
+          duration: 2000,
+        }));
+      } else {
+        dispatch(addNotification({
+          id: `notif_${Date.now()}`,
+          title: 'Wrong Section',
+          message: `This section requires a different document type.`,
+          type: 'warning',
+          duration: 3000,
+        }));
+      }
     }
 
     // 4. Handle PMP Builder Drop (Item -> Zone)

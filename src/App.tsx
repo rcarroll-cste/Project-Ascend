@@ -19,7 +19,7 @@ import {
 import { selectDemoEnding } from './features/playerSlice';
 
 function App() {
-  const { gameStage, currentLevelId, pendingExamLevel } = useSelector((state: RootState) => state.game);
+  const { gameStage, pendingExamLevel } = useSelector((state: RootState) => state.game);
   const onboardingStage = useSelector((state: RootState) => state.player.onboardingStage);
   const demoEnding = useSelector(selectDemoEnding);
 

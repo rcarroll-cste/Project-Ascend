@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useDroppable, useDraggable } from '@dnd-kit/core';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RootState } from '../../../store';
-import { addAssumptionEntry, assignClueToDocument, removeClueFromDocument } from '../../../features/pmisSlice';
+import { addAssumptionEntry, assignClueToDocument, removeClueFromDocument, completeBusinessDocument } from '../../../features/pmisSlice';
 import { completeObjective } from '../../../features/gameSlice';
 import { useNotification } from '../../../hooks/useNotification';
 import { EvidenceItem } from '../../../types';
@@ -418,7 +418,7 @@ export const DocCreator: React.FC = () => {
     dispatch(removeClueFromDocument({ zoneId, itemId }));
   };
 
-  // Track objective completion
+  // Track objective completion and generate completed documents
   useEffect(() => {
     // Check if player has correctly sorted clues
     const businessCaseItems = documentAssignments['business-case'];
@@ -429,13 +429,41 @@ export const DocCreator: React.FC = () => {
     const hasCorrectBenefitsPlan = benefitsPlanItems.includes('ev_clue_strategic_align');
     const hasCorrectAssumption = assumptionLogItems.includes('ev_clue_power_assumption');
 
+    // Generate completed Business Case document when ROI clue is placed
+    if (hasCorrectBusinessCase && businessCaseItems.length > 0) {
+      dispatch(completeBusinessDocument({
+        id: 'completed_business_case',
+        type: 'BusinessCase',
+        name: 'Business Case',
+        description: 'Economic justification for the project, including ROI targets and financial constraints.',
+        assignedClueIds: businessCaseItems,
+        isComplete: true,
+        completedAt: Date.now(),
+        qualityScore: 100,
+      }));
+    }
+
+    // Generate completed Benefits Management Plan when strategic alignment clue is placed
+    if (hasCorrectBenefitsPlan && benefitsPlanItems.length > 0) {
+      dispatch(completeBusinessDocument({
+        id: 'completed_benefits_plan',
+        type: 'BenefitsManagementPlan',
+        name: 'Benefits Management Plan',
+        description: 'Strategic alignment and value delivery goals for the project.',
+        assignedClueIds: benefitsPlanItems,
+        isComplete: true,
+        completedAt: Date.now(),
+        qualityScore: 95,
+      }));
+    }
+
     // Complete objective when all clues are correctly sorted
     if (hasCorrectBusinessCase && hasCorrectBenefitsPlan && hasCorrectAssumption) {
       if (currentLevelId === 1 && !currentProgress?.objectivesCompleted['sort_clues_to_docs']) {
         dispatch(completeObjective({ levelId: 1, objectiveId: 'sort_clues_to_docs' }));
         showNotification(
           'Documents Complete!',
-          'All clues have been correctly sorted. The Business Case and Benefits Plan are ready.',
+          'All clues have been correctly sorted. The Business Case and Benefits Plan are ready for the Charter.',
           'success',
           5000
         );

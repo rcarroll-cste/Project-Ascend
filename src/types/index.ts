@@ -471,12 +471,25 @@ export interface GameState {
   gameOverReason: GameOverReason | null;
 }
 
+// Completed Business Document (output from Doc Creator Analysis phase)
+export interface CompletedBusinessDocument {
+  id: string;
+  type: 'BusinessCase' | 'BenefitsManagementPlan';
+  name: string;
+  description: string;
+  assignedClueIds: string[];  // IDs of clues that make up this document
+  isComplete: boolean;
+  completedAt: number | null;
+  qualityScore: number;  // 0-100, based on correctly assigned clues
+}
+
 // PMIS Dashboard State
 export interface PMISState {
   stakeholders: Stakeholder[];
   charterSections: CharterSection[];
   assumptionLog: AssumptionEntry[];
   documentAssignments: Record<string, string[]>;
+  completedDocuments: CompletedBusinessDocument[];  // Completed docs from Analysis phase
 }
 // Inventory State
 export interface InventoryState {

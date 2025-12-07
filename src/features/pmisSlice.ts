@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { PMISState, AssumptionEntry, PowerLevel, InterestLevel, StakeholderAttitude, Stakeholder } from '../types';
+import { PMISState, AssumptionEntry, PowerLevel, InterestLevel, StakeholderAttitude, Stakeholder, CompletedBusinessDocument } from '../types';
 import { INITIAL_STAKEHOLDERS, INITIAL_CHARTER_SECTIONS, DECOMPOSITION_MAPPINGS } from '../data/initialData';
 
 const initialState: PMISState = {
@@ -11,6 +11,7 @@ const initialState: PMISState = {
     'benefits-plan': [],
     'assumption-log': [],
   },
+  completedDocuments: [],
 };
 
 const pmisSlice = createSlice({
@@ -130,6 +131,33 @@ const pmisSlice = createSlice({
         'assumption-log': [],
       };
     },
+
+    // Completed Document Management (Authorization Phase inputs)
+    completeBusinessDocument: (state, action: PayloadAction<CompletedBusinessDocument>) => {
+      const existingIndex = state.completedDocuments.findIndex(d => d.id === action.payload.id);
+      if (existingIndex >= 0) {
+        state.completedDocuments[existingIndex] = action.payload;
+      } else {
+        state.completedDocuments.push(action.payload);
+      }
+    },
+
+    markDocumentComplete: (state, action: PayloadAction<{ documentId: string; qualityScore: number }>) => {
+      const doc = state.completedDocuments.find(d => d.id === action.payload.documentId);
+      if (doc) {
+        doc.isComplete = true;
+        doc.completedAt = Date.now();
+        doc.qualityScore = action.payload.qualityScore;
+      }
+    },
+
+    // Assign a completed document to a charter section
+    assignCompletedDocumentToSection: (state, action: PayloadAction<{ sectionId: string; documentId: string | null }>) => {
+      const section = state.charterSections.find(s => s.id === action.payload.sectionId);
+      if (section && !section.isLocked) {
+        section.assignedItemId = action.payload.documentId;
+      }
+    },
   },
 });
 
@@ -146,6 +174,9 @@ export const {
   assignClueToDocument,
   removeClueFromDocument,
   clearDocumentAssignments,
+  completeBusinessDocument,
+  markDocumentComplete,
+  assignCompletedDocumentToSection,
 } = pmisSlice.actions;
 
 export default pmisSlice.reducer;

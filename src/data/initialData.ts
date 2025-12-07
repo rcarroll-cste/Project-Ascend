@@ -421,33 +421,29 @@ export const INITIAL_EVIDENCE: EvidenceItem[] = [
   },
 ];
 
-// Charter sections per GDD v3.3: 4 slots - [Purpose], [Budget], [Timeline], [Risks]
+// Charter sections per GDD v7.1 Phase 3 Authorization:
+// - Input Slot 1: Completed Business Case (Internal)
+// - Input Slot 2: Completed Benefits Management Plan (Internal)
+// - Input Slot 3: Agreement File (External - e.g., TechCore_MSA.pdf)
 export const INITIAL_CHARTER_SECTIONS: CharterSection[] = [
   {
-    id: 'sec_purpose',
-    label: 'Purpose / Business Case',
-    requiredType: 'BusinessCase', // Server Capacity Analysis goes here
+    id: 'sec_business_case',
+    label: 'Business Case (Internal)',
+    requiredType: 'BusinessCase', // Completed Business Case from Doc Creator
     assignedItemId: null,
     isLocked: false,
   },
   {
-    id: 'sec_budget',
-    label: 'Budget Authorization',
-    requiredType: 'Agreement', // Requires ev_budget_350k (correct) not ev_budget_500k (distractor)
+    id: 'sec_benefits_plan',
+    label: 'Benefits Management Plan (Internal)',
+    requiredType: 'BusinessCase', // Completed Benefits Plan from Doc Creator (mapped as BusinessCase type for now)
     assignedItemId: null,
     isLocked: false,
   },
   {
-    id: 'sec_timeline',
-    label: 'Timeline (High-Level)',
-    requiredType: 'Timeline', // Milestone Summary only - Step 4 Granularity Trap
-    assignedItemId: null,
-    isLocked: false,
-  },
-  {
-    id: 'sec_risks',
-    label: 'High-Level Risks',
-    requiredType: 'Risk', // Risk Register Draft goes here
+    id: 'sec_agreement',
+    label: 'External Agreement',
+    requiredType: 'Agreement', // TechCore_MSA.pdf or similar external agreement
     assignedItemId: null,
     isLocked: false,
   },
