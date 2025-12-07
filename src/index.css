@@ -1,3 +1,65 @@
+/* Import AscendOS glassmorphism theme - must come before tailwind */
+@import './styles/glassmorphism.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Base styles */
+@layer base {
+  html {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-gradient-to-br from-desktop-from via-desktop-via to-desktop-to;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  /* Prevent text selection on UI elements */
+  button, [role="button"] {
+    user-select: none;
+  }
+}
+
+/* Component layer for reusable patterns */
+@layer components {
+  /* Constraint bar colors based on value */
+  .constraint-bar {
+    @apply h-1.5 rounded-full transition-all duration-300;
+  }
+
+  .constraint-bar-success {
+    @apply bg-status-success;
+  }
+
+  .constraint-bar-warning {
+    @apply bg-status-warning;
+  }
+
+  .constraint-bar-danger {
+    @apply bg-status-danger;
+  }
+}
+
+/* Utility layer for custom utilities */
+@layer utilities {
+  /* Glass blur utilities */
+  .blur-glass {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .blur-glass-heavy {
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+  }
+
+  /* Safe area padding for modern devices */
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import { Clock, DollarSign, Users, Target } from 'lucide-react';
 import { RootState } from '../../store';
+import { getLevelById } from '../../data/levels';
 
 interface GaugeProps {
   icon: React.ReactNode;
@@ -81,14 +82,16 @@ const Gauge: React.FC<GaugeProps> = ({ icon, label, value, tooltip, colorScheme 
 };
 
 export const StatusBar: React.FC = () => {
-  const { constraints, currentLevel, levelTitle } = useSelector((state: RootState) => state.game);
+  const { constraints, currentLevelId } = useSelector((state: RootState) => state.game);
+  const currentLevelData = getLevelById(currentLevelId);
+  const levelTitle = currentLevelData?.narrativeTitle || 'Unknown';
 
   return (
     <div className="h-12 bg-slate-900/95 backdrop-blur-md border-b border-slate-700/50 flex items-center justify-between px-4 shrink-0">
       {/* Left: Level Info */}
       <div className="flex items-center gap-3">
         <div className="px-3 py-1 bg-purple-600/20 border border-purple-500/30 rounded-lg">
-          <span className="text-xs font-semibold text-purple-300">Level {currentLevel}</span>
+          <span className="text-xs font-semibold text-purple-300">Level {currentLevelId}</span>
         </div>
         <span className="text-sm font-medium text-slate-300">{levelTitle}</span>
       </div>

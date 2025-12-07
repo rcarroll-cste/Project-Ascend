@@ -1,0 +1,605 @@
+/* =============================================================================
+   ASCENDOS GLASSMORPHISM THEME
+   Modern macOS/visionOS inspired styling for Project Ascend
+   ============================================================================= */
+
+/* -----------------------------------------------------------------------------
+   CSS VARIABLES
+   ----------------------------------------------------------------------------- */
+:root {
+  /* Glass surfaces */
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-bg-medium: rgba(255, 255, 255, 0.56);
+  --glass-bg-dark: rgba(255, 255, 255, 0.32);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-highlight: rgba(255, 255, 255, 0.5);
+
+  /* Blur values */
+  --blur-os: 20px;
+  --blur-heavy: 40px;
+  --blur-dock: 30px;
+
+  /* Shadows */
+  --shadow-os: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.08), 0 8px 30px rgba(0, 0, 0, 0.12);
+  --shadow-os-lg: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.12), 0 16px 48px rgba(0, 0, 0, 0.16);
+  --shadow-os-focused: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 4px 20px rgba(0, 0, 0, 0.16), 0 20px 60px rgba(0, 0, 0, 0.2);
+  --shadow-dock: 0 0 0 1px rgba(0, 0, 0, 0.04), 0 4px 20px rgba(0, 0, 0, 0.12);
+
+  /* Colors */
+  --accent: #0ea5e9;
+  --accent-hover: #0284c7;
+  --status-success: #22c55e;
+  --status-warning: #f59e0b;
+  --status-danger: #ef4444;
+  --status-info: #3b82f6;
+
+  /* Window controls */
+  --control-close: #ff5f56;
+  --control-minimize: #ffbd2e;
+  --control-maximize: #27ca3f;
+
+  /* Spacing */
+  --dock-height: 70px;
+  --titlebar-height: 28px;
+  --statusbar-height: 44px;
+
+  /* Border radius */
+  --radius-os: 10px;
+  --radius-os-lg: 14px;
+  --radius-os-xl: 20px;
+  --radius-dock: 16px;
+}
+
+/* Dark mode variables */
+.dark {
+  --glass-bg: rgba(30, 30, 30, 0.72);
+  --glass-bg-medium: rgba(30, 30, 30, 0.56);
+  --glass-bg-dark: rgba(30, 30, 30, 0.32);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-highlight: rgba(255, 255, 255, 0.1);
+}
+
+/* -----------------------------------------------------------------------------
+   GLASS SURFACE COMPONENTS
+   ----------------------------------------------------------------------------- */
+
+/* Base glass surface */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-os));
+  -webkit-backdrop-filter: blur(var(--blur-os));
+  border: 1px solid var(--glass-border);
+}
+
+.glass-medium {
+  background: var(--glass-bg-medium);
+  backdrop-filter: blur(var(--blur-os));
+  -webkit-backdrop-filter: blur(var(--blur-os));
+  border: 1px solid var(--glass-border);
+}
+
+.glass-dark {
+  background: var(--glass-bg-dark);
+  backdrop-filter: blur(var(--blur-os));
+  -webkit-backdrop-filter: blur(var(--blur-os));
+  border: 1px solid var(--glass-border);
+}
+
+.glass-heavy {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-heavy));
+  -webkit-backdrop-filter: blur(var(--blur-heavy));
+  border: 1px solid var(--glass-border);
+}
+
+/* Glass with inner highlight (top edge glow) */
+.glass-highlight {
+  position: relative;
+}
+
+.glass-highlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--glass-highlight) 20%,
+    var(--glass-highlight) 80%,
+    transparent 100%
+  );
+  border-radius: inherit;
+}
+
+/* -----------------------------------------------------------------------------
+   WINDOW COMPONENTS
+   ----------------------------------------------------------------------------- */
+
+/* Window frame */
+.window-frame {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-os));
+  -webkit-backdrop-filter: blur(var(--blur-os));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-os);
+  box-shadow: var(--shadow-os);
+  overflow: hidden;
+}
+
+.window-frame.focused {
+  box-shadow: var(--shadow-os-focused);
+}
+
+/* Window title bar */
+.window-titlebar {
+  height: var(--titlebar-height);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    transparent 100%
+  );
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  user-select: none;
+  cursor: default;
+}
+
+/* Window controls (traffic lights) */
+.window-controls {
+  display: flex;
+  gap: 8px;
+  margin-right: 12px;
+}
+
+.window-control {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.window-control::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.window-control:hover::before {
+  opacity: 1;
+}
+
+.window-control.close {
+  background: var(--control-close);
+}
+
+.window-control.close::before {
+  content: '×';
+  font-size: 10px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.window-control.minimize {
+  background: var(--control-minimize);
+}
+
+.window-control.minimize::before {
+  content: '−';
+  font-size: 12px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.window-control.maximize {
+  background: var(--control-maximize);
+}
+
+.window-control.maximize::before {
+  content: '+';
+  font-size: 10px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+/* Inactive window controls */
+.window-frame:not(.focused) .window-control {
+  background: #ddd;
+}
+
+/* Window title */
+.window-title {
+  flex: 1;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.85);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dark .window-title {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Window content area */
+.window-content {
+  background: rgba(255, 255, 255, 0.5);
+  overflow: auto;
+}
+
+.dark .window-content {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* -----------------------------------------------------------------------------
+   DOCK COMPONENTS
+   ----------------------------------------------------------------------------- */
+
+/* Dock container */
+.dock {
+  position: fixed;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  padding: 4px 8px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-dock));
+  -webkit-backdrop-filter: blur(var(--blur-dock));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-dock);
+  box-shadow: var(--shadow-dock);
+}
+
+/* Dock icon */
+.dock-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.dock-icon:hover {
+  transform: translateY(-8px) scale(1.1);
+}
+
+.dock-icon:active {
+  transform: translateY(-4px) scale(1.05);
+}
+
+/* Dock icon indicator (app is open) */
+.dock-icon.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.dark .dock-icon.active::after {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+/* Dock icon badge (notifications) */
+.dock-icon .badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: var(--status-danger);
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+}
+
+/* Dock tooltip */
+.dock-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 10px;
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.dock-icon:hover .dock-tooltip {
+  opacity: 1;
+}
+
+/* -----------------------------------------------------------------------------
+   STATUS BAR / ASCEND TRACK
+   ----------------------------------------------------------------------------- */
+
+.status-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--statusbar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background: var(--glass-bg-medium);
+  backdrop-filter: blur(var(--blur-os));
+  -webkit-backdrop-filter: blur(var(--blur-os));
+  border-bottom: 1px solid var(--glass-border);
+  z-index: 1000;
+}
+
+/* Status modules */
+.status-module {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.dark .status-module {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Progress bars */
+.progress-bar {
+  height: 6px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.progress-bar-fill.success {
+  background: var(--status-success);
+}
+
+.progress-bar-fill.warning {
+  background: var(--status-warning);
+}
+
+.progress-bar-fill.danger {
+  background: var(--status-danger);
+}
+
+/* -----------------------------------------------------------------------------
+   BUTTONS
+   ----------------------------------------------------------------------------- */
+
+.btn-glass {
+  padding: 8px 16px;
+  background: var(--glass-bg-medium);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  color: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-glass:hover {
+  background: var(--glass-bg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-glass:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn-danger {
+  background: var(--status-danger);
+  border-color: var(--status-danger);
+  color: white;
+}
+
+.btn-success {
+  background: var(--status-success);
+  border-color: var(--status-success);
+  color: white;
+}
+
+/* -----------------------------------------------------------------------------
+   INPUTS
+   ----------------------------------------------------------------------------- */
+
+.input-glass {
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--glass-border);
+  border-radius: 6px;
+  font-size: 14px;
+  transition: all 0.15s ease;
+}
+
+.input-glass:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+}
+
+.dark .input-glass {
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
+/* -----------------------------------------------------------------------------
+   CARDS & PANELS
+   ----------------------------------------------------------------------------- */
+
+.card-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-os));
+  -webkit-backdrop-filter: blur(var(--blur-os));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-os);
+  padding: 16px;
+}
+
+.panel-glass {
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.dark .panel-glass {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* -----------------------------------------------------------------------------
+   DESKTOP BACKGROUND
+   ----------------------------------------------------------------------------- */
+
+.desktop-bg {
+  background: linear-gradient(
+    135deg,
+    #667eea 0%,
+    #764ba2 50%,
+    #f093fb 100%
+  );
+  min-height: 100vh;
+}
+
+.desktop-bg-sonoma {
+  background: linear-gradient(
+    180deg,
+    #1a1a2e 0%,
+    #16213e 50%,
+    #0f3460 100%
+  );
+}
+
+/* -----------------------------------------------------------------------------
+   UTILITIES
+   ----------------------------------------------------------------------------- */
+
+/* Smooth scrollbar */
+.scrollbar-glass::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollbar-glass::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-glass::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.scrollbar-glass::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.dark .scrollbar-glass::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.dark .scrollbar-glass::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* Text styles */
+.text-glass {
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.text-glass-secondary {
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.dark .text-glass {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.dark .text-glass-secondary {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* Vibrancy effect for hover states */
+.hover-vibrancy {
+  transition: background-color 0.15s ease;
+}
+
+.hover-vibrancy:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.dark .hover-vibrancy:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Selection highlight */
+.selected-glass {
+  background: rgba(14, 165, 233, 0.15);
+  border-color: rgba(14, 165, 233, 0.3);
+}

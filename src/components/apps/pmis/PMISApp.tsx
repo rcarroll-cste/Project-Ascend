@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Users, FileText, AlertTriangle, LayoutDashboard, PieChart, MessageSquare } from 'lucide-react';
+import { Users, FileText, AlertTriangle, LayoutDashboard, MessageSquare, PieChart } from 'lucide-react';
 import { StakeholderRegister } from './StakeholderRegister';
 import { CharterBuilder } from './CharterBuilder';
 import { AssumptionLog } from './AssumptionLog';
 import { EmailApp } from '../email/EmailApp';
-import { PerformanceReport } from '../../scenes/PerformanceReport';
 import { DndContext, DragEndEvent, useDroppable, useSensor, useSensors, PointerSensor } from '@dnd-kit/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { identifyStakeholder, updateStakeholderPosition, assignEvidenceToSection } from '../../../features/pmisSlice';
@@ -12,8 +11,9 @@ import { addNotification } from '../../../features/gameSlice';
 import { INITIAL_STAKEHOLDERS } from '../../../data/initialData';
 import { PowerLevel, InterestLevel, Email, EvidenceItem } from '../../../types';
 import { RootState } from '../../../store';
+import { getLevelById } from '../../../data/levels';
 
-type Tab = 'dashboard' | 'communications' | 'stakeholders' | 'charter' | 'assumptions' | 'report';
+type Tab = 'dashboard' | 'communications' | 'stakeholders' | 'charter' | 'assumptions';
 
 // Mini Drop Zone Component for the Communications Tab
 const StakeholderDropZone = () => {
@@ -39,8 +39,11 @@ const StakeholderDropZone = () => {
 
 // Dashboard Tab Component with Triple Constraint Bars
 const DashboardTab: React.FC = () => {
-  const { constraints, currentLevel, levelTitle } = useSelector((state: RootState) => state.game);
+  const { constraints, currentLevelId } = useSelector((state: RootState) => state.game);
   const { stakeholders, charterSections } = useSelector((state: RootState) => state.pmis);
+  // Use getLevelById to get level title
+  const currentLevelData = getLevelById(currentLevelId);
+  const levelTitle = currentLevelData?.narrativeTitle || 'Unknown';
 
   // Calculate progress metrics
   const identifiedStakeholders = stakeholders.filter(s => s.isIdentified).length;
@@ -87,7 +90,7 @@ const DashboardTab: React.FC = () => {
         {/* Header */}
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-800">AscendTrack Dashboard</h1>
-          <p className="text-gray-500">Level {currentLevel}: {levelTitle}</p>
+          <p className="text-gray-500">Level {currentLevelId}: {levelTitle}</p>
         </div>
 
         {/* Triple Constraint Gauges */}
@@ -172,7 +175,6 @@ export const PMISApp: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>('charter'); // Default to Charter for Level 1
   const dispatch = useDispatch();
   const { stakeholders } = useSelector((state: RootState) => state.pmis);
-  const { currentLevel } = useSelector((state: RootState) => state.game);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -190,19 +192,70 @@ export const PMISApp: React.FC = () => {
     // 1. Handle Email Drop (Identifying Stakeholder)
     if (active.data.current?.type === 'email' && over.id === 'stakeholder-register-drop-zone') {
         const email = active.data.current.email as Email;
-        
-        // Simple logic: Check if email sender matches a stakeholder name (or part of it)
-        // In a real app, this would be more robust (e.g., using IDs or metadata)
-        const matchedStakeholder = stakeholders.find(s => 
-            !s.isIdentified && email.sender.includes(s.name) || 
-            (s.id === 'sh_sarah' && email.sender === 'Sarah Jenkins') || // specific mapping
-            (s.id === 'sh_elias' && email.sender.includes('Elias'))
+
+        // First priority: Use explicit stakeholder ID from email if available
+        if (email.triggerStakeholderId) {
+            const stakeholder = stakeholders.find(s => s.id === email.triggerStakeholderId);
+            if (stakeholder && !stakeholder.isIdentified) {
+                dispatch(identifyStakeholder(email.triggerStakeholderId));
+
+                // Special notification for compliance stakeholder (hidden in spam)
+                if (email.triggerStakeholderId === 'sh_compliance') {
+                    dispatch(addNotification({
+                        id: `notif_${Date.now()}`,
+                        title: 'Hidden Stakeholder Found!',
+                        message: `${stakeholder.name} was lurking in your spam! Critical external stakeholder identified.`,
+                        type: 'warning',
+                        duration: 5000,
+                    }));
+                } else {
+                    dispatch(addNotification({
+                        id: `notif_${Date.now()}`,
+                        title: 'Stakeholder Identified',
+                        message: `${stakeholder.name} (${stakeholder.role}) added to the register.`,
+                        type: 'success',
+                        duration: 3000,
+                    }));
+                }
+                return;
+            } else if (stakeholder?.isIdentified) {
+                dispatch(addNotification({
+                    id: `notif_${Date.now()}`,
+                    title: 'Already Identified',
+                    message: `${stakeholder.name} is already in the Stakeholder Register.`,
+                    type: 'info',
+                    duration: 2000,
+                }));
+                return;
+            }
+        }
+
+        // Fallback: Match by sender name pattern
+        const matchedStakeholder = stakeholders.find(s =>
+            !s.isIdentified && (
+                email.sender.toLowerCase().includes(s.name.toLowerCase()) ||
+                s.name.toLowerCase().includes(email.sender.split(' ')[0].toLowerCase())
+            )
         );
 
         if (matchedStakeholder) {
             dispatch(identifyStakeholder(matchedStakeholder.id));
-            // Could show a toast/notification here
-            console.log(`Identified stakeholder: ${matchedStakeholder.name}`);
+            dispatch(addNotification({
+                id: `notif_${Date.now()}`,
+                title: 'Stakeholder Identified',
+                message: `${matchedStakeholder.name} (${matchedStakeholder.role}) added to the register.`,
+                type: 'success',
+                duration: 3000,
+            }));
+        } else {
+            // No matching stakeholder found
+            dispatch(addNotification({
+                id: `notif_${Date.now()}`,
+                title: 'No Match Found',
+                message: `Could not identify a stakeholder from this email sender (${email.sender}).`,
+                type: 'warning',
+                duration: 3000,
+            }));
         }
     }
 
@@ -258,6 +311,18 @@ export const PMISApp: React.FC = () => {
         evidenceId: item.id
       }));
     }
+
+    // 4. Handle PMP Builder Drop (Item -> Zone)
+    // PMPBuilder uses its own internal state - events are dispatched via custom event
+    if (active.data.current?.type === 'pmp-item' && over.data.current?.type === 'pmp-zone') {
+      const itemId = active.id.toString().replace('pmp-item-', '');
+      const category = over.data.current.category;
+
+      // Dispatch custom event for PMPBuilder to handle
+      window.dispatchEvent(new CustomEvent('pmp-drop', {
+        detail: { itemId, category }
+      }));
+    }
   };
   
   // Note: Charter validation is now handled in CharterBuilder
@@ -304,15 +369,7 @@ export const PMISApp: React.FC = () => {
                 <AlertTriangle size={16} />
                 <span>Assumptions</span>
             </button>
-            {currentLevel >= 2 && (
-                <button
-                    onClick={() => setActiveTab('report')}
-                    className={`px-4 py-2 text-sm font-medium rounded-t-lg flex items-center space-x-2 border-t border-l border-r ${activeTab === 'report' ? 'bg-gray-100 border-gray-200 text-purple-700' : 'bg-white border-transparent text-gray-500 hover:text-gray-700'}`}
-                >
-                    <PieChart size={16} />
-                    <span>Report</span>
-                </button>
-            )}
+            {/* PMP and Report tabs removed for Demo scope (Levels 0-2 only) */}
         </div>
 
         {/* Content Area */}
@@ -338,8 +395,6 @@ export const PMISApp: React.FC = () => {
             {activeTab === 'charter' && <CharterBuilder />}
 
             {activeTab === 'assumptions' && <AssumptionLog />}
-            
-            {activeTab === 'report' && <PerformanceReport />}
         </div>
 
         </div>

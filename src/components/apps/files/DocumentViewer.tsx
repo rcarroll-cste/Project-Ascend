@@ -29,7 +29,11 @@ interface DocumentViewerProps {
 
 export function DocumentViewer({ document, onClose }: DocumentViewerProps) {
   const dispatch = useDispatch();
-  const { currentLevel, levelObjectives } = useSelector((state: RootState) => state.game);
+  const { currentLevelId, levelProgress } = useSelector((state: RootState) => state.game);
+  // Map to legacy format for compatibility
+  const currentLevel = currentLevelId;
+  // Get completed objectives as Record<string, boolean>
+  const levelObjectives = levelProgress[currentLevelId]?.objectivesCompleted || {};
   const { activeTask, completedTasks, selectedHighlightId, lastFeedback, attemptHistory } =
     useSelector((state: RootState) => state.documentAnalysis);
 
@@ -217,7 +221,7 @@ export function DocumentViewer({ document, onClose }: DocumentViewerProps) {
       }
       case 'complete_objective': {
         const objectiveId = consequence.payload.objectiveId as string;
-        dispatch(completeObjective(objectiveId));
+        dispatch(completeObjective({ levelId: currentLevelId, objectiveId }));
         break;
       }
       default:
@@ -253,10 +257,31 @@ export function DocumentViewer({ document, onClose }: DocumentViewerProps) {
         })
       );
     } else if (content.highlightId === 'ev_budget_500k') {
+      // GDD v6.6 Financial Redline Protocol - This is the WRONG budget (distractor)
       const budgetEvidence = {
         id: 'ev_budget_500k',
-        name: 'Budget: $500,000',
-        description: 'Approved project budget extracted from Business Case',
+        name: 'Budget Request: $500,000',
+        description: 'Director Vane\'s initial budget request - exceeds authorized ROI cap',
+        type: 'Agreement' as const,
+        isDistractor: true, // This is the wrong budget!
+        qualityScore: 0,
+      };
+      dispatch(addItem(budgetEvidence));
+      dispatch(
+        addNotification({
+          id: `notif_${Date.now()}`,
+          title: 'Budget Request Extracted',
+          message: 'Sponsor\'s budget request added. But is this the authorized amount?',
+          type: 'warning',
+          duration: 4000,
+        })
+      );
+    } else if (content.highlightId === 'ev_budget_350k') {
+      // GDD v6.6 Financial Redline Protocol - This is the CORRECT budget
+      const budgetEvidence = {
+        id: 'ev_budget_350k',
+        name: 'Budget: $350,000',
+        description: 'Maximum authorized investment to maintain positive ROI from Business Case',
         type: 'Agreement' as const,
         isDistractor: false,
         qualityScore: 100,
@@ -265,8 +290,8 @@ export function DocumentViewer({ document, onClose }: DocumentViewerProps) {
       dispatch(
         addNotification({
           id: `notif_${Date.now()}`,
-          title: 'Key Input Found!',
-          message: 'Budget figure added to your inventory.',
+          title: 'Authorized Budget Found!',
+          message: 'The ROI-constrained budget cap has been added to your inventory.',
           type: 'success',
           duration: 3000,
         })

@@ -1,3 +1,137 @@
+// =============================================================================
+// LEVEL SYSTEM TYPES (GDD v4.0)
+// =============================================================================
+
+// Process Groups from PMBOK
+export type ProcessGroup = 'Initiating' | 'Planning' | 'Executing' | 'Monitoring' | 'Closing';
+
+// Knowledge Areas from PMBOK
+export type KnowledgeArea =
+  | 'Integration'
+  | 'Scope'
+  | 'Schedule'
+  | 'Cost'
+  | 'Quality'
+  | 'Resource'
+  | 'Communications'
+  | 'Risk'
+  | 'Procurement'
+  | 'Stakeholder';
+
+// Arc definitions for campaign structure
+export type CampaignArc =
+  | 'Arc1_Initiation'
+  | 'Arc2_ScopeSchedule'
+  | 'Arc3_CostQualityResources'
+  | 'Arc4_SafetyNet';
+
+// Game Level Definition
+export interface GameLevel {
+  id: number;
+  arc: CampaignArc;
+  processCode: string | null;       // "4.1", "13.1", etc. (null for Prologue)
+  processGroup: ProcessGroup | null;
+  knowledgeArea: KnowledgeArea | null;
+  narrativeTitle: string;           // "The Authorization", "The Politics"
+  description: string;
+
+  // Learning & Assessment
+  learningObjectives: string[];
+  examQuestionIds: string[];
+
+  // Requirements
+  requiredInputDocuments: string[]; // Document IDs needed
+  outputDocuments: string[];        // Documents generated upon completion
+
+  // Unlock conditions
+  prerequisiteLevelId: number | null;
+  unlocksApps: AppId[];
+  unlocksProcesses: string[];
+
+  // Completion criteria
+  objectives: LevelObjective[];
+
+  // Narrative hooks
+  introDialogueId: string | null;
+  outroDialogueId: string | null;
+}
+
+// Level completion status
+export interface LevelProgress {
+  levelId: number;
+  isUnlocked: boolean;
+  isStarted: boolean;
+  isCompleted: boolean;
+  objectivesCompleted: Record<string, boolean>;
+  examPassed: boolean;
+  completedAt: number | null;
+  attempts: number;
+}
+
+// PMIS Evolution Tier
+export type PMISTier = 'basic' | 'intermediate' | 'advanced';
+
+export interface PMISFeature {
+  id: string;
+  name: string;
+  description: string;
+  tier: PMISTier;
+  unlockedAtLevel: number;
+  isUnlocked: boolean;
+}
+
+// Decision tracking for consequences
+export interface GameDecision {
+  id: string;
+  levelId: number;
+  timestamp: number;
+  decisionType: 'dialogue_choice' | 'process_execution' | 'document_action' | 'stakeholder_action';
+  choiceId: string;
+  choiceLabel: string;
+  consequences: DecisionConsequence[];
+}
+
+export interface DecisionConsequence {
+  type: 'constraint_change' | 'stakeholder_attitude' | 'document_quality' | 'unlock' | 'penalty' | 'delayed_effect';
+  target: string;
+  value: number | string | boolean;
+  delayedUntilLevel?: number;
+}
+
+// Cumulative scores for endings
+export interface CumulativeScores {
+  budgetAdherence: number;      // 0-100, how well budget was managed
+  scheduleAdherence: number;    // 0-100, how well schedule was managed
+  teamMorale: number;           // 0-100, average morale maintained
+  stakeholderSatisfaction: number; // 0-100, stakeholder happiness
+  qualityScore: number;         // 0-100, document/output quality average
+  ethicsScore: number;          // 0-100, PMBOK ethics adherence
+  leadershipStyle: number;      // 0-100, leadership effectiveness
+  processAdherence: number;     // 0-100, following PMBOK processes
+}
+
+// Ending types
+export type GameEnding =
+  | 'pmp_master'        // Ideal PM - balanced all areas
+  | 'gold_plater'       // Too much scope creep / feature additions
+  | 'iron_fist'         // Results over people
+  | 'scope_creep_victim' // Lost control of scope
+  | 'terminated';       // Critical failure
+
+// Expanded Game Over Reasons
+export type GameOverReason =
+  | 'UNAUTHORIZED_SPEND'
+  | 'BUDGET_DEPLETED'
+  | 'SPONSOR_LOST_CONFIDENCE'
+  | 'MORALE_COLLAPSE'
+  | 'STAKEHOLDER_REVOLT'
+  | 'COMPLIANCE_VIOLATION'
+  | 'SCHEDULE_CATASTROPHE';
+
+// =============================================================================
+// ORIGINAL TYPES (Updated)
+// =============================================================================
+
 // Enums/Types for PMP classifications
 export type PowerLevel = 'High' | 'Low' | 'Unknown';
 export type InterestLevel = 'High' | 'Low' | 'Unknown';
@@ -39,9 +173,6 @@ export interface ConstraintMetrics {
   morale: number;    // 0-100, team morale
   scope: number;     // 0-100, 50 = balanced, <50 = scope creep, >50 = gold plating
 }
-
-// Game Over Reasons
-export type GameOverReason = 'UNAUTHORIZED_SPEND' | 'BUDGET_DEPLETED' | 'SPONSOR_LOST_CONFIDENCE';
 
 // App IDs for unlock tracking
 export type AppId = 'chatter' | 'email' | 'pmis' | 'files' | 'browser' | 'wikibok' | 'examsim' | 'processmap';
@@ -252,6 +383,7 @@ export interface Stakeholder {
   // State flags
   isIdentified: boolean; // Has the player met them?
   isAnalyzed: boolean;   // Has the player placed them on the grid correctly?
+  isExternal?: boolean;  // External stakeholder (outside the organization) per GDD
 
   // Decomposition (for broad stakeholder groups)
   isDecomposable?: boolean;
@@ -361,6 +493,8 @@ export interface DesktopState {
 }
 
 // Email Types
+export type EmailFolder = 'inbox' | 'sent' | 'draft' | 'archive' | 'spam';
+
 export interface Email {
   id: string;
   sender: string;
@@ -368,10 +502,12 @@ export interface Email {
   preview: string;
   timestamp: string;
   isRead: boolean;
+  folder: EmailFolder; // Which folder the email belongs to
   categoryColor?: string; // Hex code for the dot
   body?: string;
   relatedEvidenceId?: string; // ID of the evidence item attached or related
-  triggerAction?: 'UNLOCK_PMIS' | null; // Special actions when opened
+  triggerAction?: 'UNLOCK_PMIS' | 'IDENTIFY_STAKEHOLDER' | null; // Special actions when opened
+  triggerStakeholderId?: string; // Stakeholder ID to identify when action is IDENTIFY_STAKEHOLDER
 }
 
 // Notification System

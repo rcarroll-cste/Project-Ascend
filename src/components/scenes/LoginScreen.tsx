@@ -13,7 +13,7 @@ export const LoginScreen: React.FC = () => {
     
     // Simulate connection delay
     setTimeout(() => {
-      dispatch(setGameStage('Investigation'));
+      dispatch(setGameStage('Playing'));
     }, 1500);
   };
 

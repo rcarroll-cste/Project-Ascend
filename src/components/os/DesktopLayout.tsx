@@ -3,10 +3,10 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AnimatePresence } from 'framer-motion';
 import { RootState } from '../../store';
-import { Taskbar } from './Taskbar';
-import { StatusBar } from './StatusBar';
+import { Dock } from './Dock';
 import { WindowFrame } from './WindowFrame';
 import { OnboardingOverlay } from '../common/OnboardingOverlay';
+import { MentOS } from './MentOS';
 import { EmailApp } from '../apps/email/EmailApp';
 import { PMISApp } from '../apps/pmis/PMISApp';
 import { ChatterApp } from '../apps/chatter/ChatterApp';
@@ -20,11 +20,19 @@ import {
   maximizeWindow,
   focusWindow,
 } from '../../features/osSlice';
-import { Mail, LayoutDashboard, Folder, Globe, MessageCircle, BookOpen, GitBranch } from 'lucide-react';
+import {
+  Mail,
+  LayoutDashboard,
+  Folder,
+  Globe,
+  MessageCircle,
+  BookOpen,
+  GitBranch,
+} from 'lucide-react';
 
 export const DesktopLayout: React.FC = () => {
   const dispatch = useDispatch();
-  const { windows } = useSelector((state: RootState) => state.os);
+  const { windows, activeWindowId } = useSelector((state: RootState) => state.os);
   const { isOnboardingCompleted } = useSelector((state: RootState) => state.game);
 
   const getWindowIcon = (type: string) => {
@@ -64,29 +72,40 @@ export const DesktopLayout: React.FC = () => {
       case 'ProcessMap':
         return <ProcessMapApp />;
       case 'Browser':
-        return <div className="p-4 text-slate-400">Browser Content Placeholder</div>;
+        return <div className="p-4 text-gray-400">Browser Content Placeholder</div>;
       default:
-        return <div className="p-4 text-slate-400">Content Not Found</div>;
+        return <div className="p-4 text-gray-400">Content Not Found</div>;
     }
   };
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900 relative flex flex-col font-sans">
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10">
-          <div className="text-9xl font-bold text-white tracking-widest uppercase transform -rotate-12 select-none">Aethelgard</div>
-      </div>
+    <div className="h-screen w-screen overflow-hidden relative flex flex-col font-sans">
+      {/* Desktop Background - Gradient */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
+        }}
+      />
+
+      {/* Subtle pattern overlay */}
+      <div
+        className="absolute inset-0 opacity-10"
+        style={{
+          backgroundImage: `radial-gradient(circle at 25% 25%, white 1px, transparent 1px)`,
+          backgroundSize: '50px 50px',
+        }}
+      />
+
       {/* Notifications */}
       <ToastNotification />
 
       {/* Onboarding Overlay */}
       {!isOnboardingCompleted && <OnboardingOverlay />}
 
-      {/* Status Bar HUD (GDD v3.3) */}
-      <StatusBar />
-
-      {/* Desktop Area - with padding for taskbar */}
-      <div className="flex-1 relative pb-16">
-        {/* Desktop Icons could go here */}
+      {/* Desktop Area - with padding for dock */}
+      <div className="flex-1 relative mb-[78px]">
+        {/* Desktop could have icons or widgets here in the future */}
 
         {/* Windows */}
         <AnimatePresence>
@@ -99,6 +118,7 @@ export const DesktopLayout: React.FC = () => {
               isOpen={window.isOpen}
               isMinimized={window.isMinimized}
               isMaximized={window.isMaximized}
+              isFocused={window.id === activeWindowId}
               zIndex={window.zIndex}
               onClose={() => dispatch(closeWindow(window.id))}
               onMinimize={() => dispatch(minimizeWindow(window.id))}
@@ -111,8 +131,11 @@ export const DesktopLayout: React.FC = () => {
         </AnimatePresence>
       </div>
 
-      {/* Taskbar */}
-      <Taskbar />
+      {/* Dock (replaces old Taskbar) */}
+      <Dock />
+
+      {/* MentOS Guidance System */}
+      {isOnboardingCompleted && <MentOS />}
 
       {/* ExamSim Modal (renders when exam is active) */}
       <ExamSimApp />

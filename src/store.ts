@@ -7,6 +7,9 @@ import dialogueReducer from './features/dialogueSlice';
 import examReducer from './features/examSlice';
 import processMapReducer from './features/processMapSlice';
 import documentAnalysisReducer from './features/documentAnalysisSlice';
+import pmisEvolutionReducer from './features/pmisEvolutionSlice';
+import decisionReducer from './features/decisionSlice';
+import playerReducer from './features/playerSlice';
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +21,9 @@ export const store = configureStore({
     exam: examReducer,
     processMap: processMapReducer,
     documentAnalysis: documentAnalysisReducer,
+    pmisEvolution: pmisEvolutionReducer,
+    decisions: decisionReducer,
+    player: playerReducer,
   },
 });
 

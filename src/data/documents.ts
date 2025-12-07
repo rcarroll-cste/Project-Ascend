@@ -159,11 +159,12 @@ export const INITIAL_DOCUMENTS: GameDocument[] = [
       },
       {
         type: 'highlight',
-        text: 'Budget: $500,000',
+        text: 'Budget Request: $500,000',
         highlightId: 'ev_budget_500k',
         evidenceType: 'Agreement',
         isSelectableForTask: true,
-        analysisLabel: 'Budget',
+        analysisLabel: 'Sponsor Request',
+        wrongSelectionReason: 'This is Director Vane\'s budget request, not the authorized amount. Check the ROI constraints below.',
       },
       {
         type: 'highlight',
@@ -172,6 +173,26 @@ export const INITIAL_DOCUMENTS: GameDocument[] = [
         isSelectableForTask: true,
         analysisLabel: 'ROI Justification',
         evidenceType: 'BusinessCase',
+      },
+      {
+        type: 'text',
+        text: '',
+      },
+      {
+        type: 'heading',
+        text: '2.1 Investment Constraints',
+      },
+      {
+        type: 'highlight',
+        text: 'Maximum authorized investment to maintain positive ROI: $350,000',
+        highlightId: 'ev_budget_350k',
+        evidenceType: 'Agreement',
+        isSelectableForTask: true,
+        analysisLabel: 'Budget Cap',
+      },
+      {
+        type: 'text',
+        text: 'Exceeding this amount would result in negative NPV and violate financial policy.',
       },
       {
         type: 'heading',
@@ -282,6 +303,99 @@ export const INITIAL_DOCUMENTS: GameDocument[] = [
   },
 
   // ========================================
+  // LEVEL 1: Benefits Management Plan (Strategic Alignment)
+  // ========================================
+  {
+    id: 'doc_benefits_plan',
+    name: 'Benefits_Management_Plan.pdf',
+    folder: 'Documents',
+    isDiscovered: true,
+    availableTasks: ['task_level1_strategy'],
+    content: [
+      {
+        type: 'heading',
+        text: 'BENEFITS MANAGEMENT PLAN',
+      },
+      {
+        type: 'text',
+        text: 'Project: Server Migration Initiative',
+      },
+      {
+        type: 'text',
+        text: 'Version: 1.0',
+      },
+      {
+        type: 'heading',
+        text: '1. Strategic Alignment',
+      },
+      {
+        type: 'highlight',
+        text: 'Strategic Focus: Internal Operational Efficiency and Cost Reduction',
+        highlightId: 'hl_strategic_focus',
+        evidenceType: 'BusinessCase',
+        isSelectableForTask: true,
+        analysisLabel: 'Strategic Focus',
+      },
+      {
+        type: 'text',
+        text: 'This project directly supports the organizational objective of reducing operational costs through infrastructure modernization.',
+      },
+      {
+        type: 'heading',
+        text: '2. Target Benefits',
+      },
+      {
+        type: 'highlight',
+        text: 'Primary Benefit: 45% reduction in annual maintenance costs',
+        highlightId: 'hl_primary_benefit',
+        isSelectableForTask: true,
+        analysisLabel: 'Primary Benefit',
+        wrongSelectionReason: 'This is a benefit, not the strategic focus. The strategic focus defines what type of benefits we are pursuing.',
+      },
+      {
+        type: 'text',
+        text: '- Secondary Benefit: Improved system reliability (99.9% uptime SLA)',
+      },
+      {
+        type: 'text',
+        text: '- Tertiary Benefit: Enhanced security posture',
+      },
+      {
+        type: 'heading',
+        text: '3. Benefits Realization Timeline',
+      },
+      {
+        type: 'text',
+        text: '- Phase 1 (Q2): Infrastructure assessment complete',
+      },
+      {
+        type: 'text',
+        text: '- Phase 2 (Q3): Migration execution',
+      },
+      {
+        type: 'text',
+        text: '- Phase 3 (Q4): Benefits measurement begins',
+      },
+      {
+        type: 'heading',
+        text: '4. Out of Scope',
+      },
+      {
+        type: 'highlight',
+        text: 'Customer-facing initiatives and loyalty programs are NOT within this project\'s strategic mandate.',
+        highlightId: 'hl_out_of_scope',
+        evidenceType: 'Regulatory',
+        isSelectableForTask: true,
+        analysisLabel: 'Scope Exclusion',
+      },
+      {
+        type: 'text',
+        text: 'Any customer growth initiatives should be proposed as separate projects under the Customer Experience portfolio.',
+      },
+    ],
+  },
+
+  // ========================================
   // LEVEL 2: Org Chart (Hidden Object Hunt)
   // ========================================
   {
@@ -325,15 +439,39 @@ export const INITIAL_DOCUMENTS: GameDocument[] = [
       },
       {
         type: 'text',
+        text: 'Sales Division',
+      },
+      {
+        type: 'highlight',
+        text: '├── Marcus (Sales VP)',
+        highlightId: 'hl_marcus',
+        isSelectableForTask: true,
+        analysisLabel: 'Sales VP',
+        wrongSelectionReason: 'Marcus (Sales VP) has already been identified through Chatter.',
+      },
+      {
+        type: 'text',
+        text: '├── Account Managers',
+      },
+      {
+        type: 'text',
+        text: '└── Sales Operations',
+      },
+      {
+        type: 'text',
+        text: '',
+      },
+      {
+        type: 'text',
         text: 'Technology Division',
       },
       {
         type: 'highlight',
-        text: '├── Marcus (Head of Legacy Systems)',
-        highlightId: 'hl_marcus',
+        text: '├── Sarah (IT Lead)',
+        highlightId: 'sh_sarah_discovery',
+        evidenceType: 'TechnicalSpec',
         isSelectableForTask: true,
-        analysisLabel: 'IT Director',
-        wrongSelectionReason: 'Marcus Chen (IT Director) has already been identified through Chatter.',
+        analysisLabel: 'IT Lead',
       },
       {
         type: 'text',
@@ -349,19 +487,15 @@ export const INITIAL_DOCUMENTS: GameDocument[] = [
       },
       {
         type: 'text',
-        text: 'Compliance Division',
-      },
-      {
-        type: 'highlight',
-        text: '├── Sarah (Data Privacy Officer)',
-        highlightId: 'sh_sarah_discovery',
-        evidenceType: 'Regulatory',
-        isSelectableForTask: true,
-        analysisLabel: 'Data Privacy',
+        text: 'Legal Division',
       },
       {
         type: 'text',
-        text: '└── Legal Team',
+        text: '├── Legal Counsel',
+      },
+      {
+        type: 'text',
+        text: '└── Contracts Team',
       },
       {
         type: 'text',
@@ -481,11 +615,11 @@ export const INITIAL_DOCUMENTS: GameDocument[] = [
       },
       {
         type: 'text',
-        text: '| Marcus | Legacy Systems | High | Low | Keep Satisfied |',
+        text: '| Marcus | Sales VP | High | High | Manage Closely |',
       },
       {
         type: 'text',
-        text: '| Sarah | Data Privacy | High | High | Manage Closely |',
+        text: '| Sarah | IT Lead | Medium | High | Keep Informed |',
       },
     ],
   },

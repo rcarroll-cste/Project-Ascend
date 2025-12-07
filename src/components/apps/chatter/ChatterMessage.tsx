@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 import { User } from 'lucide-react';
+import { getNPCAvatar } from '../../../data/npcAvatars';
+import { CartoonAvatar } from '../../common/CartoonAvatar';
 
 interface ChatterMessageProps {
   speaker: string;
@@ -12,7 +14,7 @@ interface ChatterMessageProps {
 
 export function ChatterMessage({
   speaker,
-  speakerAvatar,
+  speakerAvatar: _speakerAvatar,
   text,
   isPlayer = false,
   isSystem = false,
@@ -32,6 +34,8 @@ export function ChatterMessage({
     );
   }
 
+  const npcAvatar = getNPCAvatar(speaker);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -40,20 +44,12 @@ export function ChatterMessage({
     >
       {/* Avatar */}
       <div
-        className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+        className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden ${
           isPlayer ? 'bg-blue-600' : 'bg-slate-600'
         }`}
       >
-        {speakerAvatar ? (
-          <img
-            src={speakerAvatar}
-            alt={speaker}
-            className="w-8 h-8 rounded-full object-cover"
-            onError={(e) => {
-              // Fallback to icon if image fails to load
-              e.currentTarget.style.display = 'none';
-            }}
-          />
+        {npcAvatar ? (
+          <CartoonAvatar avatar={npcAvatar} size="sm" />
         ) : (
           <User size={16} className="text-slate-300" />
         )}

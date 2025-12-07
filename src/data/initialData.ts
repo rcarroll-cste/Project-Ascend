@@ -9,6 +9,7 @@ export const INITIAL_EMAILS: Email[] = [
     preview: 'Here are your login details for the PMIS system.',
     timestamp: '8:45 AM',
     isRead: true,
+    folder: 'inbox',
     categoryColor: '#3B82F6',
     body: `Your access to the Project Management Information System (PMIS) has been provisioned.
 
@@ -19,20 +20,101 @@ Please do not share these credentials.`
   },
   {
     id: 'email_sarah_jenkins',
-    sender: 'Sarah Jenkins',
-    subject: 'Quick question about the legacy data',
-    preview: 'Hi, I heard you\'re leading the new project. We have some concerns...',
+    sender: 'Sarah (IT Lead)',
+    subject: 'Technical concerns about the migration',
+    preview: 'Hi, I heard you\'re leading the server migration. As IT Lead, I have some technical insights...',
     timestamp: 'Yesterday',
     isRead: true,
+    folder: 'inbox',
     categoryColor: '#10B981',
     body: `Hi,
 
-I heard you're leading the new project. We have some concerns about how the new system will integrate with our legacy databases.
+I heard you're leading the server migration project. As IT Lead, I've been working with our legacy systems for years.
 
-Can we set up a time to chat?
+I have some technical insights about the integration challenges we might face. The legacy databases have some quirks that aren't documented anywhere.
+
+Can we set up a time to chat? I'd like to help make this migration successful.
 
 Best,
-Sarah`
+Sarah
+IT Lead`,
+    triggerAction: 'IDENTIFY_STAKEHOLDER',
+    triggerStakeholderId: 'sh_sarah',
+  },
+  {
+    id: 'email_marcus_concerns',
+    sender: 'Marcus Thompson (Sales VP)',
+    subject: 'RE: Server Migration Timeline - URGENT',
+    preview: 'I need to discuss serious concerns about the migration timing...',
+    timestamp: '2 days ago',
+    isRead: false,
+    folder: 'inbox',
+    categoryColor: '#F59E0B',
+    body: `To whom it may concern,
+
+I've reviewed the preliminary migration timeline and I have SERIOUS concerns. Q4 is our biggest quarter - Black Friday alone represents 30% of our annual revenue.
+
+If the systems go down during peak sales season, my team misses their bonus targets. That affects morale, retention, and ultimately the company's bottom line.
+
+I tried to raise this with the previous PM, but my concerns were dismissed. I hope we can have a more productive conversation this time.
+
+Marcus Thompson
+VP of Sales`,
+    triggerAction: 'IDENTIFY_STAKEHOLDER',
+    triggerStakeholderId: 'sh_marcus',
+  },
+  // SPAM FOLDER - Hidden Stakeholder Discovery (Level 2 mechanic)
+  {
+    id: 'email_compliance_spam',
+    sender: 'Regulatory Affairs Division',
+    subject: '[EXTERNAL] Mandatory Compliance Review Required',
+    preview: 'URGENT: Your project requires regulatory compliance assessment before...',
+    timestamp: '3 days ago',
+    isRead: false,
+    folder: 'spam',
+    categoryColor: '#EF4444',
+    body: `IMPORTANT NOTICE FROM THE REGULATORY COMPLIANCE OFFICE
+
+Dear Project Manager,
+
+Our records indicate that the "Server Migration Project" falls under the scope of data handling regulations (Sections 7.2, 7.3, and 12.1 of the Corporate Compliance Framework).
+
+REQUIRED ACTIONS:
+1. Complete Form RC-2024 (Data Migration Impact Assessment)
+2. Schedule a compliance review meeting within 10 business days
+3. Ensure data retention policies are documented before migration begins
+
+Failure to comply may result in project suspension and regulatory penalties.
+
+Contact: compliance.officer@regulatory.gov.corp
+Direct Line: ext. 4421
+
+This is an automated notice from the Regulatory Compliance Office.
+---
+If you believe you received this message in error, please contact the Compliance Body directly.`,
+    triggerAction: 'IDENTIFY_STAKEHOLDER',
+    triggerStakeholderId: 'sh_compliance',
+  },
+  {
+    id: 'email_newsletter_spam',
+    sender: 'Corporate Newsletter',
+    subject: 'This Week at Ascend Corp - Team Building Photos Inside!',
+    preview: 'Check out the highlights from last week\'s company picnic...',
+    timestamp: '5 days ago',
+    isRead: true,
+    folder: 'spam',
+    categoryColor: '#9CA3AF',
+    body: `ASCEND CORP WEEKLY NEWSLETTER
+
+Hello Team!
+
+Here are this week's highlights:
+- Company Picnic Photos (See attachment)
+- New Coffee Machine in Break Room B
+- Reminder: Parking Lot C closed for maintenance
+
+Have a great week!
+- Corporate Communications`
   }
 ];
 
@@ -41,7 +123,7 @@ export const INITIAL_CONTACTS: ChatterContact[] = [
   {
     id: 'contact_vane',
     name: 'Director Vane',
-    role: 'Sponsor (CEO)',
+    role: 'CEO',
     avatarUrl: '/assets/avatars/vane.png',
     isUnlocked: true, // Available from start
     hasUnreadMessages: true, // Level 1 starts with message from Vane
@@ -58,7 +140,7 @@ export const INITIAL_CONTACTS: ChatterContact[] = [
   {
     id: 'contact_marcus',
     name: 'Marcus',
-    role: 'Head of Legacy Systems',
+    role: 'Sales VP',
     avatarUrl: '/assets/avatars/marcus.png',
     isUnlocked: false, // Unlocks in Level 2 via Team Channel
     hasUnreadMessages: false,
@@ -66,9 +148,25 @@ export const INITIAL_CONTACTS: ChatterContact[] = [
   {
     id: 'contact_sarah',
     name: 'Sarah',
-    role: 'Data Privacy Officer',
+    role: 'IT Lead',
     avatarUrl: '/assets/avatars/sarah.png',
     isUnlocked: false, // Discovered via Org Chart hunt
+    hasUnreadMessages: false,
+  },
+  {
+    id: 'contact_legal',
+    name: 'Legal Counsel',
+    role: 'Legal Department',
+    avatarUrl: '/assets/avatars/legal.png',
+    isUnlocked: false, // Unlocks when player discusses risks with Vane
+    hasUnreadMessages: false,
+  },
+  {
+    id: 'contact_compliance',
+    name: 'Compliance Officer',
+    role: 'Regulatory Compliance (External)',
+    avatarUrl: '/assets/avatars/compliance.png',
+    isUnlocked: false, // Discovered via spam folder in Level 2
     hasUnreadMessages: false,
   },
 ];
@@ -94,36 +192,36 @@ export const INITIAL_STAKEHOLDERS: Stakeholder[] = [
   {
     id: 'sh_marcus',
     name: 'Marcus',
-    role: 'Head of Legacy Systems',
+    role: 'Sales VP',
     avatarUrl: '/assets/avatars/marcus.png',
     power: 'High',
-    interest: 'Low', // Correct placement: Keep Satisfied quadrant
-    attitude: 'Resistant', // Starts resistant, can soften if player collaborates
+    interest: 'High', // Sales VP is High Power/High Interest per GDD Level 2
+    attitude: 'Resistant', // Aggressive, bonus-focused per GDD - starts resistant
     // Salience Model attributes (GDD v3.3)
-    urgency: 'Low',
+    urgency: 'High', // Bonus targets create urgency
     legitimacy: 'High',
-    salienceClass: 'Dominant', // Power + Legitimacy = Dominant
+    salienceClass: 'Definitive', // Power + Urgency + Legitimacy = Definitive
     isIdentified: false, // Identified in Level 2 via Team Channel
     isAnalyzed: false,
     dialogueTreeId: 'dt_marcus_intro',
-    secret: 'Those mainframes run payroll - touching them could cause disaster',
+    secret: 'Bonus targets depend on Q4 sales - avoid Black Friday launch window',
   },
   {
     id: 'sh_sarah',
     name: 'Sarah',
-    role: 'Data Privacy Officer',
+    role: 'IT Lead',
     avatarUrl: '/assets/avatars/sarah.png',
-    power: 'High',
-    interest: 'High', // Correct placement: Manage Closely quadrant
-    attitude: 'Neutral',
+    power: 'Low', // Technical lead, influential but not decision-maker
+    interest: 'High', // Technical lead, highly interested in migration success
+    attitude: 'Supportive', // Helpful, technical per GDD
     // Salience Model attributes (GDD v3.3)
-    urgency: 'High',
+    urgency: 'High', // Technical work needs timely input
     legitimacy: 'High',
-    salienceClass: 'Definitive', // Power + Urgency + Legitimacy = Definitive
-    isIdentified: false, // Hidden - discovered via Org Chart hunt in Level 2
+    salienceClass: 'Dependent', // Legitimacy + Urgency = Dependent
+    isIdentified: false, // Discovered via email or Org Chart hunt in Level 2
     isAnalyzed: false,
     dialogueTreeId: 'dt_sarah_intro',
-    secret: 'Critical compliance requirements that could halt the project',
+    secret: 'Technical insights about legacy data integration challenges',
   },
   // GDD v3.3 Level 2 Step 1: Broad Entry - Decomposable stakeholder group
   {
@@ -144,39 +242,58 @@ export const INITIAL_STAKEHOLDERS: Stakeholder[] = [
     dialogueTreeId: '',
     secret: null,
   },
-  // GDD v3.3 Level 2 Step 3: Late Arrival - Compliance Body
+  // GDD v6.6: Legal Counsel - Risk-averse, slow
+  {
+    id: 'sh_legal',
+    name: 'Legal Counsel',
+    role: 'Legal Department',
+    avatarUrl: '/assets/avatars/legal.png',
+    power: 'Low', // Influential but not primary decision maker
+    interest: 'Low', // Risk-averse, not actively engaged unless needed
+    attitude: 'Neutral', // Risk-averse per GDD
+    urgency: 'Low', // Slow per GDD
+    legitimacy: 'High',
+    salienceClass: 'Discretionary', // Legitimacy only
+    isIdentified: false, // Discovered when discussing risks with Vane
+    isAnalyzed: false,
+    isExternal: false,
+    dialogueTreeId: '',
+    secret: 'Can slow down projects with excessive legal review but protects company',
+  },
+  // GDD v6.6 Level 2 Step 3: Late Arrival - Regulatory Compliance Officer (External)
   {
     id: 'sh_compliance',
-    name: 'Compliance Body',
-    role: 'Regulatory Oversight',
+    name: 'Regulatory Compliance Officer',
+    role: 'Regulatory Oversight (External)',
     avatarUrl: '/assets/avatars/compliance.png',
     power: 'High',
     interest: 'High',
-    attitude: 'Neutral',
+    attitude: 'Neutral', // Formal, bureaucratic per GDD
     urgency: 'High',
     legitimacy: 'High',
     salienceClass: 'Definitive',
-    isIdentified: false, // Discovered late in Level 2
+    isIdentified: false, // Discovered late in Level 2 via spam folder
     isAnalyzed: false,
+    isExternal: true, // External stakeholder per GDD Section 8
     dialogueTreeId: '',
     secret: 'New regulations that affect project scope',
   },
 ];
 
 export const INITIAL_EVIDENCE: EvidenceItem[] = [
-  // Correct Items
+  // Correct Items - Server Migration Narrative
   {
     id: 'ev_market_analysis',
-    name: 'Market Analysis Report',
-    description: 'Detailed analysis of the current market trends supporting the merger.',
+    name: 'Server Capacity Analysis',
+    description: 'Detailed analysis of current server infrastructure capacity and cloud migration benefits.',
     type: 'BusinessCase',
     isDistractor: false,
     qualityScore: 95,
   },
   {
     id: 'ev_legal_framework',
-    name: 'Merger Legal Framework',
-    description: 'Regulatory requirements and legal boundaries for the merger.',
+    name: 'Data Compliance Protocols',
+    description: 'Regulatory requirements and data handling procedures for the server migration.',
     type: 'Regulatory',
     isDistractor: false,
     qualityScore: 90,
@@ -184,7 +301,7 @@ export const INITIAL_EVIDENCE: EvidenceItem[] = [
   {
     id: 'ev_risk_register',
     name: 'Risk Register Draft',
-    description: 'Initial assessment of high-level risks including cultural alignment.',
+    description: 'Initial assessment of high-level risks including system downtime and data integrity.',
     type: 'Risk',
     isDistractor: false,
     qualityScore: 85,
@@ -214,6 +331,23 @@ export const INITIAL_EVIDENCE: EvidenceItem[] = [
     isDistractor: true,
     qualityScore: 15,
   },
+  // GDD v6.6 Financial Redline Protocol - Budget evidence items
+  {
+    id: 'ev_budget_350k',
+    name: 'Budget: $350,000',
+    description: 'Maximum authorized investment to maintain positive ROI from Business Case',
+    type: 'Agreement',
+    isDistractor: false,
+    qualityScore: 100,
+  },
+  {
+    id: 'ev_budget_500k',
+    name: 'Budget Request: $500,000',
+    description: 'Director Vane\'s initial budget request - exceeds authorized ROI cap',
+    type: 'Agreement',
+    isDistractor: true, // This is the wrong budget!
+    qualityScore: 0,
+  },
   // GDD v3.3 Step 4: Granularity Trap - Timeline documents
   {
     id: 'ev_milestone_summary',
@@ -238,14 +372,14 @@ export const INITIAL_CHARTER_SECTIONS: CharterSection[] = [
   {
     id: 'sec_purpose',
     label: 'Purpose / Business Case',
-    requiredType: 'BusinessCase', // Market Analysis Report goes here
+    requiredType: 'BusinessCase', // Server Capacity Analysis goes here
     assignedItemId: null,
     isLocked: false,
   },
   {
     id: 'sec_budget',
-    label: 'Budget Justification',
-    requiredType: 'Regulatory', // Legal Framework provides budget justification
+    label: 'Budget Authorization',
+    requiredType: 'Agreement', // Requires ev_budget_350k (correct) not ev_budget_500k (distractor)
     assignedItemId: null,
     isLocked: false,
   },

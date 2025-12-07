@@ -1,165 +1,300 @@
 import { ExamQuestion } from '../types';
 
-/**
- * ExamSim Questions per GDD v3.3
- *
- * These questions are shown at the end of each level to test retention
- * of the specific mechanics and PMBOK concepts just played.
- */
+// =============================================================================
+// EXAM QUESTIONS - GDD v4.3 Demo Scope
+// =============================================================================
+// Level 1: The Handover (Process 4.1 - Develop Project Charter)
+// Level 2: Who's Who? (Process 13.1 - Identify Stakeholders)
+//
+// Each level has 10 questions across multiple pools.
+// ExamSim randomly selects 5 questions per level.
+// =============================================================================
 
 export const EXAM_QUESTIONS: ExamQuestion[] = [
-  // ===== LEVEL 1: The Handover (Develop Project Charter) =====
+  // ===========================================================================
+  // LEVEL 1 - THE HANDOVER (Develop Project Charter)
+  // ===========================================================================
 
-  // Q1: Authority Trap
+  // Pool A: Authority & Purpose (Q1-Q2)
   {
-    id: 'l1_q1_authority',
+    id: 'L1_Q1',
     levelId: 1,
-    question: 'Your sponsor asks you to order materials before the Project Charter is signed. What should you do?',
+    question: 'A senior manager asks you to commit resources to a new initiative, but the Project Charter is not yet signed. What is the BEST course of action?',
     options: [
-      'Order the materials immediately to save time',
-      'Refuse and wait for the Charter to be authorized first',
-      'Order half the materials as a compromise',
-      'Delegate the decision to a team member',
+      'Commit the resources to maintain a good relationship with the manager',
+      'Refuse until the Charter is formally signed and you have authority',
+      'Ask the team to start working unofficially',
+      'Escalate immediately to the CEO',
     ],
     correctIndex: 1,
-    explanation: 'Without an authorized Project Charter, the PM has no authority to commit organizational resources. The Charter formally authorizes the project and grants the PM authority to apply resources.',
+    explanation: 'Without a signed Charter, the project manager has no formal authority to commit resources. The Charter formally authorizes the project and gives the PM authority to apply organizational resources.',
   },
-
-  // Q2: Risk Misalignment
   {
-    id: 'l1_q2_risks',
+    id: 'L1_Q2',
     levelId: 1,
-    question: 'High-level risks are identified that threaten the Business Case ROI. What is the BEST course of action?',
-    options: [
-      'Ignore the risks and proceed with the Charter',
-      'Cancel the project immediately',
-      'Discuss with the Sponsor to realign expectations',
-      'Hide the risks from stakeholders',
-    ],
-    correctIndex: 2,
-    explanation: 'When high-level risks threaten the business case, the PM should discuss with the Sponsor to realign expectations and determine if the project should proceed, be modified, or be cancelled.',
-  },
-
-  // Q3: Budget Conflict (Conflict Resolution)
-  {
-    id: 'l1_q3_conflict',
-    levelId: 1,
-    question: 'A key stakeholder refuses to sign the Charter because they believe the budget is unrealistic. What conflict resolution technique should you use?',
-    options: [
-      'Forcing - Insist the Sponsor approved it',
-      'Withdrawal - Come back later when they calm down',
-      'Collaborate/Problem Solve - Review the data together',
-      'Smoothing - Emphasize areas of agreement',
-    ],
-    correctIndex: 2,
-    explanation: 'Collaborating (Problem Solving) incorporates multiple viewpoints to reach consensus. By reviewing the data together, you can correct any errors and build stakeholder buy-in.',
-  },
-
-  // Q4: Economic Feasibility
-  {
-    id: 'l1_q4_business_case',
-    levelId: 1,
-    question: 'What is the PRIMARY input document used to justify the investment in a project?',
+    question: 'You realize the organizational goals for the project are vague. Which document establishes the project\'s formal existence and provides the PM with authority?',
     options: [
       'Project Management Plan',
       'Business Case',
-      'Work Breakdown Structure',
-      'Risk Register',
-    ],
-    correctIndex: 1,
-    explanation: 'The Business Case documents the economic feasibility study and justifies the project investment. It is a key input to the Develop Project Charter process.',
-  },
-
-  // Q5: Charter Authority
-  {
-    id: 'l1_q5_no_charter',
-    levelId: 1,
-    question: 'Midway through execution, it is discovered that no Project Charter exists. What is the MOST significant impact?',
-    options: [
-      'The schedule will be delayed',
-      'The PM lacks formal authority to apply resources',
-      'The budget cannot be tracked',
-      'Stakeholders cannot be identified',
-    ],
-    correctIndex: 1,
-    explanation: 'The Project Charter formally authorizes the project and gives the PM authority to apply organizational resources. Without it, the PM has no formal authority.',
-  },
-
-  // ===== LEVEL 2: Who\'s Who? (Identify Stakeholders) =====
-
-  // Q6: Next Step After Charter
-  {
-    id: 'l2_q1_next_step',
-    levelId: 2,
-    question: 'The Project Charter has been completed and authorized. What is the NEXT step in the Initiating Process Group?',
-    options: [
-      'Create the WBS',
-      'Develop the Project Management Plan',
-      'Identify Stakeholders',
-      'Define Scope',
+      'Project Charter',
+      'Scope Statement',
     ],
     correctIndex: 2,
-    explanation: 'After the Charter is authorized, the next process in Initiating is Identify Stakeholders (13.1). Planning processes like WBS and PMP come later.',
+    explanation: 'The Project Charter formally authorizes the existence of a project and provides the project manager with authority to apply organizational resources to project activities.',
   },
 
-  // Q7: Power/Interest Grid
+  // Pool B: Inputs & Origins (Q3-Q4)
   {
-    id: 'l2_q2_grid',
-    levelId: 2,
-    question: 'Union representatives have High Power and High Interest in your project. How should they be classified on the Power/Interest Grid?',
+    id: 'L1_Q3',
+    levelId: 1,
+    question: 'Which document justifies the financial investment and expected ROI for a project?',
     options: [
-      'Monitor (Minimal effort)',
+      'Project Charter',
+      'Business Case',
+      'Statement of Work',
+      'Requirements Document',
+    ],
+    correctIndex: 1,
+    explanation: 'The Business Case documents the business need and cost-benefit analysis that justifies the project investment. It is a key input to Develop Project Charter.',
+  },
+  {
+    id: 'L1_Q4',
+    levelId: 1,
+    question: 'The sponsor asks why certain high-level requirements are included in the Project Charter. Where did these likely originate?',
+    options: [
+      'The project team brainstorming session',
+      'Agreements, Contracts, or the Business Case',
+      'The Risk Register',
+      'Previous project lessons learned',
+    ],
+    correctIndex: 1,
+    explanation: 'High-level requirements in the Charter typically come from agreements/contracts (external projects) or the Business Case (internal projects). These establish the initial scope boundaries.',
+  },
+
+  // Pool C: Content & Granularity (Q5-Q6)
+  {
+    id: 'L1_Q5',
+    levelId: 1,
+    question: 'A stakeholder demands a detailed activity-by-activity schedule in the Project Charter. What is your response?',
+    options: [
+      'Include the detailed schedule to satisfy the stakeholder',
+      'Reject the request; Charters contain only Summary Milestones',
+      'Create a separate document with the detailed schedule',
+      'Defer the decision until Planning',
+    ],
+    correctIndex: 1,
+    explanation: 'The Project Charter contains only summary milestone schedules, not detailed activity-level schedules. Detailed scheduling occurs during the Planning phase in the Develop Schedule process.',
+  },
+  {
+    id: 'L1_Q6',
+    levelId: 1,
+    question: 'Is a detailed communication strategy appropriate for inclusion in a Project Charter?',
+    options: [
+      'Yes, all communication details should be in the Charter',
+      'Yes, but only for external stakeholders',
+      'No, that belongs in the Project Management Plan',
+      'No, communication is not documented anywhere',
+    ],
+    correctIndex: 2,
+    explanation: 'Detailed communication strategies belong in the Communications Management Plan, which is part of the Project Management Plan developed during Planning. The Charter only provides high-level information.',
+  },
+
+  // Pool D: Assumptions & Constraints (Q9-Q10 per GDD numbering)
+  {
+    id: 'L1_Q9',
+    levelId: 1,
+    question: 'The sponsor states that "Vendor X will likely deliver on time" without a contract guarantee. Where do you document this?',
+    options: [
+      'Risk Register',
+      'Project Charter under Constraints',
+      'Assumption Log',
+      'Issues Log',
+    ],
+    correctIndex: 2,
+    explanation: 'Statements believed to be true without proof are documented in the Assumption Log. Assumptions carry risk and should be validated. Constraints are limiting factors imposed on the project.',
+  },
+  {
+    id: 'L1_Q10',
+    levelId: 1,
+    question: 'What are the two primary outputs of the Develop Project Charter process?',
+    options: [
+      'Project Charter and Project Management Plan',
+      'Project Charter and Assumption Log',
+      'Business Case and Project Charter',
+      'Project Charter and Stakeholder Register',
+    ],
+    correctIndex: 1,
+    explanation: 'The Develop Project Charter process (4.1) produces two outputs: the Project Charter and the Assumption Log. The Assumption Log captures high-level assumptions and constraints.',
+  },
+
+  // Pool E: Timing & Lifecycle (Q7-Q8)
+  {
+    id: 'L1_Q7',
+    levelId: 1,
+    question: 'During Planning, a conflict arises regarding the project\'s high-level boundaries and scope. Which document is the source of truth?',
+    options: [
+      'Scope Management Plan',
+      'Work Breakdown Structure',
+      'Project Charter',
+      'Requirements Traceability Matrix',
+    ],
+    correctIndex: 2,
+    explanation: 'The Project Charter is the source of truth for high-level scope, boundaries, and project objectives. It serves as the foundational reference throughout the project lifecycle.',
+  },
+  {
+    id: 'L1_Q8',
+    levelId: 1,
+    question: 'The sponsor wants to skip the Project Charter to "save time." What is the primary risk of this approach?',
+    options: [
+      'The project may go over budget',
+      'Scope Creep and lack of formal authority',
+      'Team morale may suffer',
+      'Documentation will be incomplete',
+    ],
+    correctIndex: 1,
+    explanation: 'Skipping the Charter means no formal project authorization, no defined scope boundaries, and no PM authority. This leads to scope creep, unclear expectations, and lack of stakeholder alignment.',
+  },
+
+  // ===========================================================================
+  // LEVEL 2 - WHO'S WHO? (Identify Stakeholders)
+  // ===========================================================================
+
+  // Pool A: Identification Strategy (Q1-Q3)
+  {
+    id: 'L2_Q1',
+    levelId: 2,
+    question: 'The Project Charter has just been signed. What is your immediate next step?',
+    options: [
+      'Begin detailed planning',
+      'Identify Stakeholders',
+      'Create the WBS',
+      'Develop the Schedule',
+    ],
+    correctIndex: 1,
+    explanation: 'After the Charter is signed, the next process is Identify Stakeholders (13.1). This ensures all people and organizations impacted by the project are known before planning begins.',
+  },
+  {
+    id: 'L2_Q2',
+    levelId: 2,
+    question: 'You discover a new regulatory body that affects your project halfway through execution. What is the correct procedure?',
+    options: [
+      'Ignore them since planning is complete',
+      'Add them to the Stakeholder Register immediately; identification is iterative',
+      'Wait until the next project phase',
+      'Ask the sponsor to handle them',
+    ],
+    correctIndex: 1,
+    explanation: 'Stakeholder identification is an iterative process that continues throughout the project. New stakeholders should be added to the register immediately when discovered.',
+  },
+  {
+    id: 'L2_Q3',
+    levelId: 2,
+    question: 'You are new to the company and need to identify stakeholders. Who is the BEST person to ask for the initial list?',
+    options: [
+      'The previous project manager',
+      'The Project Sponsor',
+      'The HR department',
+      'Your direct team members',
+    ],
+    correctIndex: 1,
+    explanation: 'The Project Sponsor is the primary source for initial stakeholder identification. They have organizational knowledge, authority, and vested interest in identifying key players.',
+  },
+
+  // Pool B: Classification & Analysis (Q4-Q6)
+  {
+    id: 'L2_Q4',
+    levelId: 2,
+    question: 'On the Power/Interest Grid, a stakeholder with High Power but Low Interest should be managed using which strategy?',
+    options: [
+      'Manage Closely',
+      'Keep Informed',
+      'Keep Satisfied',
+      'Monitor',
+    ],
+    correctIndex: 2,
+    explanation: 'High Power/Low Interest stakeholders should be kept satisfied. They have the power to impact the project but are not actively engaged, so maintain their support without overwhelming them.',
+  },
+  {
+    id: 'L2_Q5',
+    levelId: 2,
+    question: 'On the Power/Interest Grid, a stakeholder with Low Power but High Interest should be managed using which strategy?',
+    options: [
+      'Manage Closely',
+      'Keep Informed',
+      'Keep Satisfied',
+      'Monitor',
+    ],
+    correctIndex: 1,
+    explanation: 'Low Power/High Interest stakeholders should be kept informed. While they cannot directly influence the project, their interest means they want to know what is happening.',
+  },
+  {
+    id: 'L2_Q6',
+    levelId: 2,
+    question: 'What are the three attributes used in the Salience Model to classify stakeholders?',
+    options: [
+      'Power, Interest, Influence',
+      'Power, Urgency, Legitimacy',
+      'Authority, Interest, Impact',
+      'Engagement, Support, Resistance',
+    ],
+    correctIndex: 1,
+    explanation: 'The Salience Model uses three attributes: Power (ability to impose will), Urgency (need for immediate attention), and Legitimacy (appropriate involvement). Stakeholders with all three are "Definitive."',
+  },
+
+  // Pool C: Engagement Strategy (Q7-Q8)
+  {
+    id: 'L2_Q7',
+    levelId: 2,
+    question: 'A Union Representative has the power to halt work and has deep interest in the project outcome. What is the appropriate engagement strategy?',
+    options: [
+      'Monitor',
       'Keep Informed',
       'Keep Satisfied',
       'Manage Closely',
     ],
     correctIndex: 3,
-    explanation: 'Stakeholders with High Power and High Interest should be placed in the "Manage Closely" quadrant. They require the most attention and engagement.',
+    explanation: 'High Power/High Interest stakeholders must be managed closely. They can significantly impact the project and are actively engaged, requiring regular communication and attention.',
   },
-
-  // Q8: Salience Model Attributes
   {
-    id: 'l2_q3_salience',
+    id: 'L2_Q8',
     levelId: 2,
-    question: 'What are the THREE attributes used in the Salience Model for stakeholder classification?',
+    question: 'A stakeholder is resistant to the project but lacks any real power to affect it. What is the appropriate engagement strategy?',
     options: [
-      'Power, Budget, Timeline',
-      'Power, Urgency, Legitimacy',
-      'Influence, Interest, Impact',
-      'Authority, Control, Engagement',
+      'Manage Closely',
+      'Keep Informed / Monitor',
+      'Ignore completely',
+      'Escalate to the sponsor',
     ],
     correctIndex: 1,
-    explanation: 'The Salience Model classifies stakeholders based on three attributes: Power (ability to impose will), Urgency (need for immediate attention), and Legitimacy (appropriate involvement).',
+    explanation: 'Low Power stakeholders (even if resistant) should be kept informed or monitored. Their resistance is less impactful, but keeping them informed may help shift their attitude over time.',
   },
 
-  // Q9: Broad Stakeholder Groups
+  // Pool D: Tools & Outputs (Q9-Q10)
   {
-    id: 'l2_q4_decompose',
+    id: 'L2_Q9',
     levelId: 2,
-    question: 'A team member suggests adding "The Entire Company" to the stakeholder register. What is the BEST response?',
+    question: 'You need to understand a stakeholder\'s confidential political goals and hidden concerns. What is the BEST technique?',
     options: [
-      'Accept the suggestion as-is',
-      'Ignore the suggestion entirely',
-      'Break it down into specific categories (HR, IT, Managers, etc.)',
-      'Add only department heads',
+      'Send a survey',
+      'Interviews/Conversations',
+      'Review organizational documents',
+      'Check the organizational chart',
     ],
-    correctIndex: 2,
-    explanation: 'Broad stakeholder groups like "The Entire Company" are too vague to manage effectively. They should be decomposed into specific, manageable categories.',
+    correctIndex: 1,
+    explanation: 'One-on-one interviews and conversations are the best way to uncover confidential or politically sensitive information. Surveys and documents cannot capture nuanced, hidden concerns.',
   },
-
-  // Q10: Iterative Identification
   {
-    id: 'l2_q5_late_stakeholder',
+    id: 'L2_Q10',
     levelId: 2,
-    question: 'A new regulatory body is identified after you\'ve "finalized" the stakeholder register. What should you do?',
+    question: 'What is the primary output document that captures all stakeholder information?',
     options: [
-      'Ignore them until the next project phase',
-      'Wait until the next planning cycle',
-      'Update the register immediately and perform new analysis',
-      'Note it for lessons learned',
+      'Project Charter',
+      'Communication Management Plan',
+      'Stakeholder Register',
+      'RACI Chart',
     ],
     correctIndex: 2,
-    explanation: 'Stakeholder identification is an iterative process that continues throughout the project. New stakeholders should be added and analyzed immediately when discovered.',
+    explanation: 'The Stakeholder Register is the primary output of Identify Stakeholders. It contains identification information, assessment information, and stakeholder classification for all identified stakeholders.',
   },
 ];
 
@@ -168,5 +303,29 @@ export const getQuestionsByLevel = (levelId: number): ExamQuestion[] => {
   return EXAM_QUESTIONS.filter(q => q.levelId === levelId);
 };
 
+// Helper function to get random questions for exam
+export const getRandomExamQuestions = (levelId: number, count: number = 5): ExamQuestion[] => {
+  const levelQuestions = getQuestionsByLevel(levelId);
+  const shuffled = [...levelQuestions].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, Math.min(count, shuffled.length));
+};
+
 // Passing score threshold (percentage)
 export const PASSING_SCORE = 80; // 4 out of 5 = 80%
+
+// Question pools for reference (GDD v4.3)
+export const QUESTION_POOLS = {
+  level1: {
+    A: ['L1_Q1', 'L1_Q2'],        // Authority & Purpose
+    B: ['L1_Q3', 'L1_Q4'],        // Inputs & Origins
+    C: ['L1_Q5', 'L1_Q6'],        // Content & Granularity
+    D: ['L1_Q9', 'L1_Q10'],       // Assumptions & Constraints
+    E: ['L1_Q7', 'L1_Q8'],        // Timing & Lifecycle
+  },
+  level2: {
+    A: ['L2_Q1', 'L2_Q2', 'L2_Q3'], // Identification Strategy
+    B: ['L2_Q4', 'L2_Q5', 'L2_Q6'], // Classification & Analysis
+    C: ['L2_Q7', 'L2_Q8'],          // Engagement Strategy
+    D: ['L2_Q9', 'L2_Q10'],         // Tools & Outputs
+  },
+};

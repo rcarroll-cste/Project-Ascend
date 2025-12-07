@@ -1,15 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDroppable, useDraggable } from '@dnd-kit/core';
 import { RootState } from '../../../store';
 import { assignEvidenceToSection } from '../../../features/pmisSlice';
-import { FileText, Lock, CheckCircle, AlertCircle, Send, Award } from 'lucide-react';
+import { FileText, Lock, CheckCircle, AlertCircle, Send, Award, BookOpen, ShieldCheck, ShieldAlert } from 'lucide-react';
 import { EvidenceItem } from '../../../types';
-import { incrementCharterSubmission, advanceLevel, addNotification, unlockProcess } from '../../../features/gameSlice';
+import {
+  incrementCharterSubmission,
+  addNotification,
+  unlockProcess,
+  completeObjective,
+  completeLevel,
+  unlockApp,
+} from '../../../features/gameSlice';
 import { unlockContact, setContactUnread } from '../../../features/dialogueSlice';
 import { identifyStakeholder } from '../../../features/pmisSlice';
 import { motion, AnimatePresence } from 'framer-motion';
 import { logger } from '../../../utils/logger';
+import { getLevelById } from '../../../data/levels';
 
 // --- Draggable Evidence Component ---
 interface DraggableEvidenceProps {
@@ -131,9 +139,39 @@ export const CharterBuilder: React.FC = () => {
   const dispatch = useDispatch();
   const { charterSections } = useSelector((state: RootState) => state.pmis);
   const { items } = useSelector((state: RootState) => state.inventory);
-  const { charterSubmissionCount } = useSelector((state: RootState) => state.game);
+  const { charterSubmissionCount, currentLevelId, levelProgress } = useSelector(
+    (state: RootState) => state.game
+  );
   const [showSuccess, setShowSuccess] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
+
+  // GDD v6.6 Strategic Alignment Check
+  const [strategicAlignmentVerified, setStrategicAlignmentVerified] = useState(false);
+
+  const currentLevel = getLevelById(currentLevelId);
+  const currentProgress = levelProgress[currentLevelId];
+
+  // Track objective completion
+  useEffect(() => {
+    // Check if user has collected valid inputs (from files/documents)
+    const hasBusinessCaseEvidence = items.some(
+      (item) => item.type === 'BusinessCase' && !item.isDistractor
+    );
+    const hasAgreementEvidence = items.some(
+      (item) => item.type === 'Agreement' && !item.isDistractor
+    );
+
+    if (
+      hasBusinessCaseEvidence &&
+      hasAgreementEvidence &&
+      currentLevelId === 1 &&
+      !currentProgress?.objectivesCompleted['filter_valid_inputs']
+    ) {
+      dispatch(
+        completeObjective({ levelId: 1, objectiveId: 'filter_valid_inputs' })
+      );
+    }
+  }, [items, currentLevelId, currentProgress, dispatch]);
 
   // Filter out items that are already assigned to a section
   const assignedIds = charterSections.map(s => s.assignedItemId).filter(Boolean);
@@ -163,17 +201,28 @@ export const CharterBuilder: React.FC = () => {
         return;
       }
 
+      // GDD v6.6 Financial Redline Protocol - Special message for wrong budget
+      if (section.id === 'sec_budget' && assignedItem.id === 'ev_budget_500k') {
+        errors.push(`${section.label}: Budget Violation! $500,000 exceeds the authorized ROI cap of $350,000. Check the Business Case Investment Constraints.`);
+        return;
+      }
+
       // Check if item type matches required type
       if (assignedItem.type !== section.requiredType) {
         errors.push(`${section.label}: Wrong item type (needs ${section.requiredType})`);
         return;
       }
 
-      // Check if it's a distractor
+      // Check if it's a distractor (general case)
       if (assignedItem.isDistractor) {
-        errors.push(`${section.label}: Item is not suitable for the Charter`);
+        errors.push(`${section.label}: This item is not suitable for the Charter. Verify against source documents.`);
       }
     });
+
+    // GDD v6.6 Strategic Alignment Check - Required for full points
+    if (!strategicAlignmentVerified) {
+      errors.push('Strategic Alignment: Not verified. Check the Benefits Management Plan to confirm project alignment.');
+    }
 
     return { isValid: errors.length === 0, errors };
   };
@@ -223,6 +272,9 @@ export const CharterBuilder: React.FC = () => {
     setValidationErrors([]);
     setShowSuccess(true);
 
+    // Complete the draft_charter objective
+    dispatch(completeObjective({ levelId: 1, objectiveId: 'draft_charter' }));
+
     // Trigger Level 2 progression after a delay
     setTimeout(() => {
       logger.info('CharterBuilder', 'Triggering Level 2 progression');
@@ -249,20 +301,33 @@ export const CharterBuilder: React.FC = () => {
       // Unlock "Identify Stakeholders" process for Level 2
       dispatch(unlockProcess('proc_identify_stakeholders'));
 
-      // Advance to Level 2
-      dispatch(advanceLevel({ level: 2, title: "Who's Who?" }));
-      logger.info('CharterBuilder', 'Level 2 dispatched');
+      // Unlock Email app for Level 2
+      dispatch(unlockApp('email'));
+
+      // Complete Level 1 and transition to Level Complete screen
+      dispatch(completeLevel(1));
+      logger.info('CharterBuilder', 'Level 1 completed');
 
       // Add success notification
-      dispatch(addNotification({
-        id: `notif_${Date.now()}`,
-        title: 'Charter Authorized!',
-        message: 'Level 2: "Who\'s Who?" - Identify and analyze your stakeholders.',
-        type: 'success',
-        duration: 8000,
-      }));
+      dispatch(
+        addNotification({
+          id: `notif_${Date.now()}`,
+          title: 'Charter Authorized!',
+          message: 'Level 1 Complete! Proceeding to Level 2: The Politics',
+          type: 'success',
+          duration: 8000,
+        })
+      );
     }, 2500);
   };
+
+  // Calculate objectives progress
+  const objectivesStatus = currentLevel?.objectives.map((obj) => ({
+    ...obj,
+    isCompleted: currentProgress?.objectivesCompleted[obj.id] || false,
+  })) || [];
+
+  const completedObjectivesCount = objectivesStatus.filter((o) => o.isCompleted).length;
 
   return (
     <div className="flex h-full p-6 space-x-6 relative">
@@ -356,6 +421,42 @@ export const CharterBuilder: React.FC = () => {
             ))}
           </div>
 
+          {/* GDD v6.6 Strategic Alignment Check */}
+          <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                {strategicAlignmentVerified ? (
+                  <ShieldCheck size={24} className="text-green-600" />
+                ) : (
+                  <ShieldAlert size={24} className="text-amber-600" />
+                )}
+                <div>
+                  <h4 className="font-medium text-gray-800">Strategic Alignment Check</h4>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    Verify project aligns with Benefits Management Plan before authorization
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setStrategicAlignmentVerified(!strategicAlignmentVerified)}
+                className={`
+                  px-4 py-2 rounded-lg text-sm font-medium transition-all
+                  ${strategicAlignmentVerified
+                    ? 'bg-green-100 text-green-700 border border-green-300 hover:bg-green-200'
+                    : 'bg-amber-100 text-amber-700 border border-amber-300 hover:bg-amber-200'}
+                `}
+              >
+                {strategicAlignmentVerified ? '✓ Verified' : 'Mark as Verified'}
+              </button>
+            </div>
+            {!strategicAlignmentVerified && (
+              <p className="mt-3 text-xs text-amber-700 bg-amber-100 p-2 rounded">
+                <strong>Hint:</strong> Director Vane wants to add a "Customer Loyalty Module".
+                Open <strong>Files → Benefits_Management_Plan.pdf</strong> to verify if this aligns with the project's strategic focus.
+              </p>
+            )}
+          </div>
+
           <div className="mt-8 pt-4 border-t border-gray-100 flex justify-end">
              <button
                 onClick={handleSubmit}
@@ -369,29 +470,65 @@ export const CharterBuilder: React.FC = () => {
         </div>
       </div>
 
-      {/* Right Column: Inventory */}
-      <div className="w-80 flex flex-col bg-gray-50 rounded-xl border border-gray-200">
-        <div className="p-4 border-b border-gray-200 bg-white rounded-t-xl">
-          <h3 className="font-semibold text-gray-700 flex items-center">
-            <FileText size={18} className="mr-2 text-purple-600" />
-            Evidence Inventory
-          </h3>
-        </div>
+      {/* Right Column: Inventory & Objectives */}
+      <div className="w-80 flex flex-col gap-4">
+        {/* Level Objectives Panel */}
+        {currentLevel && (
+          <div className="bg-purple-50 rounded-xl border border-purple-200 p-4">
+            <h3 className="font-semibold text-purple-800 flex items-center gap-2 mb-3">
+              <BookOpen size={16} />
+              Level {currentLevelId} Objectives
+            </h3>
+            <div className="text-xs text-purple-600 mb-2">
+              {completedObjectivesCount}/{objectivesStatus.length} completed
+            </div>
+            <ul className="space-y-2">
+              {objectivesStatus.slice(0, 4).map((obj) => (
+                <li
+                  key={obj.id}
+                  className={`flex items-start gap-2 text-sm ${
+                    obj.isCompleted ? 'text-green-700' : 'text-gray-600'
+                  }`}
+                >
+                  {obj.isCompleted ? (
+                    <CheckCircle size={14} className="text-green-500 mt-0.5 shrink-0" />
+                  ) : (
+                    <div className="w-3.5 h-3.5 rounded-full border-2 border-gray-300 mt-0.5 shrink-0" />
+                  )}
+                  <span className={obj.isCompleted ? 'line-through opacity-60' : ''}>
+                    {obj.description}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
-        <div className="p-4 flex-1 overflow-y-auto">
+        {/* Evidence Inventory */}
+        <div className="flex-1 flex flex-col bg-gray-50 rounded-xl border border-gray-200">
+          <div className="p-4 border-b border-gray-200 bg-white rounded-t-xl">
+            <h3 className="font-semibold text-gray-700 flex items-center">
+              <FileText size={18} className="mr-2 text-purple-600" />
+              Evidence Inventory
+            </h3>
+          </div>
+
+          <div className="p-4 flex-1 overflow-y-auto">
             {availableItems.length === 0 ? (
-                <div className="text-center text-gray-400 mt-10">
-                    <p>No items available.</p>
-                    <p className="text-xs mt-2">Check Files app or extract evidence from documents.</p>
-                </div>
+              <div className="text-center text-gray-400 mt-10">
+                <p>No items available.</p>
+                <p className="text-xs mt-2">
+                  Check Files app or extract evidence from documents.
+                </p>
+              </div>
             ) : (
-                availableItems.map(item => (
-                    <DraggableEvidence key={item.id} item={item} />
-                ))
+              availableItems.map((item) => (
+                <DraggableEvidence key={item.id} item={item} />
+              ))
             )}
+          </div>
         </div>
       </div>
-
     </div>
   );
 };

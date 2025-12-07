@@ -72,25 +72,27 @@ export const DOCUMENT_TASKS: DocumentAnalysisTask[] = [
     id: 'task_level1_budget',
     documentId: 'doc_business_case',
     taskType: 'find_budget',
-    promptText: 'Find the approved project budget for the Charter.',
-    hintText: 'Look for the specific dollar amount allocated to the project.',
-    correctHighlightIds: ['ev_budget_500k'],
+    promptText: 'The Financial Redline Protocol: Find the AUTHORIZED budget cap for the Charter.',
+    hintText: 'Director Vane requested $500k, but the Business Case defines a maximum investment to maintain positive ROI. Look for investment constraints.',
+    correctHighlightIds: ['ev_budget_350k'],
     incorrectFeedback: {
+      ev_budget_500k:
+        'Careful! This is Director Vane\'s request, not the authorized amount. The Business Case defines a maximum investment to maintain positive ROI. Keep reading!',
       hl_roi_20_percent:
-        'ROI is the return, not the budget. What is the actual funding amount?',
+        'ROI is the return metric, not the budget cap. What is the maximum authorized investment?',
       hl_maintenance_costs:
         'These are current costs, not the new project budget.',
     },
     defaultIncorrectMessage:
-      'Look for the specific dollar amount that has been approved for this project.',
+      'Look for the maximum authorized investment that maintains positive ROI. Director Vane\'s request may exceed this limit.',
     successFeedback:
-      'Budget figure extracted. The $500,000 budget will be a key input for your Project Charter and provides spending authority.',
+      'Correct! The Business Case caps the budget at $350,000 to maintain positive ROI. Using Vane\'s $500k request would violate financial policy. This is the "Redline Protocol" - always verify budget against the Business Case!',
     isCompleted: false,
     levelId: 1,
     unlockCondition: 'task_level1_roi',
     consequence: {
       type: 'extract_evidence',
-      payload: { evidenceId: 'ev_budget_500k' },
+      payload: { evidenceId: 'ev_budget_350k' },
     },
   },
   {
@@ -119,6 +121,34 @@ export const DOCUMENT_TASKS: DocumentAnalysisTask[] = [
     consequence: {
       type: 'extract_evidence',
       payload: { evidenceId: 'ev_mou_deliverables' },
+    },
+  },
+
+  // ========================================
+  // LEVEL 1: Strategic Alignment Check
+  // ========================================
+  {
+    id: 'task_level1_strategy',
+    documentId: 'doc_benefits_plan',
+    taskType: 'find_justification',
+    promptText: 'Director Vane wants to add a "Customer Loyalty Module". Verify the project\'s strategic focus.',
+    hintText: 'The Benefits Management Plan defines what type of strategic benefits this project should deliver. Is customer loyalty within scope?',
+    correctHighlightIds: ['hl_strategic_focus'],
+    incorrectFeedback: {
+      hl_primary_benefit:
+        'This describes a specific benefit, not the strategic focus. The strategic focus tells us what type of value we\'re pursuing.',
+      hl_out_of_scope:
+        'Good instinct! This confirms what\'s excluded. But first, find what the strategic focus actually IS.',
+    },
+    defaultIncorrectMessage:
+      'The Benefits Management Plan defines the strategic direction. Look for the section that states what type of value this project should deliver.',
+    successFeedback:
+      'Correct! The strategic focus is "Internal Operational Efficiency and Cost Reduction" - NOT customer growth. Adding a Customer Loyalty Module would be a strategic misalignment. The Benefits Management Plan governs what the project should achieve!',
+    isCompleted: false,
+    levelId: 1,
+    consequence: {
+      type: 'complete_objective',
+      payload: { objectiveId: 'verify_strategic_alignment' },
     },
   },
 
@@ -208,5 +238,7 @@ export const EDUCATIONAL_CONTENT: Record<string, string> = {
   find_stakeholder:
     'Stakeholder Identification (PMBOK 13.1) is performed iteratively throughout the project. New stakeholders can emerge at any phase, especially when regulatory requirements change or new team members join.',
   find_budget:
-    'The Project Budget, as authorized in the Charter, defines the spending authority for the project. Exceeding this without a Change Request is a compliance violation.',
+    'The Project Budget, as authorized in the Charter, defines the spending authority for the project. The "Financial Redline Protocol" requires verifying the budget against the Business Case\'s ROI constraints. A sponsor may request more than the authorized amount - the PM must use the Business Case to determine the correct cap.',
+  strategic_alignment:
+    'The Benefits Management Plan (PMBOK 1.2.6.2) defines the target benefits and strategic alignment of the project. Adding features outside the strategic focus (e.g., Customer Loyalty when the focus is Internal Efficiency) constitutes "scope creep" and requires a formal Change Request to the strategic objectives.',
 };

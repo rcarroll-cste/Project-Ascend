@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, User } from 'lucide-react';
 import { RootState } from '../../../store';
+import { getNPCAvatar } from '../../../data/npcAvatars';
+import { CartoonAvatar } from '../../common/CartoonAvatar';
 import {
   setActiveContact,
   addMessage,
@@ -239,50 +241,46 @@ export function ChatterApp() {
           </h2>
         </div>
         <div className="flex-1 overflow-y-auto">
-          {unlockedContacts.map((contact) => (
-            <button
-              key={contact.id}
-              onClick={() => dispatch(setActiveContact(contact.id))}
-              className={`w-full p-3 flex items-center gap-3 hover:bg-slate-800 transition-colors ${
-                activeContactId === contact.id ? 'bg-slate-800' : ''
-              }`}
-            >
-              <div className="relative">
-                <div className="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center">
-                  {contact.avatarUrl ? (
-                    <img
-                      src={contact.avatarUrl}
-                      alt={contact.name}
-                      className="w-10 h-10 rounded-full object-cover"
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                      }}
-                    />
-                  ) : (
-                    <User size={20} className="text-slate-400" />
+          {unlockedContacts.map((contact) => {
+            const npcAvatar = getNPCAvatar(contact.id);
+            return (
+              <button
+                key={contact.id}
+                onClick={() => dispatch(setActiveContact(contact.id))}
+                className={`w-full p-3 flex items-center gap-3 hover:bg-slate-800 transition-colors ${
+                  activeContactId === contact.id ? 'bg-slate-800' : ''
+                }`}
+              >
+                <div className="relative">
+                  <div className="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center overflow-hidden">
+                    {npcAvatar ? (
+                      <CartoonAvatar avatar={npcAvatar} size="sm" />
+                    ) : (
+                      <User size={20} className="text-slate-400" />
+                    )}
+                  </div>
+                  {contact.hasUnreadMessages && (
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      className="absolute -top-1 -right-1 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center"
+                    >
+                      <span className="text-[10px] text-white font-bold">1</span>
+                    </motion.div>
                   )}
                 </div>
-                {contact.hasUnreadMessages && (
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    className="absolute -top-1 -right-1 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center"
-                  >
-                    <span className="text-[10px] text-white font-bold">1</span>
-                  </motion.div>
-                )}
-              </div>
-              <div className="flex-1 text-left min-w-0">
-                <div className="text-sm font-medium text-slate-200 truncate">{contact.name}</div>
-                <div className="text-xs text-slate-500 truncate">{contact.role}</div>
-                {contact.lastMessage && (
-                  <div className="text-xs text-slate-400 truncate mt-0.5">
-                    {contact.lastMessage}
-                  </div>
-                )}
-              </div>
-            </button>
-          ))}
+                <div className="flex-1 text-left min-w-0">
+                  <div className="text-sm font-medium text-slate-200 truncate">{contact.name}</div>
+                  <div className="text-xs text-slate-500 truncate">{contact.role}</div>
+                  {contact.lastMessage && (
+                    <div className="text-xs text-slate-400 truncate mt-0.5">
+                      {contact.lastMessage}
+                    </div>
+                  )}
+                </div>
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -292,8 +290,12 @@ export function ChatterApp() {
           <>
             {/* Chat Header */}
             <div className="p-3 border-b border-slate-700 flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center">
-                <User size={16} className="text-slate-400" />
+              <div className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center overflow-hidden">
+                {getNPCAvatar(activeContact.id) ? (
+                  <CartoonAvatar avatar={getNPCAvatar(activeContact.id)!} size="sm" />
+                ) : (
+                  <User size={16} className="text-slate-400" />
+                )}
               </div>
               <div>
                 <div className="text-sm font-medium text-slate-200">{activeContact.name}</div>

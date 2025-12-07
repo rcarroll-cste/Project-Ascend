@@ -1,22 +1,27 @@
 import React, { useState } from 'react';
 import { InboxList } from './InboxList';
 import { ComposeModal } from './ComposeModal';
-import { Mail, Calendar, Users, Settings, Edit3, Search, ChevronLeft, ChevronRight, Reply, ReplyAll, Forward, Trash2, Clock, Folder, FileText } from 'lucide-react';
-import { Email } from '../../../types';
+import { Mail, Calendar, Users, Settings, Edit3, Search, ChevronLeft, ChevronRight, Reply, ReplyAll, Forward, Trash2, Clock, Folder, FileText, AlertTriangle } from 'lucide-react';
+import { Email, EmailFolder } from '../../../types';
 import { useDispatch } from 'react-redux';
 import { identifyStakeholder } from '../../../features/pmisSlice';
-import { unlockPMIS } from '../../../features/gameSlice';
+import { unlockPMIS, addNotification } from '../../../features/gameSlice';
 import { useNotification } from '../../../hooks/useNotification';
+import { INITIAL_EMAILS } from '../../../data/initialData';
 
 export const EmailApp: React.FC = () => {
   const [isComposeOpen, setIsComposeOpen] = useState(false);
   const [selectedEmail, setSelectedEmail] = useState<Email | null>(null);
+  const [currentFolder, setCurrentFolder] = useState<EmailFolder>('inbox');
   const dispatch = useDispatch();
   const { showNotification } = useNotification();
 
+  // Count unread emails in spam folder for badge
+  const spamUnreadCount = INITIAL_EMAILS.filter(e => e.folder === 'spam' && !e.isRead).length;
+
   const handleEmailSelect = (email: Email) => {
     setSelectedEmail(email);
-    
+
     // Handle specific triggers
     if (email.triggerAction === 'UNLOCK_PMIS') {
       dispatch(identifyStakeholder('sh_elias'));
@@ -26,6 +31,28 @@ export const EmailApp: React.FC = () => {
         "You now have access to the Project Management Information System.",
         "success"
       );
+    }
+
+    // Handle stakeholder identification from emails
+    if (email.triggerAction === 'IDENTIFY_STAKEHOLDER' && email.triggerStakeholderId) {
+      dispatch(identifyStakeholder(email.triggerStakeholderId));
+
+      // Special notification for hidden compliance stakeholder in spam
+      if (email.triggerStakeholderId === 'sh_compliance') {
+        dispatch(addNotification({
+          id: `notif_compliance_${Date.now()}`,
+          title: 'Hidden Stakeholder Discovered!',
+          message: 'The Regulatory Compliance Officer has been added to your Stakeholder Register. This external stakeholder was hiding in your spam folder!',
+          type: 'warning',
+          duration: 6000,
+        }));
+      } else {
+        showNotification(
+          "Stakeholder Identified",
+          `${email.sender} has been added to the Stakeholder Register.`,
+          "success"
+        );
+      }
     }
   };
 
@@ -43,9 +70,24 @@ export const EmailApp: React.FC = () => {
         </div>
 
         <div className="flex flex-col space-y-6 w-full items-center">
-            <button className="text-gray-400 hover:text-gray-800 transition-colors relative group">
+            <button
+                onClick={() => { setCurrentFolder('inbox'); setSelectedEmail(null); }}
+                className={`transition-colors relative group ${currentFolder === 'inbox' ? 'text-purple-600' : 'text-gray-400 hover:text-gray-800'}`}
+            >
                 <Mail size={24} strokeWidth={1.5} />
                 <span className="absolute left-full ml-2 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">Inbox</span>
+            </button>
+            <button
+                onClick={() => { setCurrentFolder('spam'); setSelectedEmail(null); }}
+                className={`transition-colors relative group ${currentFolder === 'spam' ? 'text-red-500' : 'text-gray-400 hover:text-gray-800'}`}
+            >
+                <AlertTriangle size={24} strokeWidth={1.5} />
+                {spamUnreadCount > 0 && (
+                    <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold">
+                        {spamUnreadCount}
+                    </span>
+                )}
+                <span className="absolute left-full ml-2 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">Spam</span>
             </button>
             <button className="text-gray-400 hover:text-gray-800 transition-colors relative group">
                 <Calendar size={24} strokeWidth={1.5} />
@@ -88,7 +130,11 @@ export const EmailApp: React.FC = () => {
 
         {/* List View */}
         <div className={`flex-1 overflow-hidden relative ${selectedEmail ? 'hidden md:block' : ''}`}>
-            <InboxList onSelectEmail={handleEmailSelect} selectedEmailId={selectedEmail?.id || null} />
+            <InboxList
+              onSelectEmail={handleEmailSelect}
+              selectedEmailId={selectedEmail?.id || null}
+              currentFolder={currentFolder}
+            />
         </div>
 
         {/* Reading Pane (Overlay or Side-by-Side depending on width - simplistic overlay here) */}
