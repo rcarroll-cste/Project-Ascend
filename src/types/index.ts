@@ -25,6 +25,12 @@ export type CampaignArc =
   | 'Arc3_CostQualityResources'
   | 'Arc4_SafetyNet';
 
+// Level 1 internal phases (GDD v7.1)
+// Discovery: Gather clues via Chatter dialogue
+// Analysis: Sort clues into Business Documents via Doc Creator
+// Authorization: Synthesize and sign the Charter
+export type Level1Phase = 'Discovery' | 'Analysis' | 'Authorization';
+
 // Game Level Definition
 export interface GameLevel {
   id: number;

@@ -8,6 +8,7 @@ import {
   CumulativeScores,
   GameEnding,
   CampaignArc,
+  Level1Phase,
 } from '../types';
 import { ALL_LEVELS, getLevelById } from '../data/levels';
 
@@ -24,6 +25,10 @@ export interface GameStateV2 {
   // Level Progression
   currentLevelId: number;
   levelProgress: Record<number, LevelProgress>;
+
+  // Level 1 Internal Phase Tracking (GDD v7.1)
+  // Enforces Chatter (Discovery) -> Doc Creator (Analysis) -> Charter (Authorization)
+  level1Phase: Level1Phase;
 
   // Triple Constraint HUD (AscendTrack)
   constraints: ConstraintMetrics;
@@ -94,6 +99,9 @@ const initialState: GameStateV2 = {
   // Level Progression
   currentLevelId: 1,
   levelProgress: initializeLevelProgress(),
+
+  // Level 1 Internal Phase (starts in Discovery - Chatter)
+  level1Phase: 'Discovery',
 
   // Triple Constraint HUD
   constraints: {
@@ -269,6 +277,38 @@ const gameSlice = createSlice({
       if (state.levelProgress[levelId]) {
         state.levelProgress[levelId].isStarted = true;
         state.levelProgress[levelId].isUnlocked = true;
+      }
+    },
+
+    // =========================================================================
+    // LEVEL 1 PHASE MANAGEMENT (GDD v7.1)
+    // Enforces: Chatter (Discovery) -> Doc Creator (Analysis) -> Charter (Authorization)
+    // =========================================================================
+    setLevel1Phase: (state, action: PayloadAction<Level1Phase>) => {
+      state.level1Phase = action.payload;
+    },
+
+    advanceLevel1Phase: (state) => {
+      // Only applies when on Level 1
+      if (state.currentLevelId !== 1) return;
+
+      switch (state.level1Phase) {
+        case 'Discovery':
+          // All required clues collected -> unlock Doc Creator (Analysis phase)
+          state.level1Phase = 'Analysis';
+          // Unlock PMIS if not already unlocked (Doc Creator is a PMIS tab)
+          if (!state.unlockedApps.includes('pmis')) {
+            state.unlockedApps.push('pmis');
+            state.isPMISUnlocked = true;
+          }
+          break;
+        case 'Analysis':
+          // Business documents completed -> unlock Charter (Authorization phase)
+          state.level1Phase = 'Authorization';
+          break;
+        case 'Authorization':
+          // Charter signed -> level complete (handled by completeLevel)
+          break;
       }
     },
 
@@ -527,6 +567,9 @@ export const {
   completeLevel,
   advanceToNextLevel,
   advanceLevel,
+  // Level 1 Phase Management
+  setLevel1Phase,
+  advanceLevel1Phase,
   // App & Process Unlocking
   unlockApp,
   unlockProcess,
@@ -579,5 +622,12 @@ export const selectUnlockedLevels = (state: { game: GameStateV2 }) =>
 export const selectConstraints = (state: { game: GameStateV2 }) => state.game.constraints;
 
 export const selectCumulativeScores = (state: { game: GameStateV2 }) => state.game.cumulativeScores;
+
+// Level 1 Phase Selector (GDD v7.1)
+export const selectLevel1Phase = (state: { game: GameStateV2 }) => state.game.level1Phase;
+
+// Check if specific phase is active (useful for conditional UI)
+export const selectIsLevel1PhaseActive = (state: { game: GameStateV2 }, phase: Level1Phase) =>
+  state.game.currentLevelId === 1 && state.game.level1Phase === phase;
 
 export default gameSlice.reducer;
