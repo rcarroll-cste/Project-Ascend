@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { Users, FileText, AlertTriangle, LayoutDashboard, PieChart, FolderOpen, ScrollText, Lock } from 'lucide-react';
+import { Users, FileText, AlertTriangle, LayoutDashboard, PieChart, FolderOpen, ScrollText, Lock, GripVertical, User, Lightbulb } from 'lucide-react';
 import { StakeholderRegister } from './StakeholderRegister';
 import { CharterBuilder } from './CharterBuilder';
 import { SignedCharterView } from './SignedCharterView';
 import { AssumptionLog } from './AssumptionLog';
 import { DocCreator } from './DocCreator';
 import { ContextSidebar } from './ContextSidebar';
-import { DndContext, DragEndEvent, useSensor, useSensors, PointerSensor } from '@dnd-kit/core';
+import { DndContext, DragEndEvent, DragStartEvent, DragOverlay, useSensor, useSensors, PointerSensor } from '@dnd-kit/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { identifyStakeholder, updateStakeholderPosition, assignEvidenceToSection, assignCompletedDocumentToSection } from '../../../features/pmisSlice';
 import { addNotification } from '../../../features/gameSlice';
 import { INITIAL_STAKEHOLDERS } from '../../../data/initialData';
-import { PowerLevel, InterestLevel, Email, EvidenceItem, CompletedBusinessDocument } from '../../../types';
+import { PowerLevel, InterestLevel, Email, EvidenceItem, CompletedBusinessDocument, Stakeholder } from '../../../types';
 import { RootState } from '../../../store';
 import { getLevelById } from '../../../data/levels';
 
@@ -151,10 +151,115 @@ const DashboardTab: React.FC = () => {
   );
 };
 
+// =============================================================================
+// DRAG OVERLAY COMPONENTS - Visual clones shown while dragging
+// =============================================================================
+
+interface DraggedItem {
+  type: 'email' | 'stakeholder' | 'evidence' | 'doc-clue' | 'completed-document';
+  data: Email | Stakeholder | EvidenceItem | CompletedBusinessDocument;
+}
+
+const EmailDragOverlay: React.FC<{ email: Email }> = ({ email }) => (
+  <div className="flex items-center px-4 py-3 bg-white border-l-4 border-purple-500 shadow-lg rounded-lg max-w-md">
+    <div className="mr-2 text-gray-400">
+      <GripVertical size={16} />
+    </div>
+    <div className="w-6 flex-shrink-0 flex items-center justify-center">
+      {email.categoryColor && (
+        <div className="w-2 h-2 rounded-full" style={{ backgroundColor: email.categoryColor }} />
+      )}
+    </div>
+    <div className="w-32 flex-shrink-0 truncate text-gray-900 font-medium">
+      {email.sender}
+    </div>
+    <div className="flex-1 min-w-0 truncate text-gray-700 ml-2">
+      {email.subject}
+    </div>
+  </div>
+);
+
+const StakeholderDragOverlay: React.FC<{ stakeholder: Stakeholder }> = ({ stakeholder }) => (
+  <div className="flex items-center p-3 bg-white border border-purple-300 rounded-lg shadow-lg min-w-[300px]">
+    <div className="mr-3 text-gray-400">
+      <GripVertical size={16} />
+    </div>
+    <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-4 overflow-hidden border border-gray-200">
+      {stakeholder.avatarUrl ? (
+        <img src={stakeholder.avatarUrl} alt={stakeholder.name} className="w-full h-full object-cover" />
+      ) : (
+        <User size={20} className="text-gray-400" />
+      )}
+    </div>
+    <div className="flex-1 min-w-0">
+      <h4 className="text-sm font-medium text-gray-900 truncate">{stakeholder.name}</h4>
+      <p className="text-xs text-gray-500 truncate">{stakeholder.role}</p>
+    </div>
+  </div>
+);
+
+const ClueDragOverlay: React.FC<{ item: EvidenceItem }> = ({ item }) => (
+  <div className="p-3 bg-white rounded-lg border-l-4 border-l-yellow-400 shadow-lg max-w-[250px]">
+    <div className="flex items-start gap-2">
+      <div className="p-1 bg-yellow-100 rounded">
+        <Lightbulb size={14} className="text-yellow-600" />
+      </div>
+      <div className="flex-1 min-w-0">
+        <h4 className="text-sm font-medium text-gray-800 leading-tight truncate">
+          {item.name}
+        </h4>
+        <p className="text-xs text-gray-500 mt-1 line-clamp-2">
+          {item.description}
+        </p>
+      </div>
+    </div>
+  </div>
+);
+
+const FileDragOverlay: React.FC<{ item: EvidenceItem }> = ({ item }) => {
+  const isPDF = item.name.toLowerCase().includes('.pdf');
+  return (
+    <div className="p-3 bg-white rounded-lg border border-purple-300 shadow-lg max-w-[250px]">
+      <div className="flex items-start gap-2">
+        <div className={`p-1.5 rounded ${isPDF ? 'bg-red-100' : 'bg-blue-100'}`}>
+          <FileText size={16} className={isPDF ? 'text-red-600' : 'text-blue-600'} />
+        </div>
+        <div className="flex-1 min-w-0">
+          <h4 className="text-sm font-medium text-gray-800 leading-tight truncate">
+            {item.name}
+          </h4>
+          <p className="text-xs text-gray-500 mt-1 line-clamp-2">
+            {item.description}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const CompletedDocDragOverlay: React.FC<{ doc: CompletedBusinessDocument }> = ({ doc }) => (
+  <div className="p-3 bg-white rounded-lg border border-green-300 shadow-lg max-w-[250px]">
+    <div className="flex items-start gap-2">
+      <div className="p-1.5 rounded bg-green-100">
+        <FileText size={16} className="text-green-600" />
+      </div>
+      <div className="flex-1 min-w-0">
+        <h4 className="text-sm font-medium text-gray-800 leading-tight truncate">
+          {doc.name}
+        </h4>
+        <p className="text-xs text-green-600 mt-1">
+          Completed Document
+        </p>
+      </div>
+    </div>
+  </div>
+);
+
 export const PMISApp: React.FC = () => {
   const { currentLevelId } = useSelector((state: RootState) => state.game);
   // Default to Doc Creator for Level 1 (since Charter is locked), Signed Charter for Level 2+
   const [activeTab, setActiveTab] = useState<Tab>(currentLevelId >= 2 ? 'signed-charter' : 'doc-creator');
+  const [activeDragItem, setActiveDragItem] = useState<DraggedItem | null>(null);
   const dispatch = useDispatch();
   const { stakeholders, completedDocuments } = useSelector((state: RootState) => state.pmis);
   const { items: inventoryItems } = useSelector((state: RootState) => state.inventory);
@@ -189,8 +294,31 @@ export const PMISApp: React.FC = () => {
     })
   );
 
+  const handleDragStart = (event: DragStartEvent) => {
+    const { active } = event;
+    const data = active.data.current;
+    if (!data) return;
+
+    const type = data.type;
+
+    if (type === 'email' && data.email) {
+      setActiveDragItem({ type: 'email', data: data.email });
+    } else if (type === 'stakeholder' && data.stakeholder) {
+      setActiveDragItem({ type: 'stakeholder', data: data.stakeholder });
+    } else if (type === 'evidence' && data.item) {
+      setActiveDragItem({ type: 'evidence', data: data.item });
+    } else if (type === 'doc-clue' && data.item) {
+      setActiveDragItem({ type: 'doc-clue', data: data.item });
+    } else if (type === 'completed-document' && data.document) {
+      setActiveDragItem({ type: 'completed-document', data: data.document });
+    }
+  };
+
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
+
+    // Clear the active drag item
+    setActiveDragItem(null);
 
     if (!over) return;
 
@@ -382,8 +510,28 @@ export const PMISApp: React.FC = () => {
   // Note: Charter validation is now handled in CharterBuilder
   // The report tab is available but not auto-shown
 
+  // Render the appropriate overlay based on drag item type
+  const renderDragOverlay = () => {
+    if (!activeDragItem) return null;
+
+    switch (activeDragItem.type) {
+      case 'email':
+        return <EmailDragOverlay email={activeDragItem.data as Email} />;
+      case 'stakeholder':
+        return <StakeholderDragOverlay stakeholder={activeDragItem.data as Stakeholder} />;
+      case 'doc-clue':
+        return <ClueDragOverlay item={activeDragItem.data as EvidenceItem} />;
+      case 'evidence':
+        return <FileDragOverlay item={activeDragItem.data as EvidenceItem} />;
+      case 'completed-document':
+        return <CompletedDocDragOverlay doc={activeDragItem.data as CompletedBusinessDocument} />;
+      default:
+        return null;
+    }
+  };
+
   return (
-    <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+    <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
         <div className="flex flex-col h-full bg-gray-100 font-sans text-gray-900">
         
         {/* Navigation Tabs */}
@@ -492,6 +640,11 @@ export const PMISApp: React.FC = () => {
         </div>
 
         </div>
+
+        {/* Drag Overlay - Shows a visual clone of the item being dragged */}
+        <DragOverlay dropAnimation={null}>
+          {renderDragOverlay()}
+        </DragOverlay>
     </DndContext>
   );
 };

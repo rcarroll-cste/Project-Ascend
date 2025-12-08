@@ -22,7 +22,7 @@ interface DraggableClueItemProps {
 }
 
 const DraggableClueItem: React.FC<DraggableClueItemProps> = ({ item }) => {
-  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: `sidebar-clue-${item.id}`,
     data: {
       type: 'doc-clue',
@@ -30,9 +30,10 @@ const DraggableClueItem: React.FC<DraggableClueItemProps> = ({ item }) => {
     },
   });
 
-  const style = transform ? {
-    transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-  } : undefined;
+  const style: React.CSSProperties = {
+    opacity: isDragging ? 0.3 : 1,
+    transition: 'opacity 0.15s ease',
+  };
 
   return (
     <motion.div
@@ -41,14 +42,13 @@ const DraggableClueItem: React.FC<DraggableClueItemProps> = ({ item }) => {
       {...listeners}
       {...attributes}
       initial={{ opacity: 0, x: 20 }}
-      animate={{ opacity: 1, x: 0 }}
+      animate={{ opacity: isDragging ? 0.3 : 1, x: 0 }}
       exit={{ opacity: 0, x: -20 }}
-      whileHover={{ scale: 1.02 }}
+      whileHover={isDragging ? {} : { scale: 1.02 }}
       className={`
         p-3 bg-white rounded-lg border-l-4 border-l-yellow-400 shadow-sm
         cursor-grab active:cursor-grabbing
         hover:shadow-md hover:border-l-yellow-500 transition-all
-        ${isDragging ? 'opacity-50 ring-2 ring-purple-500 z-50' : ''}
       `}
     >
       <div className="flex items-start gap-2">
@@ -77,7 +77,7 @@ interface DraggableFileItemProps {
 }
 
 const DraggableFileItem: React.FC<DraggableFileItemProps> = ({ item }) => {
-  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: `sidebar-file-${item.id}`,
     data: {
       type: 'evidence',
@@ -85,9 +85,10 @@ const DraggableFileItem: React.FC<DraggableFileItemProps> = ({ item }) => {
     },
   });
 
-  const style = transform ? {
-    transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-  } : undefined;
+  const style: React.CSSProperties = {
+    opacity: isDragging ? 0.3 : 1,
+    transition: 'opacity 0.15s ease',
+  };
 
   // Determine file type icon color based on content
   const isPDF = item.name.toLowerCase().includes('.pdf');
@@ -99,14 +100,14 @@ const DraggableFileItem: React.FC<DraggableFileItemProps> = ({ item }) => {
       {...listeners}
       {...attributes}
       initial={{ opacity: 0, x: 20 }}
-      animate={{ opacity: 1, x: 0 }}
+      animate={{ opacity: isDragging ? 0.3 : 1, x: 0 }}
       exit={{ opacity: 0, x: -20 }}
-      whileHover={{ scale: 1.02 }}
+      whileHover={isDragging ? {} : { scale: 1.02 }}
       className={`
         p-3 bg-white rounded-lg border shadow-sm
         cursor-grab active:cursor-grabbing
         hover:shadow-md hover:border-blue-300 transition-all
-        ${isDragging ? 'opacity-50 ring-2 ring-purple-500 z-50' : 'border-gray-200'}
+        border-gray-200
       `}
     >
       <div className="flex items-start gap-2">

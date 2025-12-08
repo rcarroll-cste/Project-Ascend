@@ -61,7 +61,7 @@ interface DraggableStakeholderRowProps {
 }
 
 const DraggableStakeholderRow: React.FC<DraggableStakeholderRowProps> = ({ stakeholder }) => {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: `stakeholder-${stakeholder.id}`,
     data: {
         type: 'stakeholder',
@@ -69,10 +69,10 @@ const DraggableStakeholderRow: React.FC<DraggableStakeholderRowProps> = ({ stake
     }
   });
 
-  const style = transform ? {
-    transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-    zIndex: 999,
-  } : undefined;
+  const style: React.CSSProperties = {
+    opacity: isDragging ? 0.3 : 1,
+    transition: 'opacity 0.15s ease',
+  };
 
   // Get salience badge styles
   const salienceStyle = stakeholder.salienceClass

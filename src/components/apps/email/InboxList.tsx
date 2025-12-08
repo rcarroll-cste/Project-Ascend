@@ -11,7 +11,7 @@ interface InboxListProps {
 }
 
 const DraggableEmailItem: React.FC<{ email: Email; isSelected: boolean; onClick: () => void }> = ({ email, isSelected, onClick }) => {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: `email-${email.id}`,
     data: {
       type: 'email',
@@ -19,10 +19,10 @@ const DraggableEmailItem: React.FC<{ email: Email; isSelected: boolean; onClick:
     },
   });
 
-  const style = transform ? {
-    transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-    zIndex: 999,
-  } : undefined;
+  const style: React.CSSProperties = {
+    opacity: isDragging ? 0.3 : 1,
+    transition: 'opacity 0.15s ease',
+  };
 
   return (
     <div
