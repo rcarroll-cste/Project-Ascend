@@ -6,6 +6,62 @@ All notable changes to Project Ascend will be documented in this file.
 
 ## [Unreleased]
 
+### 2025-12-07 23:52 EST - Fix File Attachment Download in System Messages
+
+Fixed issue where file attachments in Chatter conversations couldn't be downloaded when the attachment was on a system message.
+
+#### Root Cause
+
+The `ChatterMessage` component had an early return for system messages (lines 114-126) that rendered a simplified message bubble without the file attachment button. The TechCore_MSA.pdf attachment in Level 1's Legal Counsel conversation was on a node with `speaker: 'System'`, causing the download button to never render.
+
+#### Fix Applied
+
+**`src/components/apps/chatter/ChatterMessage.tsx`**:
+- Added file attachment card rendering to the system message branch
+- System messages now display the same clickable attachment button as regular messages
+- Changed container from `flex justify-center` to `flex flex-col items-center` to stack the message pill and attachment card vertically
+
+#### Affected Conversation
+
+- **Legal Counsel (Victoria Ashford)** → `legal_4` node → `ev_file_techcore_msa` (TechCore_MSA.pdf)
+
+---
+
+### 2025-12-07 21:00 EST - Fix Infinite Loop Crash in DocCreator
+
+Fixed "Maximum update depth exceeded" error that caused the application to crash when opening the PMIS Doc Creator tab.
+
+#### Root Cause
+
+The `DocCreator` component had a `useEffect` that:
+1. Called `showNotification()` which was recreated on every render (not memoized)
+2. Dispatched `completeBusinessDocument` actions with `Date.now()` on every render when conditions were met
+3. This created an infinite render loop: effect runs → state changes → re-render → effect runs again
+
+#### Fixes Applied
+
+**`src/hooks/useNotification.ts`**:
+- Wrapped `showNotification` function in `useCallback` with `[dispatch]` dependency
+- Prevents function recreation on every render
+
+**`src/components/apps/pmis/DocCreator.tsx`**:
+- Added `completedDocuments` to Redux state selector
+- Added existence checks (`businessCaseExists`, `benefitsPlanExists`) before dispatching `completeBusinessDocument`
+- Prevents duplicate document creation dispatches
+- Added `completedDocuments` to `useEffect` dependency array
+
+#### Technical Details
+
+The infinite loop was triggered by this chain:
+1. `useEffect` dependency on `showNotification` (new reference each render)
+2. Effect dispatches `completeBusinessDocument({ completedAt: Date.now() })`
+3. New timestamp creates new state object
+4. Redux state change triggers re-render
+5. `showNotification` gets new reference
+6. Effect runs again → loop
+
+---
+
 ### 2025-12-07 21:45 EST - Logger Persistence & Global Error Monitoring
 
 Enhanced the debug logger to persist logs across page reloads and added global error handlers for uncaught exceptions.

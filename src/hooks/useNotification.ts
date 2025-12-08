@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { addNotification } from '../features/gameSlice';
 import { nanoid } from '@reduxjs/toolkit';
@@ -6,13 +7,13 @@ import { playNotificationSound, playSuccessSound, playErrorSound } from '../util
 export const useNotification = () => {
   const dispatch = useDispatch();
 
-  const showNotification = (
+  const showNotification = useCallback((
     title: string,
     message: string,
     type: 'info' | 'success' | 'warning' | 'error' = 'info',
     duration: number = 5000
   ) => {
-    
+
     // Play sound based on type
     if (type === 'success') playSuccessSound();
     else if (type === 'error') playErrorSound();
@@ -25,7 +26,7 @@ export const useNotification = () => {
       type,
       duration
     }));
-  };
+  }, [dispatch]);
 
   return { showNotification };
 };

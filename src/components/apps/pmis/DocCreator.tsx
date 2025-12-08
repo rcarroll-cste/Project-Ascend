@@ -320,7 +320,7 @@ export const DocCreator: React.FC = () => {
   // Redux state
   const { items: inventoryItems } = useSelector((state: RootState) => state.inventory);
   const { currentLevelId, levelProgress } = useSelector((state: RootState) => state.game);
-  const { documentAssignments } = useSelector((state: RootState) => state.pmis);
+  const { documentAssignments, completedDocuments } = useSelector((state: RootState) => state.pmis);
 
   // MentOS feedback modal state
   const [mentosModalOpen, setMentosModalOpen] = useState(false);
@@ -351,8 +351,12 @@ export const DocCreator: React.FC = () => {
     const hasCorrectBenefitsPlan = benefitsPlanItems.includes('ev_clue_strategic_align');
     const hasCorrectAssumption = assumptionLogItems.includes('ev_clue_power_assumption');
 
-    // Generate completed Business Case document when ROI clue is placed
-    if (hasCorrectBusinessCase && businessCaseItems.length > 0) {
+    // Check if documents already exist to prevent duplicate dispatches
+    const businessCaseExists = completedDocuments.some(d => d.id === 'completed_business_case');
+    const benefitsPlanExists = completedDocuments.some(d => d.id === 'completed_benefits_plan');
+
+    // Generate completed Business Case document when ROI clue is placed (only once)
+    if (hasCorrectBusinessCase && businessCaseItems.length > 0 && !businessCaseExists) {
       dispatch(completeBusinessDocument({
         id: 'completed_business_case',
         type: 'BusinessCase',
@@ -365,8 +369,8 @@ export const DocCreator: React.FC = () => {
       }));
     }
 
-    // Generate completed Benefits Management Plan when strategic alignment clue is placed
-    if (hasCorrectBenefitsPlan && benefitsPlanItems.length > 0) {
+    // Generate completed Benefits Management Plan when strategic alignment clue is placed (only once)
+    if (hasCorrectBenefitsPlan && benefitsPlanItems.length > 0 && !benefitsPlanExists) {
       dispatch(completeBusinessDocument({
         id: 'completed_benefits_plan',
         type: 'BenefitsManagementPlan',
@@ -391,7 +395,7 @@ export const DocCreator: React.FC = () => {
         );
       }
     }
-  }, [documentAssignments, currentLevelId, currentProgress, dispatch, showNotification]);
+  }, [documentAssignments, completedDocuments, currentLevelId, currentProgress, dispatch, showNotification]);
 
   // This function will be called from PMISApp's handleDragEnd
   // We expose it via a custom event listener
