@@ -167,7 +167,10 @@ export const PMISApp: React.FC = () => {
 
   // Check if Assumptions tab should be unlocked
   // Unlocks when player has collected clues (evidence items that are clues)
-  const hasClues = inventoryItems.some(item => item.type === 'Clue');
+  const hasClues = inventoryItems.some(item =>
+    item.type === 'BusinessCase' ||
+    item.id.startsWith('ev_clue_')
+  );
   const isAssumptionsUnlocked = hasClues;
 
   // Check if Stakeholders tab should be unlocked
@@ -363,8 +366,11 @@ export const PMISApp: React.FC = () => {
     // 5. Handle Doc Creator Drop (Clue -> Document Zone)
     // DocCreator uses custom events for validation and MentOS feedback
     if (active.data.current?.type === 'doc-clue' && over.data.current?.type === 'doc-zone') {
-      const item = active.data.current.item as EvidenceItem;
-      const zoneId = over.data.current.zoneId;
+      const item = active.data.current?.item as EvidenceItem | undefined;
+      const zoneId = over.data.current?.zoneId;
+
+      // Guard against missing data
+      if (!item || !zoneId) return;
 
       // Dispatch custom event for DocCreator to handle
       window.dispatchEvent(new CustomEvent('doc-creator-drop', {

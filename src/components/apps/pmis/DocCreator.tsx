@@ -343,9 +343,9 @@ export const DocCreator: React.FC = () => {
   // Track objective completion and generate completed documents
   useEffect(() => {
     // Check if player has correctly sorted clues
-    const businessCaseItems = documentAssignments['business-case'];
-    const benefitsPlanItems = documentAssignments['benefits-plan'];
-    const assumptionLogItems = documentAssignments['assumption-log'];
+    const businessCaseItems = documentAssignments['business-case'] || [];
+    const benefitsPlanItems = documentAssignments['benefits-plan'] || [];
+    const assumptionLogItems = documentAssignments['assumption-log'] || [];
 
     const hasCorrectBusinessCase = businessCaseItems.includes('ev_clue_roi_target');
     const hasCorrectBenefitsPlan = benefitsPlanItems.includes('ev_clue_strategic_align');

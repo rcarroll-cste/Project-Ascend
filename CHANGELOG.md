@@ -6,6 +6,44 @@ All notable changes to Project Ascend will be documented in this file.
 
 ## [Unreleased]
 
+### 2025-12-07 21:45 EST - Logger Persistence & Global Error Monitoring
+
+Enhanced the debug logger to persist logs across page reloads and added global error handlers for uncaught exceptions.
+
+#### Logger Enhancements (`src/utils/logger.ts`)
+
+1. **localStorage Persistence**:
+   - Storage key: `ascend_logs`
+   - Max logs reduced to 500 (safe for localStorage quota)
+   - `loadFromStorage()`: Loads persisted logs on initialization
+   - `persistLogs()`: Saves current logs to localStorage
+   - `schedulePersist()`: Debounced (500ms) persistence to avoid blocking main thread
+
+2. **Updated Methods**:
+   - `clear()`: Now also removes logs from localStorage
+   - Logs automatically persist after each new entry (debounced)
+
+#### Global Error Handlers (`src/main.tsx`)
+
+1. **`window.onerror`**: Captures uncaught exceptions with:
+   - Error message
+   - Source file URL
+   - Line and column numbers
+   - Stack trace
+
+2. **`window.onunhandledrejection`**: Captures unhandled Promise rejections with:
+   - Rejection reason/message
+   - Stack trace
+
+#### Usage
+
+- Logs persist after page reload via `window.__ASCEND_LOGS__`
+- Throwing `throw new Error('test')` in console will be captured
+- Unhandled promises like `Promise.reject('test')` will be captured
+- `window.__CLEAR_LOGS__()` clears both memory and localStorage
+
+---
+
 ### 2025-12-07 20:23 EST - PMIS Tab Locking & Strategic Alignment Fix
 
 Implemented progressive tab unlocking in PMIS to match GDD workflow and fixed the obsolete Strategic Alignment Check.

@@ -110,8 +110,15 @@ const pmisSlice = createSlice({
 
       // Remove from any other zone first
       Object.keys(state.documentAssignments).forEach(zone => {
-        state.documentAssignments[zone] = state.documentAssignments[zone].filter(id => id !== itemId);
+        if (state.documentAssignments[zone]) {
+          state.documentAssignments[zone] = state.documentAssignments[zone].filter(id => id !== itemId);
+        }
       });
+
+      // Ensure the target zone array exists
+      if (!state.documentAssignments[zoneId]) {
+        state.documentAssignments[zoneId] = [];
+      }
 
       // Add to the target zone
       if (!state.documentAssignments[zoneId].includes(itemId)) {
@@ -121,7 +128,9 @@ const pmisSlice = createSlice({
 
     removeClueFromDocument: (state, action: PayloadAction<{ zoneId: string; itemId: string }>) => {
       const { zoneId, itemId } = action.payload;
-      state.documentAssignments[zoneId] = state.documentAssignments[zoneId].filter(id => id !== itemId);
+      if (state.documentAssignments[zoneId]) {
+        state.documentAssignments[zoneId] = state.documentAssignments[zoneId].filter(id => id !== itemId);
+      }
     },
 
     clearDocumentAssignments: (state) => {

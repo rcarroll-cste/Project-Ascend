@@ -1687,6 +1687,7 @@ export const DIALOGUE_LEGAL_AGREEMENT: DialogueTree = {
       id: 'legal_4',
       speaker: 'System',
       text: '📎 File attached: TechCore_MSA.pdf',
+      attachment: 'ev_file_techcore_msa',
       autoAdvanceToNodeId: 'legal_5',
       delay: 500,
     },
