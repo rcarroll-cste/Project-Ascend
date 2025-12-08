@@ -170,8 +170,10 @@ export const CharterBuilder: React.FC = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
 
-  // GDD v6.6 Strategic Alignment Check
-  const [strategicAlignmentVerified, setStrategicAlignmentVerified] = useState(false);
+  // Strategic Alignment Check - auto-verifies when Benefits Plan is assigned
+  const benefitsPlanSection = charterSections.find(s => s.id === 'sec_benefits_plan');
+  const assignedBenefitsPlan = completedDocuments.find(d => d.id === benefitsPlanSection?.assignedItemId);
+  const strategicAlignmentVerified = !!assignedBenefitsPlan;
 
   const currentProgress = levelProgress[currentLevelId];
 
@@ -459,38 +461,31 @@ export const CharterBuilder: React.FC = () => {
             ))}
           </div>
 
-          {/* GDD v6.6 Strategic Alignment Check */}
-          <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                {strategicAlignmentVerified ? (
-                  <ShieldCheck size={24} className="text-green-600" />
-                ) : (
-                  <ShieldAlert size={24} className="text-amber-600" />
-                )}
-                <div>
-                  <h4 className="font-medium text-gray-800">Strategic Alignment Check</h4>
-                  <p className="text-xs text-gray-500 mt-0.5">
-                    Verify project aligns with Benefits Management Plan before authorization
-                  </p>
-                </div>
+          {/* Strategic Alignment Check - Auto-verifies when Benefits Plan is assigned */}
+          <div className={`mt-6 p-4 rounded-lg border ${strategicAlignmentVerified ? 'bg-green-50 border-green-200' : 'bg-amber-50 border-amber-200'}`}>
+            <div className="flex items-center gap-3">
+              {strategicAlignmentVerified ? (
+                <ShieldCheck size={24} className="text-green-600" />
+              ) : (
+                <ShieldAlert size={24} className="text-amber-600" />
+              )}
+              <div>
+                <h4 className="font-medium text-gray-800">Strategic Alignment Check</h4>
+                <p className="text-xs text-gray-500 mt-0.5">
+                  {strategicAlignmentVerified
+                    ? 'Benefits Management Plan assigned - strategic alignment verified'
+                    : 'Assign the Benefits Management Plan to verify strategic alignment'}
+                </p>
               </div>
-              <button
-                onClick={() => setStrategicAlignmentVerified(!strategicAlignmentVerified)}
-                className={`
-                  px-4 py-2 rounded-lg text-sm font-medium transition-all
-                  ${strategicAlignmentVerified
-                    ? 'bg-green-100 text-green-700 border border-green-300 hover:bg-green-200'
-                    : 'bg-amber-100 text-amber-700 border border-amber-300 hover:bg-amber-200'}
-                `}
-              >
-                {strategicAlignmentVerified ? '✓ Verified' : 'Mark as Verified'}
-              </button>
+              {strategicAlignmentVerified && (
+                <span className="ml-auto px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-lg border border-green-300">
+                  Verified
+                </span>
+              )}
             </div>
             {!strategicAlignmentVerified && (
               <p className="mt-3 text-xs text-amber-700 bg-amber-100 p-2 rounded">
-                <strong>Hint:</strong> Director Vane wants to add a "Customer Loyalty Module".
-                Open <strong>Files → Benefits_Management_Plan.pdf</strong> to verify if this aligns with the project's strategic focus.
+                <strong>Hint:</strong> Complete a Benefits Management Plan in the <strong>Doc Creator</strong> tab, then drag it to the Benefits Plan section above.
               </p>
             )}
           </div>

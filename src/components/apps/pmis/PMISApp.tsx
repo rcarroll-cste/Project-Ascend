@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Users, FileText, AlertTriangle, LayoutDashboard, PieChart, FolderOpen, ScrollText } from 'lucide-react';
+import { Users, FileText, AlertTriangle, LayoutDashboard, PieChart, FolderOpen, ScrollText, Lock } from 'lucide-react';
 import { StakeholderRegister } from './StakeholderRegister';
 import { CharterBuilder } from './CharterBuilder';
 import { SignedCharterView } from './SignedCharterView';
@@ -153,10 +153,30 @@ const DashboardTab: React.FC = () => {
 
 export const PMISApp: React.FC = () => {
   const { currentLevelId } = useSelector((state: RootState) => state.game);
-  // Default to Charter for Level 1, Signed Charter for Level 2+
-  const [activeTab, setActiveTab] = useState<Tab>(currentLevelId >= 2 ? 'signed-charter' : 'charter');
+  // Default to Doc Creator for Level 1 (since Charter is locked), Signed Charter for Level 2+
+  const [activeTab, setActiveTab] = useState<Tab>(currentLevelId >= 2 ? 'signed-charter' : 'doc-creator');
   const dispatch = useDispatch();
-  const { stakeholders } = useSelector((state: RootState) => state.pmis);
+  const { stakeholders, completedDocuments } = useSelector((state: RootState) => state.pmis);
+  const { items: inventoryItems } = useSelector((state: RootState) => state.inventory);
+
+  // Check if Charter Builder should be unlocked
+  // Unlocks when both Business Case AND Benefits Management Plan are completed
+  const hasCompletedBusinessCase = completedDocuments.some(d => d.type === 'BusinessCase');
+  const hasCompletedBenefitsPlan = completedDocuments.some(d => d.type === 'BenefitsManagementPlan');
+  const isCharterUnlocked = hasCompletedBusinessCase && hasCompletedBenefitsPlan;
+
+  // Check if Assumptions tab should be unlocked
+  // Unlocks when player has collected clues (evidence items that are clues)
+  const hasClues = inventoryItems.some(item => item.type === 'Clue');
+  const isAssumptionsUnlocked = hasClues;
+
+  // Check if Stakeholders tab should be unlocked
+  // Unlocks in Level 2 (Process 13.1: Identify Stakeholders)
+  const isStakeholdersUnlocked = currentLevelId >= 2;
+
+  // Check if Dashboard tab should be unlocked
+  // Unlocks at Phase Gate Review (after Level 2 objectives are complete)
+  const isDashboardUnlocked = currentLevelId >= 2;
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -363,17 +383,33 @@ export const PMISApp: React.FC = () => {
         {/* Navigation Tabs */}
         <div className="bg-white border-b border-gray-200 px-4 pt-2 flex space-x-1 shrink-0">
             <button
-                onClick={() => setActiveTab('dashboard')}
-                className={`px-4 py-2 text-sm font-medium rounded-t-lg flex items-center space-x-2 border-t border-l border-r ${activeTab === 'dashboard' ? 'bg-gray-100 border-gray-200 text-purple-700' : 'bg-white border-transparent text-gray-500 hover:text-gray-700'}`}
+                onClick={() => isDashboardUnlocked && setActiveTab('dashboard')}
+                disabled={!isDashboardUnlocked}
+                title={!isDashboardUnlocked ? 'Available after Level 1 completion' : ''}
+                className={`px-4 py-2 text-sm font-medium rounded-t-lg flex items-center space-x-2 border-t border-l border-r ${
+                  !isDashboardUnlocked
+                    ? 'bg-gray-50 border-transparent text-gray-400 cursor-not-allowed opacity-60'
+                    : activeTab === 'dashboard'
+                      ? 'bg-gray-100 border-gray-200 text-purple-700'
+                      : 'bg-white border-transparent text-gray-500 hover:text-gray-700'
+                }`}
             >
-                <LayoutDashboard size={16} />
+                {!isDashboardUnlocked ? <Lock size={14} className="text-gray-400" /> : <LayoutDashboard size={16} />}
                 <span>Dashboard</span>
             </button>
             <button
-                onClick={() => setActiveTab('stakeholders')}
-                className={`px-4 py-2 text-sm font-medium rounded-t-lg flex items-center space-x-2 border-t border-l border-r ${activeTab === 'stakeholders' ? 'bg-gray-100 border-gray-200 text-purple-700' : 'bg-white border-transparent text-gray-500 hover:text-gray-700'}`}
+                onClick={() => isStakeholdersUnlocked && setActiveTab('stakeholders')}
+                disabled={!isStakeholdersUnlocked}
+                title={!isStakeholdersUnlocked ? 'Available in Level 2: Identify Stakeholders' : ''}
+                className={`px-4 py-2 text-sm font-medium rounded-t-lg flex items-center space-x-2 border-t border-l border-r ${
+                  !isStakeholdersUnlocked
+                    ? 'bg-gray-50 border-transparent text-gray-400 cursor-not-allowed opacity-60'
+                    : activeTab === 'stakeholders'
+                      ? 'bg-gray-100 border-gray-200 text-purple-700'
+                      : 'bg-white border-transparent text-gray-500 hover:text-gray-700'
+                }`}
             >
-                <Users size={16} />
+                {!isStakeholdersUnlocked ? <Lock size={14} className="text-gray-400" /> : <Users size={16} />}
                 <span>Stakeholders</span>
             </button>
             <button
@@ -384,10 +420,18 @@ export const PMISApp: React.FC = () => {
                 <span>Doc Creator</span>
             </button>
             <button
-                onClick={() => setActiveTab('charter')}
-                className={`px-4 py-2 text-sm font-medium rounded-t-lg flex items-center space-x-2 border-t border-l border-r ${activeTab === 'charter' ? 'bg-gray-100 border-gray-200 text-purple-700' : 'bg-white border-transparent text-gray-500 hover:text-gray-700'}`}
+                onClick={() => isCharterUnlocked && setActiveTab('charter')}
+                disabled={!isCharterUnlocked}
+                title={!isCharterUnlocked ? 'Complete Business Case and Benefits Plan in Doc Creator first' : ''}
+                className={`px-4 py-2 text-sm font-medium rounded-t-lg flex items-center space-x-2 border-t border-l border-r ${
+                  !isCharterUnlocked
+                    ? 'bg-gray-50 border-transparent text-gray-400 cursor-not-allowed opacity-60'
+                    : activeTab === 'charter'
+                      ? 'bg-gray-100 border-gray-200 text-purple-700'
+                      : 'bg-white border-transparent text-gray-500 hover:text-gray-700'
+                }`}
             >
-                <FileText size={16} />
+                {!isCharterUnlocked ? <Lock size={14} className="text-gray-400" /> : <FileText size={16} />}
                 <span>Charter Builder</span>
             </button>
             {/* Signed Charter tab - appears for Level 2+ (after charter is signed) */}
@@ -401,10 +445,18 @@ export const PMISApp: React.FC = () => {
                 </button>
             )}
             <button
-                onClick={() => setActiveTab('assumptions')}
-                className={`px-4 py-2 text-sm font-medium rounded-t-lg flex items-center space-x-2 border-t border-l border-r ${activeTab === 'assumptions' ? 'bg-gray-100 border-gray-200 text-purple-700' : 'bg-white border-transparent text-gray-500 hover:text-gray-700'}`}
+                onClick={() => isAssumptionsUnlocked && setActiveTab('assumptions')}
+                disabled={!isAssumptionsUnlocked}
+                title={!isAssumptionsUnlocked ? 'Collect clues from Chatter conversations first' : ''}
+                className={`px-4 py-2 text-sm font-medium rounded-t-lg flex items-center space-x-2 border-t border-l border-r ${
+                  !isAssumptionsUnlocked
+                    ? 'bg-gray-50 border-transparent text-gray-400 cursor-not-allowed opacity-60'
+                    : activeTab === 'assumptions'
+                      ? 'bg-gray-100 border-gray-200 text-purple-700'
+                      : 'bg-white border-transparent text-gray-500 hover:text-gray-700'
+                }`}
             >
-                <AlertTriangle size={16} />
+                {!isAssumptionsUnlocked ? <Lock size={14} className="text-gray-400" /> : <AlertTriangle size={16} />}
                 <span>Assumptions</span>
             </button>
             {/* PMP and Report tabs removed for Demo scope (Levels 0-2 only) */}

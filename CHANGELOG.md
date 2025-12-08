@@ -6,6 +6,58 @@ All notable changes to Project Ascend will be documented in this file.
 
 ## [Unreleased]
 
+### 2025-12-07 20:23 EST - PMIS Tab Locking & Strategic Alignment Fix
+
+Implemented progressive tab unlocking in PMIS to match GDD workflow and fixed the obsolete Strategic Alignment Check.
+
+#### Strategic Alignment Check Fix (`src/components/apps/pmis/CharterBuilder.tsx`)
+
+**Problem**: The Strategic Alignment Check referenced a "Files" module that no longer exists.
+
+**Solution**: Changed from manual toggle to auto-verification:
+- Now automatically verifies when Benefits Management Plan is assigned to charter
+- Removed manual "Mark as Verified" button
+- Updated hint text: "Complete a Benefits Management Plan in the **Doc Creator** tab, then drag it to the Benefits Plan section above."
+- Visual feedback: Section turns green when verified (Benefits Plan assigned)
+
+#### PMIS Tab Locking (`src/components/apps/pmis/PMISApp.tsx`)
+
+Implemented progressive tab unlocking per GDD workflow:
+
+**Level 1 - Available tabs:**
+- **Doc Creator** - Always available (default tab for Level 1)
+- **Assumptions** - Unlocks when clues are collected from Chatter
+- **Charter Builder** - Unlocks when both Business Case AND Benefits Management Plan are completed
+
+**Level 1 - Locked tabs (with lock icon & tooltip):**
+- **Dashboard** - "Available after Level 1 completion"
+- **Stakeholders** - "Available in Level 2: Identify Stakeholders"
+
+**Level 2+ - All tabs unlocked**
+
+#### Implementation Details
+
+1. **Added Lock icon** import from lucide-react
+2. **Added unlock state variables**:
+   - `isCharterUnlocked`: Requires both `BusinessCase` and `BenefitsManagementPlan` in `completedDocuments`
+   - `isAssumptionsUnlocked`: Requires at least one `Clue` type item in inventory
+   - `isStakeholdersUnlocked`: Requires `currentLevelId >= 2`
+   - `isDashboardUnlocked`: Requires `currentLevelId >= 2`
+3. **Tab button styling**:
+   - Locked: Gray background, lock icon, 60% opacity, `cursor-not-allowed`
+   - Unlocked: Normal styling with proper icon
+4. **Changed default tab** from `charter` to `doc-creator` for Level 1
+
+#### GDD Alignment
+
+This matches the GDD v7.2 three-phase flow:
+1. **Discovery (Chatter)** → collect clues → unlocks Assumptions
+2. **Analysis (Doc Creator)** → complete both documents → unlocks Charter Builder
+3. **Authorization (Charter)** → synthesize the charter
+4. **Level 2** → Stakeholders and Dashboard become available
+
+---
+
 ### 2025-12-07 20:04 EST - Document Analysis Slice Removal (Chatter Mining Replacement)
 
 Deleted `documentAnalysisSlice.ts` as it has been replaced by the Chatter mining mechanics per GDD v7.2.
