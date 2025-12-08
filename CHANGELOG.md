@@ -6,6 +6,53 @@ All notable changes to Project Ascend will be documented in this file.
 
 ## [Unreleased]
 
+### 2025-12-07 20:05 EST - Remove Obsolete Applications
+
+Removed deprecated applications that are no longer part of the game design.
+
+#### Files Deleted
+
+- **`src/components/apps/processmap/`** - Entire directory (9 files: ProcessMapApp.tsx, ProcessCard.tsx, ProcessCardDeck.tsx, ExecutionSlot.tsx, InputPanel.tsx, OutputPreview.tsx, MissingDataFeedback.tsx, ProcessExecutionModal.tsx, index.ts)
+- **`src/features/processMapSlice.ts`** - Process Map Redux slice
+- **`src/components/apps/files/`** - Entire directory (5 files: FilesApp.tsx, TaskPromptBanner.tsx, HighlightableBlock.tsx, HighlightFeedbackModal.tsx, DocumentViewer.tsx)
+- **`src/components/os/AscendTrack/`** - Entire directory (2 files: index.tsx, ConstraintModule.tsx)
+
+#### Files Created
+
+- **`src/components/common/DocumentViewer.tsx`** - Moved from files app (used by PrologueScene)
+- **`src/components/common/TaskPromptBanner.tsx`** - Supporting component for DocumentViewer
+- **`src/components/common/HighlightableBlock.tsx`** - Supporting component for DocumentViewer
+- **`src/components/common/HighlightFeedbackModal.tsx`** - Supporting component for DocumentViewer
+
+#### Files Modified
+
+1. **`src/store.ts`**:
+   - Removed `processMapReducer` import and reducer
+
+2. **`src/types/index.ts`**:
+   - Removed `'files'` and `'processmap'` from `AppId` type
+
+3. **`src/components/os/DesktopLayout.tsx`**:
+   - Removed FilesApp and ProcessMapApp imports
+   - Removed GitBranch icon import
+   - Removed 'Files' and 'ProcessMap' cases from getWindowIcon and renderWindowContent
+
+4. **`src/components/os/Dock.tsx`**:
+   - Removed Folder and GitBranch icon imports
+   - Removed processmap and files entries from DOCK_APPS array
+
+5. **`src/components/os/Taskbar.tsx`**:
+   - Removed Folder and GitBranch icon imports
+   - Removed Files and ProcessMap DesktopIcon entries
+
+6. **`src/components/scenes/PrologueScene.tsx`**:
+   - Removed `unlockApp('files')` and `unlockApp('processmap')` from handleProceedToLevel1
+
+7. **`src/data/levels.ts`**:
+   - Removed `'files'` and `'processmap'` from Level 1 unlocksApps array
+
+---
+
 ### 2025-12-07 19:15 EST - Chatter Contact Names & Neutral Choice Styling
 
 Updated Chatter contacts and conversation choice styling for consistency.

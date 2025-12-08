@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, XCircle, BookOpen, X } from 'lucide-react';
-import { HighlightFeedback } from '../../../types';
-import { EDUCATIONAL_CONTENT } from '../../../data/documentTasks';
+import { HighlightFeedback } from '../../types';
+import { EDUCATIONAL_CONTENT } from '../../data/documentTasks';
 
 interface HighlightFeedbackModalProps {
   feedback: HighlightFeedback | null;

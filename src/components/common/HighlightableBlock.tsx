@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
-import { DocumentContent } from '../../../types';
+import { DocumentContent } from '../../types';
 
 export type HighlightState =
   | 'idle'

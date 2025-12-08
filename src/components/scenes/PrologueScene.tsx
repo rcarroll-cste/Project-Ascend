@@ -159,10 +159,8 @@ export const PrologueScene: React.FC = () => {
     // Unlock apps for level 1
     dispatch(unlockApp('chatter'));
     dispatch(unlockApp('wikibok'));
-    dispatch(unlockApp('files'));
     dispatch(unlockApp('pmis'));
     dispatch(unlockApp('email'));
-    dispatch(unlockApp('processmap'));
 
     // Move to playing state
     dispatch(setGameStage('Playing'));

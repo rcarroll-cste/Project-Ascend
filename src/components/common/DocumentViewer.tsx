@@ -2,12 +2,12 @@ import { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import { X, CheckCircle } from 'lucide-react';
-import { GameDocument, DocumentContent, HighlightFeedback } from '../../../types';
-import { RootState } from '../../../store';
-import { addItem } from '../../../features/inventorySlice';
-import { identifyStakeholder } from '../../../features/pmisSlice';
-import { addNotification, completeObjective } from '../../../features/gameSlice';
-import { unlockContact, setContactUnread } from '../../../features/dialogueSlice';
+import { GameDocument, DocumentContent, HighlightFeedback } from '../../types';
+import { RootState } from '../../store';
+import { addItem } from '../../features/inventorySlice';
+import { identifyStakeholder } from '../../features/pmisSlice';
+import { addNotification, completeObjective } from '../../features/gameSlice';
+import { unlockContact, setContactUnread } from '../../features/dialogueSlice';
 import {
   setActiveTask,
   selectHighlight,
@@ -15,9 +15,9 @@ import {
   setFeedback,
   completeTask,
   clearFeedback,
-} from '../../../features/documentAnalysisSlice';
-import { INITIAL_EVIDENCE } from '../../../data/initialData';
-import { getActiveTaskForDocument } from '../../../data/documentTasks';
+} from '../../features/documentAnalysisSlice';
+import { INITIAL_EVIDENCE } from '../../data/initialData';
+import { getActiveTaskForDocument } from '../../data/documentTasks';
 import TaskPromptBanner from './TaskPromptBanner';
 import HighlightableBlock, { HighlightState } from './HighlightableBlock';
 import HighlightFeedbackModal from './HighlightFeedbackModal';

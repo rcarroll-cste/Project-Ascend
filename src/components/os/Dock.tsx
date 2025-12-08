@@ -3,9 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   MessageCircle,
   LayoutDashboard,
-  Folder,
   BookOpen,
-  GitBranch,
   Mail,
   GraduationCap,
   Lock,
@@ -48,22 +46,6 @@ const DOCK_APPS: DockApp[] = [
     windowType: 'PMIS',
     icon: <LayoutDashboard size={28} />,
     color: 'from-purple-400 to-purple-600',
-  },
-  {
-    id: 'processmap',
-    windowId: 'processmap',
-    title: 'ProcessMap',
-    windowType: 'ProcessMap',
-    icon: <GitBranch size={28} />,
-    color: 'from-orange-400 to-orange-600',
-  },
-  {
-    id: 'files',
-    windowId: 'files',
-    title: 'Files',
-    windowType: 'Files',
-    icon: <Folder size={28} />,
-    color: 'from-cyan-400 to-cyan-600',
   },
   {
     id: 'wikibok',

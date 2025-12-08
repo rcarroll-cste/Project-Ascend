@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Search, Lightbulb } from 'lucide-react';
-import { DocumentAnalysisTask } from '../../../types';
+import { DocumentAnalysisTask } from '../../types';
 
 interface TaskPromptBannerProps {
   task: DocumentAnalysisTask;

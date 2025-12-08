@@ -181,7 +181,7 @@ export interface ConstraintMetrics {
 }
 
 // App IDs for unlock tracking
-export type AppId = 'chatter' | 'email' | 'pmis' | 'files' | 'browser' | 'wikibok' | 'examsim' | 'processmap';
+export type AppId = 'chatter' | 'email' | 'pmis' | 'browser' | 'wikibok' | 'examsim';
 
 // Dialogue/Chatter System Types
 export interface DialogueChoice {

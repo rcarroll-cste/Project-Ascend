@@ -35,7 +35,7 @@ export const LEVEL_01_CHARTER: GameLevel = {
   outputDocuments: ['project_charter', 'assumption_log'],
 
   prerequisiteLevelId: null,
-  unlocksApps: ['files', 'pmis', 'processmap'],
+  unlocksApps: ['pmis'],
   unlocksProcesses: ['4.1_develop_charter'],
 
   objectives: [
