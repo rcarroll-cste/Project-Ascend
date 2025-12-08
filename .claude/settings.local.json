@@ -6,7 +6,8 @@
       "Bash(grep:*)",
       "Bash(npm run build)",
       "Bash(time:*)",
-      "Bash(powershell:*)"
+      "Bash(powershell:*)",
+      "Bash(npm run dev:*)"
     ],
     "deny": [],
     "ask": []

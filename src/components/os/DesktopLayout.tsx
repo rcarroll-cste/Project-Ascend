@@ -1,11 +1,10 @@
 import { ToastNotification } from '../common/ToastNotification';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AnimatePresence } from 'framer-motion';
 import { RootState } from '../../store';
 import { Dock } from './Dock';
 import { WindowFrame } from './WindowFrame';
-import { OnboardingOverlay } from '../common/OnboardingOverlay';
 import { MentOS } from './MentOS';
 import { EmailApp } from '../apps/email/EmailApp';
 import { PMISApp } from '../apps/pmis/PMISApp';
@@ -15,6 +14,7 @@ import { WikiBOKApp } from '../apps/wikibok/WikiBOKApp';
 import { ExamSimApp } from '../apps/exam/ExamSimApp';
 import ProcessMapApp from '../apps/processmap/ProcessMapApp';
 import {
+  openWindow,
   closeWindow,
   minimizeWindow,
   maximizeWindow,
@@ -33,7 +33,25 @@ import {
 export const DesktopLayout: React.FC = () => {
   const dispatch = useDispatch();
   const { windows, activeWindowId } = useSelector((state: RootState) => state.os);
-  const { isOnboardingCompleted } = useSelector((state: RootState) => state.game);
+  const hasInitialized = useRef(false);
+
+  // Auto-open Chatter on first mount
+  useEffect(() => {
+    if (!hasInitialized.current) {
+      hasInitialized.current = true;
+      dispatch(
+        openWindow({
+          id: 'Chatter',
+          title: 'Chatter',
+          type: 'Chatter',
+          isOpen: true,
+          isMinimized: false,
+          isMaximized: false,
+          zIndex: 10,
+        })
+      );
+    }
+  }, [dispatch]);
 
   const getWindowIcon = (type: string) => {
     switch (type) {
@@ -100,8 +118,6 @@ export const DesktopLayout: React.FC = () => {
       {/* Notifications */}
       <ToastNotification />
 
-      {/* Onboarding Overlay */}
-      {!isOnboardingCompleted && <OnboardingOverlay />}
 
       {/* Desktop Area - with padding for dock */}
       <div className="flex-1 relative mb-[78px]">
@@ -135,7 +151,7 @@ export const DesktopLayout: React.FC = () => {
       <Dock />
 
       {/* MentOS Guidance System */}
-      {isOnboardingCompleted && <MentOS />}
+      <MentOS />
 
       {/* ExamSim Modal (renders when exam is active) */}
       <ExamSimApp />

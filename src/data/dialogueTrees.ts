@@ -1449,7 +1449,7 @@ export const DIALOGUE_VANE_FINANCIALS: DialogueTree = {
         {
           id: 'vane_fin_understood',
           label: 'I understand the ROI requirements',
-          style: 'safe',
+          style: 'neutral',
           consequences: [],
           nextNodeId: 'vane_fin_3',
         },
@@ -1467,7 +1467,7 @@ export const DIALOGUE_VANE_FINANCIALS: DialogueTree = {
       speaker: 'Director Vane',
       speakerAvatar: '/assets/avatars/vane.png',
       text: "Then the project gets cancelled. And you get to explain to the Board why we wasted their money. Don't let that happen.",
-      autoAdvanceToNodeId: 'vane_fin_3',
+      autoAdvanceToNodeId: 'vane_fin_3_alt',
       delay: 1800,
     },
     {
@@ -1476,6 +1476,21 @@ export const DIALOGUE_VANE_FINANCIALS: DialogueTree = {
       speakerAvatar: '/assets/avatars/vane.png',
       text: "Good. Now talk to the Strategy team about alignment. And check with Legal about the vendor agreement.",
       delay: 1500,
+      consequences: [
+        { type: 'add_contact', payload: { contactId: 'contact_strategy' } },
+        { type: 'add_contact', payload: { contactId: 'contact_legal' } },
+      ],
+    },
+    {
+      id: 'vane_fin_3_alt',
+      speaker: 'Director Vane',
+      speakerAvatar: '/assets/avatars/vane.png',
+      text: "Now talk to the Strategy team about alignment. And check with Legal about the vendor agreement.",
+      delay: 1500,
+      consequences: [
+        { type: 'add_contact', payload: { contactId: 'contact_strategy' } },
+        { type: 'add_contact', payload: { contactId: 'contact_legal' } },
+      ],
     },
   ],
 };

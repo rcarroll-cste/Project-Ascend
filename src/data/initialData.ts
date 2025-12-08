@@ -155,16 +155,16 @@ export const INITIAL_CONTACTS: ChatterContact[] = [
   },
   {
     id: 'contact_legal',
-    name: 'Legal Counsel',
-    role: 'Legal Department',
+    name: 'Victoria Ashford',
+    role: 'General Counsel',
     avatarUrl: '/assets/avatars/legal.png',
     isUnlocked: false, // Unlocks when player discusses risks with Vane
     hasUnreadMessages: false,
   },
   {
     id: 'contact_strategy',
-    name: 'Strategy Lead',
-    role: 'Strategic Planning',
+    name: 'David Chen',
+    role: 'VP of Strategy',
     avatarUrl: '/assets/avatars/strategy.png',
     isUnlocked: false, // Unlocks during Discovery Phase
     hasUnreadMessages: false,

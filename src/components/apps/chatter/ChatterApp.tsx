@@ -30,7 +30,7 @@ import { ChatterMessage } from './ChatterMessage';
 import { ChatterChoices } from './ChatterChoices';
 import { getDialogueTreeByContact } from '../../../data/dialogueTrees';
 import { INITIAL_EVIDENCE } from '../../../data/initialData';
-import { DialogueChoice, AppId, MiningTarget, EvidenceItem } from '../../../types';
+import { DialogueChoice, DialogueConsequence, AppId, MiningTarget, EvidenceItem } from '../../../types';
 import { logger } from '../../../utils/logger';
 
 export function ChatterApp() {
@@ -56,8 +56,8 @@ export function ChatterApp() {
 
   // Process dialogue consequences
   const processConsequences = useCallback(
-    (choice: DialogueChoice) => {
-      choice.consequences.forEach((consequence) => {
+    (consequences: DialogueConsequence[]) => {
+      consequences.forEach((consequence) => {
         switch (consequence.type) {
           case 'unlock_app':
             dispatch(unlockApp(consequence.payload.appId as AppId));
@@ -186,6 +186,11 @@ export function ChatterApp() {
         })
       );
 
+      // Process node-level consequences (for terminal nodes or before advancing)
+      if (currentNode.consequences && currentNode.consequences.length > 0) {
+        processConsequences(currentNode.consequences);
+      }
+
       // If there are choices, wait for player input
       if (currentNode.choices) {
         dispatch(setPendingChoices(true));
@@ -203,7 +208,7 @@ export function ChatterApp() {
     }, typingDelay);
 
     return () => clearTimeout(typingTimer);
-  }, [currentNode, activeContactId, activeConversation, pendingChoices, dispatch]);
+  }, [currentNode, activeContactId, activeConversation, pendingChoices, dispatch, processConsequences]);
 
   // Handle choice selection
   const handleChoiceSelect = (choice: DialogueChoice) => {
@@ -217,7 +222,7 @@ export function ChatterApp() {
     });
 
     // Process consequences first
-    processConsequences(choice);
+    processConsequences(choice.consequences);
 
     // Then update dialogue state
     dispatch(

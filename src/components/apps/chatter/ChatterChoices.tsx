@@ -9,16 +9,9 @@ interface ChatterChoicesProps {
 }
 
 export function ChatterChoices({ choices, onSelect, disabled = false }: ChatterChoicesProps) {
-  const getChoiceStyles = (style: DialogueChoice['style']) => {
-    switch (style) {
-      case 'risky':
-        return 'border-red-500/50 hover:border-red-400 hover:bg-red-500/10 text-red-400';
-      case 'safe':
-        return 'border-blue-500/50 hover:border-blue-400 hover:bg-blue-500/10 text-blue-400';
-      case 'neutral':
-      default:
-        return 'border-slate-500/50 hover:border-slate-400 hover:bg-slate-500/10 text-slate-300';
-    }
+  const getChoiceStyles = (_style: DialogueChoice['style']) => {
+    // All choices use neutral styling to avoid telegraphing outcomes
+    return 'border-slate-500/50 hover:border-slate-400 hover:bg-slate-500/10 text-slate-300';
   };
 
   return (
@@ -47,7 +40,6 @@ export function ChatterChoices({ choices, onSelect, disabled = false }: ChatterC
             transition-all duration-200
             ${getChoiceStyles(choice.style)}
             ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
-            ${choice.style === 'risky' ? 'animate-pulse' : ''}
           `}
         >
           <span className="font-medium">{choice.label}</span>

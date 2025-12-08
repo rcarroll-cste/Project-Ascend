@@ -6,6 +6,23 @@ All notable changes to Project Ascend will be documented in this file.
 
 ## [Unreleased]
 
+### 2025-12-07 19:15 EST - Chatter Contact Names & Neutral Choice Styling
+
+Updated Chatter contacts and conversation choice styling for consistency.
+
+#### Files Modified
+
+1. **`src/data/initialData.ts`**:
+   - Renamed `Legal Counsel` contact to `Victoria Ashford` with role `General Counsel`
+   - Renamed `Strategy Lead` contact to `David Chen` with role `VP of Strategy`
+
+2. **`src/components/apps/chatter/ChatterChoices.tsx`**:
+   - Changed all dialogue choices to use neutral slate styling (no color-coded hints)
+   - Removed pulse animation from risky choices
+   - Prevents telegraphing outcomes to players through UI color cues
+
+---
+
 ### 2025-12-07 18:48 EST - Title Cards (Level Transition Signaling Events)
 
 Implemented cinematic "Level Title Cards" per GDD v7.2 Section 5 to signal phase transitions.
