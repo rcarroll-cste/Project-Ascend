@@ -5,7 +5,6 @@ import pmisReducer from './features/pmisSlice';
 import osReducer from './features/osSlice';
 import dialogueReducer from './features/dialogueSlice';
 import examReducer from './features/examSlice';
-import documentAnalysisReducer from './features/documentAnalysisSlice';
 import pmisEvolutionReducer from './features/pmisEvolutionSlice';
 import decisionReducer from './features/decisionSlice';
 import playerReducer from './features/playerSlice';
@@ -18,7 +17,6 @@ export const store = configureStore({
     os: osReducer,
     dialogue: dialogueReducer,
     exam: examReducer,
-    documentAnalysis: documentAnalysisReducer,
     pmisEvolution: pmisEvolutionReducer,
     decisions: decisionReducer,
     player: playerReducer,

@@ -6,6 +6,63 @@ All notable changes to Project Ascend will be documented in this file.
 
 ## [Unreleased]
 
+### 2025-12-07 20:04 EST - Document Analysis Slice Removal (Chatter Mining Replacement)
+
+Deleted `documentAnalysisSlice.ts` as it has been replaced by the Chatter mining mechanics per GDD v7.2.
+
+#### Files Deleted
+
+- **`src/features/documentAnalysisSlice.ts`** - Redux slice for document analysis tasks (replaced by Chatter mining)
+- **`src/components/common/DocumentViewer.tsx`** - Unused document viewer component (depended on deleted slice, not imported anywhere)
+
+#### Files Modified
+
+1. **`src/store.ts`**:
+   - Removed `documentAnalysisReducer` import
+   - Removed `documentAnalysis` from reducer configuration
+
+2. **`src/components/apps/pmis/StakeholderRegister.tsx`**:
+   - Removed `DecomposeToolButton` and `DecomposeModal` imports (file was previously deleted)
+   - Removed `decomposeTarget` state variable
+   - Removed `onDecomposeClick` prop from `DraggableStakeholderRow` component
+   - Removed Decompose Modal JSX
+   - Removed unused `AnimatePresence` import
+
+#### Verification
+
+- **PMISApp tabs confirmed**: Dashboard, Stakeholders, Doc Creator, Charter, Assumptions (+ Signed Charter for Level 2+)
+- **ChatterApp and EmailApp**: Both properly configured in Dock.tsx and DesktopLayout.tsx for launching from Dock
+- **Build**: `npm run build` succeeds
+- **Dev server**: Starts without errors
+
+---
+
+### 2025-12-07 20:30 EST - PMIS Cleanup (Remove Communications Tab & Obsolete Components)
+
+Removed the Communications tab from PMIS (Email is now a standalone Dock app) and deleted unused components.
+
+#### PMISApp.tsx Changes
+
+1. **Removed imports**:
+   - `MessageSquare` icon from lucide-react
+   - `EmailApp` component from email app
+   - `useDroppable` from @dnd-kit/core
+
+2. **Removed Communications tab**:
+   - Removed `'communications'` from Tab type union
+   - Removed `StakeholderDropZone` component (was used for drag-drop from email to stakeholder register)
+   - Removed Communications tab button from navigation
+   - Removed Communications tab content section (EmailApp + StakeholderDropZone)
+
+#### Files Deleted
+
+- **`src/components/apps/pmis/DecomposeTool.tsx`** - Unused decomposition tool
+- **`src/components/apps/pmis/RequirementsCollector.tsx`** - Unused requirements collector
+- **`src/components/apps/pmis/PMPBuilder.tsx`** - Unused PMP builder
+- **`src/components/apps/pmis/ScopeManagementBuilder.tsx`** - Unused scope management builder
+
+---
+
 ### 2025-12-07 20:05 EST - Remove Obsolete Applications
 
 Removed deprecated applications that are no longer part of the game design.

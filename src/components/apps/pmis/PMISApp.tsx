@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { Users, FileText, AlertTriangle, LayoutDashboard, MessageSquare, PieChart, FolderOpen, ScrollText } from 'lucide-react';
+import { Users, FileText, AlertTriangle, LayoutDashboard, PieChart, FolderOpen, ScrollText } from 'lucide-react';
 import { StakeholderRegister } from './StakeholderRegister';
 import { CharterBuilder } from './CharterBuilder';
 import { SignedCharterView } from './SignedCharterView';
 import { AssumptionLog } from './AssumptionLog';
 import { DocCreator } from './DocCreator';
 import { ContextSidebar } from './ContextSidebar';
-import { EmailApp } from '../email/EmailApp';
-import { DndContext, DragEndEvent, useDroppable, useSensor, useSensors, PointerSensor } from '@dnd-kit/core';
+import { DndContext, DragEndEvent, useSensor, useSensors, PointerSensor } from '@dnd-kit/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { identifyStakeholder, updateStakeholderPosition, assignEvidenceToSection, assignCompletedDocumentToSection } from '../../../features/pmisSlice';
 import { addNotification } from '../../../features/gameSlice';
@@ -16,29 +15,7 @@ import { PowerLevel, InterestLevel, Email, EvidenceItem, CompletedBusinessDocume
 import { RootState } from '../../../store';
 import { getLevelById } from '../../../data/levels';
 
-type Tab = 'dashboard' | 'communications' | 'stakeholders' | 'doc-creator' | 'charter' | 'signed-charter' | 'assumptions';
-
-// Mini Drop Zone Component for the Communications Tab
-const StakeholderDropZone = () => {
-  const { setNodeRef, isOver } = useDroppable({
-    id: 'stakeholder-register-drop-zone',
-    data: { type: 'stakeholder-register' },
-  });
-
-  return (
-    <div
-      ref={setNodeRef}
-      className={`w-64 border-l border-gray-200 p-4 transition-colors flex flex-col items-center justify-center text-center
-        ${isOver ? 'bg-purple-100 border-purple-500' : 'bg-gray-50'}
-      `}
-    >
-      <Users size={32} className={isOver ? 'text-purple-600' : 'text-gray-400'} />
-      <p className="mt-2 text-sm font-medium text-gray-600">
-        {isOver ? 'Drop to Identify!' : 'Drag Emails Here to Identify Stakeholders'}
-      </p>
-    </div>
-  );
-};
+type Tab = 'dashboard' | 'stakeholders' | 'doc-creator' | 'charter' | 'signed-charter' | 'assumptions';
 
 // Dashboard Tab Component with Triple Constraint Bars
 const DashboardTab: React.FC = () => {
@@ -393,13 +370,6 @@ export const PMISApp: React.FC = () => {
                 <span>Dashboard</span>
             </button>
             <button
-                onClick={() => setActiveTab('communications')}
-                className={`px-4 py-2 text-sm font-medium rounded-t-lg flex items-center space-x-2 border-t border-l border-r ${activeTab === 'communications' ? 'bg-gray-100 border-gray-200 text-purple-700' : 'bg-white border-transparent text-gray-500 hover:text-gray-700'}`}
-            >
-                <MessageSquare size={16} />
-                <span>Communications</span>
-            </button>
-            <button
                 onClick={() => setActiveTab('stakeholders')}
                 className={`px-4 py-2 text-sm font-medium rounded-t-lg flex items-center space-x-2 border-t border-l border-r ${activeTab === 'stakeholders' ? 'bg-gray-100 border-gray-200 text-purple-700' : 'bg-white border-transparent text-gray-500 hover:text-gray-700'}`}
             >
@@ -446,18 +416,6 @@ export const PMISApp: React.FC = () => {
             <div className="flex-1 overflow-hidden">
                 {activeTab === 'dashboard' && (
                     <DashboardTab />
-                )}
-
-                {activeTab === 'communications' && (
-                    <div className="flex h-full">
-                        <div className="flex-1 border-r border-gray-200">
-                            {/* We use a wrapper to override some EmailApp styles if needed,
-                                but EmailApp is designed as h-full so it should fit. */}
-                            <EmailApp />
-                        </div>
-                        {/* Persistent Drop Zone for easy drag-and-drop */}
-                        <StakeholderDropZone />
-                    </div>
                 )}
 
                 {activeTab === 'stakeholders' && <StakeholderRegister />}

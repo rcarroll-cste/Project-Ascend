@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useDroppable, useDraggable } from '@dnd-kit/core';
 import { useSelector, useDispatch } from 'react-redux';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { RootState } from '../../../store';
 import { Stakeholder, LevelObjective, SalienceClass } from '../../../types';
 import { User, GripVertical, AlertCircle, CheckCircle2, LayoutGrid, List as ListIcon, CheckSquare, Target, Book, Zap, Scale, Crown } from 'lucide-react';
 import { AnalysisGrid } from './AnalysisGrid';
-import { DecomposeToolButton, DecomposeModal } from './DecomposeTool';
 import { addNotification, completeObjective, completeLevel } from '../../../features/gameSlice';
 import { startDialogue } from '../../../features/dialogueSlice';
 import { DIALOGUE_LATE_ARRIVAL } from '../../../data/dialogueTrees';
@@ -59,10 +58,9 @@ const SalienceIndicator: React.FC<{ stakeholder: Stakeholder }> = ({ stakeholder
 
 interface DraggableStakeholderRowProps {
   stakeholder: Stakeholder;
-  onDecomposeClick?: (stakeholder: Stakeholder) => void;
 }
 
-const DraggableStakeholderRow: React.FC<DraggableStakeholderRowProps> = ({ stakeholder, onDecomposeClick }) => {
+const DraggableStakeholderRow: React.FC<DraggableStakeholderRowProps> = ({ stakeholder }) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: `stakeholder-${stakeholder.id}`,
     data: {
@@ -134,18 +132,6 @@ const DraggableStakeholderRow: React.FC<DraggableStakeholderRowProps> = ({ stake
          </div>
       </div>
 
-      {/* Decompose Button - only shown for decomposable stakeholders */}
-      <div className="ml-3">
-        {stakeholder.isDecomposable ? (
-          <DecomposeToolButton
-            stakeholder={stakeholder}
-            onClick={() => onDecomposeClick?.(stakeholder)}
-          />
-        ) : (
-          <div className="w-8" /> // Spacer for alignment
-        )}
-      </div>
-
       <div className="ml-2 w-6 flex justify-center">
         {stakeholder.isAnalyzed ? (
             <CheckCircle2 size={18} className="text-green-500" />
@@ -162,7 +148,6 @@ export const StakeholderRegister: React.FC = () => {
   const { stakeholders } = useSelector((state: RootState) => state.pmis);
   const { currentLevelId, levelProgress } = useSelector((state: RootState) => state.game);
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
-  const [decomposeTarget, setDecomposeTarget] = useState<Stakeholder | null>(null);
   const [isFinalized, setIsFinalized] = useState(false);
   const [hasScannedDirectory, setHasScannedDirectory] = useState(false);
 
@@ -488,7 +473,6 @@ export const StakeholderRegister: React.FC = () => {
                                     <DraggableStakeholderRow
                                       key={stakeholder.id}
                                       stakeholder={stakeholder}
-                                      onDecomposeClick={setDecomposeTarget}
                                     />
                                 ))
                             )}
@@ -499,16 +483,6 @@ export const StakeholderRegister: React.FC = () => {
                 )}
             </div>
         </div>
-
-        {/* Decompose Modal */}
-        <AnimatePresence>
-          {decomposeTarget && (
-            <DecomposeModal
-              stakeholder={decomposeTarget}
-              onClose={() => setDecomposeTarget(null)}
-            />
-          )}
-        </AnimatePresence>
     </div>
   );
 };
